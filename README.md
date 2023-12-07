@@ -1,2 +1,1 @@
-# graphiql-app
- GraphiQL based sandbox with user auth.
+GraphiQL based sandbox with user auth
