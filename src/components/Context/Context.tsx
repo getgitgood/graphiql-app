@@ -1,8 +1,5 @@
-import { ReactNode, createContext, useState, useContext } from 'react';
-import { LanguageContextProps, LanguageEnum } from '../../../types';
-export type ContextProps = {
-  children: ReactNode;
-};
+import { createContext, useState, useContext } from 'react';
+import { ContextProps, LanguageContextProps, LanguageEnum } from '../../types';
 
 export const defaultValue = {
   currentLanguage: LanguageEnum.EN,

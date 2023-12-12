@@ -1,24 +1,16 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  Outlet,
   Route,
   RouterProvider
 } from 'react-router-dom';
-import AppContextProvider from './components/Header/Context/Context';
-import Header from './components/Header/Header';
+import AppContextProvider from './components/Context/Context';
+import Main from './layouts/Main/Main';
 
-function Main() {
-  return (
-    <main>
-      <Header />
-      <Outlet />
-    </main>
-  );
-}
 const router = createBrowserRouter(
   createRoutesFromElements(<Route index element={<Main />} path="/" />)
 );
+
 export default function App() {
   return (
     <AppContextProvider>
