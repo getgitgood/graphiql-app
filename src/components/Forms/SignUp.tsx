@@ -32,10 +32,6 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
           {...register('email')}
           placeholder="Enter your email"
           className={`${classes.input} ${errors.email && classes.error_border}`}
-          // style={{
-          //   outlineColor: errors.email ? 'red' : '',
-          //   borderColor: errors.email ? 'red' : ''
-          // }}
         />
         {errors.email && (
           <p className={classes.error_message}>{errors.email.message}</p>
@@ -51,10 +47,6 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
           className={`${classes.input} ${
             errors.password && classes.error_border
           }`}
-          // style={{
-          //   outlineColor: errors.password ? 'red' : '',
-          //   borderColor: errors.password ? 'red' : ''
-          // }}
         />
         {errors.password && (
           <p className={classes.error_message}>{errors.password.message}</p>
@@ -70,10 +62,6 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
           className={`${classes.input} ${
             errors.passwordConfirm && classes.error_border
           }`}
-          // style={{
-          //   outlineColor: errors.password ? 'red' : '',
-          //   borderColor: errors.password ? 'red' : ''
-          // }}
         />
         {errors.passwordConfirm && (
           <p className={classes.error_message}>
