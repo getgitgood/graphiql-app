@@ -1,0 +1,91 @@
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 15%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: $additional-color;
+
+  .form_heading {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+
+  .input_container {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+
+    label {
+      display: block;
+      font-size: 2rem;
+      font-size: 0.75rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .input {
+      width: 100%;
+      padding: 0.4rem;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.error_message {
+  position: absolute;
+  transform: translateY(35%);
+  font-size: 0.5rem;
+  color: $error-warning;
+  position: absolute;
+  bottom: 0.4rem;
+  font-size: 0.65rem;
+}
+
+.error_border {
+  outline-color: $error-warning;
+  border-color: $error-warning;
+}
+
+.button_submit {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  background-color: $secondary-color;
+  color: #fff;
+  font-weight: bold;
+  
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $secondary-color-hovered;
+  }
+
+  &.button_disabled {
+    background-color: $secondary-color-hovered;
+    cursor: default;
+    border: none;
+    outline: none;
+  }
+}
+
+.sign {
+  font-size: 0.7rem;
+  margin-top: 1rem;
+
+  .sign_link {
+    color: $secondary-color;
+    cursor: pointer;
+
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $secondary-color-dim;
+    }
+  }
+}
