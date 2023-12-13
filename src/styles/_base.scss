@@ -14,3 +14,29 @@ body {
   color: $font-color;
   background-color: #242424;
 }
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+section {
+  padding: 1.5rem;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 1.5rem 0;
+}
+
+a {
+  text-decoration: none;
+}

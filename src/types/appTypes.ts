@@ -19,3 +19,8 @@ export enum LanguageEnum {
   EN = 'EN',
   RU = 'RU'
 }
+
+export type SignUpFormProps = {
+  switchFormHandler: () => void;
+};
+
