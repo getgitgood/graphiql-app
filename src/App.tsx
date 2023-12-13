@@ -5,6 +5,7 @@ import {
   RouterProvider
 } from 'react-router-dom';
 import AppContextProvider from './components/Context/Context';
+
 import WelcomePage from './layouts/WelcomePage/WelcomePage';
 import Main from './layouts/Main/Main';
 import Auth from './pages/auth/Auth';

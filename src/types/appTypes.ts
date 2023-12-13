@@ -23,3 +23,4 @@ export enum LanguageEnum {
 export type SignUpFormProps = {
   switchFormHandler: () => void;
 };
+

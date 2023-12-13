@@ -1,0 +1,29 @@
+.language_selectors {
+  display: inline-flex;
+  align-items: center;
+  column-gap: 0.1rem;
+
+  box-shadow: 0 1px 1px 1px rgba($color: #000000, $alpha: 0.5);
+  background-color: $additional-color;
+  border-radius: 5px;
+  opacity: 0.9;
+  user-select: none;
+  .language_selector {
+    transition: all ease 0.3s;
+    padding: 0.1rem 0.2rem;
+    font-size: 0.9rem;
+    
+    &.lang_active {
+      background-color: $secondary-color;
+      border-radius: 5px;
+      box-shadow: inset 0 0 2px 2px rgba($color: #000000, $alpha: 0.6);
+      pointer-events: none;
+      font-size: 1.01rem;
+    }
+
+    &:not(.lang_active):hover {
+      cursor: pointer;
+      color: $secondary-font-color
+    }
+  }
+}
