@@ -1,6 +1,4 @@
-export const VALIDATION_MESSAGES = {
-  message_required: 'Required field!'
-};
+export const REQUIRED_MESSAGE = 'Required field!';
 
 export const EMAIL_VALIDATION = {
   rules: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,

@@ -1,22 +1,27 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider
+} from 'react-router-dom';
+import AppContextProvider from './components/Context/Context';
+import WelcomePage from './layouts/WelcomePage/WelcomePage';
+import Main from './layouts/Main/Main';
+import Auth from './pages/auth/Auth';
 
-const SignIn = React.lazy(() => import('./pages/auth/SignIn'));
-const SignUp = React.lazy(() => import('./pages/auth/SignUp'));
-// const Main = React.lazy(() => import('./pages/welcome/WelcomePage')); // она же welcome page
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<Main />} path="/">
+      <Route index element={<WelcomePage />} path="/" />
+      <Route element={<Auth />} path="/authentication" />
+    </Route>
+  )
+);
 
-const App: React.FC = () => {
+export default function App() {
   return (
-    <Router>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          {/* <Route path="/" element={<Main />} /> */}
-        </Routes>
-      </Suspense>
-    </Router>
+    <AppContextProvider>
+      <RouterProvider router={router} />
+    </AppContextProvider>
   );
-};
-
-export default App;
+}
