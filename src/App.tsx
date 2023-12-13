@@ -1,10 +1,10 @@
-import Header from './components/Header/Header';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Welcome } from './components/Welcome/Welcome';
 
 export default function App() {
   return (
-    <>
-      <Header />
-      <h1>Vite + React + GraphQL</h1>
-    </>
+    <Router>
+      <Welcome />
+    </Router>
   );
 }
