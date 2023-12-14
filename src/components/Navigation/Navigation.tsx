@@ -6,7 +6,7 @@ export default function Navigation() {
   return (
     <nav className={classes.container}>
       <NavLink className={`${classes.nav_link} ${classes.logo_link}`} to="/" />
-      <NavLink className={classes.nav_link} to="/welcome">
+      <NavLink className={classes.nav_link} to="/">
         Welcome
       </NavLink>
       <UserPanel />

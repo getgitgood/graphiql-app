@@ -2,12 +2,20 @@
   display: inline-flex;
   column-gap: 0.5rem;
   justify-content: space-between;
-
+  
   .user_icon_signout {
     cursor: pointer;
     width: 2rem;
     height: 2rem;
     background-image: url('../../assets/img/sign-out-alt-2-svgrepo-com.svg');
+    background-size: 100%;
+  }
+
+  .user_icon_signin {
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    background-image: url('../../assets/img/sign-in-svgrepo-com.svg');
     background-size: 100%;
   }
 }

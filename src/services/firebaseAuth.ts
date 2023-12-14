@@ -1,11 +1,13 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
-  onAuthStateChanged
+  onAuthStateChanged,
+  beforeAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence
 } from 'firebase/auth';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -36,5 +38,14 @@ export {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
-  onAuthStateChanged
+  onAuthStateChanged,
+  beforeAuthStateChanged,
+  setPersistence
 };
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    setPersistence(auth, browserLocalPersistence);
+    console.log(user.email);
+  }
+});

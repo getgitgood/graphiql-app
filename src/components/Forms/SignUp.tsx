@@ -2,10 +2,15 @@ import { useNavigate } from 'react-router-dom';
 import classes from './Forms.module.scss';
 import { signUpSchema } from '../../utils/ValidationSchemas';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { SignUpFormProps } from '../../types';
+import { useState } from 'react';
+import { AuthError, createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../services/firebaseAuth';
+import { FirebaseError } from 'firebase/app';
 
 export default function SignUp({ switchFormHandler }: SignUpFormProps) {
+  const [firebaseErrors, setFirebaseErrors] = useState<AuthError | null>(null);
   const {
     register,
     handleSubmit,
@@ -17,9 +22,22 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
 
   const navigate = useNavigate();
 
-  const onSubmit = async () => {
-    console.log('signed in');
-    navigate('/');
+  const onSubmit = async (formData: FieldValues) => {
+    const { email, password } = formData;
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      setFirebaseErrors(null);
+      navigate('/');
+    } catch (e) {
+      if (e instanceof FirebaseError) {
+        console.log(e.code, firebaseErrors);
+        // setFirebaseErrors((previousErrors) => [
+        //   ...previousErrors,
+        //   e as AuthError
+        // ]);
+      }
+    }
   };
 
   return (
@@ -36,12 +54,15 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
         {errors.email && (
           <p className={classes.error_message}>{errors.email.message}</p>
         )}
+        {/* {firebaseErrors.length > 0 && (
+          <p className={classes.error_message}>{errors.email.message}</p>
+        )} */}
       </div>
       <div className={classes.input_container}>
         <label htmlFor="password">Password</label>
         <input
           id="password"
-          type="password"
+          type="text"
           placeholder="Enter your password"
           {...register('password')}
           className={`${classes.input} ${
@@ -75,7 +96,7 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
         }`}
         disabled={!isValid}
       >
-        Sign In
+        Sign Up
       </button>
       <p className={classes.sign}>
         Already have an account?
