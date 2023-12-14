@@ -4,16 +4,20 @@ import { signUpSchema } from '../../utils/ValidationSchemas';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, useForm } from 'react-hook-form';
 import { SignUpFormProps } from '../../types';
-import { useState } from 'react';
-import { AuthError, createUserWithEmailAndPassword } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../services/firebaseAuth';
 import { FirebaseError } from 'firebase/app';
+import transformAuthErrorMessage from '../../utils/authErrorMessages';
 
 export default function SignUp({ switchFormHandler }: SignUpFormProps) {
-  const [firebaseErrors, setFirebaseErrors] = useState<AuthError | null>(null);
+  const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
+    null
+  );
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isValid }
   } = useForm({
     resolver: yupResolver(signUpSchema),
@@ -22,20 +26,26 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
 
   const navigate = useNavigate();
 
+  const watchEmailField = watch('email');
+
+  useEffect(() => {
+    firebaseErrorsCleaner();
+  }, [watchEmailField]);
+
+  const firebaseErrorsCleaner = () => {
+    setFirebaseErrors(null);
+  };
+
   const onSubmit = async (formData: FieldValues) => {
     const { email, password } = formData;
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      setFirebaseErrors(null);
+      firebaseErrorsCleaner();
       navigate('/');
     } catch (e) {
       if (e instanceof FirebaseError) {
-        console.log(e.code, firebaseErrors);
-        // setFirebaseErrors((previousErrors) => [
-        //   ...previousErrors,
-        //   e as AuthError
-        // ]);
+        setFirebaseErrors(e);
       }
     }
   };
@@ -49,14 +59,19 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
           id="email"
           {...register('email')}
           placeholder="Enter your email"
-          className={`${classes.input} ${errors.email && classes.error_border}`}
+          className={`${classes.input} ${
+            errors.email ||
+            (firebaseErrors?.code.includes('email') && classes.error_border)
+          }`}
         />
         {errors.email && (
           <p className={classes.error_message}>{errors.email.message}</p>
         )}
-        {/* {firebaseErrors.length > 0 && (
-          <p className={classes.error_message}>{errors.email.message}</p>
-        )} */}
+        {firebaseErrors?.code.includes('email') && (
+          <p className={classes.error_message}>
+            {transformAuthErrorMessage(firebaseErrors.code)}
+          </p>
+        )}
       </div>
       <div className={classes.input_container}>
         <label htmlFor="password">Password</label>

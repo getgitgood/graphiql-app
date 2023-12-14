@@ -5,10 +5,11 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SignUpFormProps } from '../../types';
 // import { useState } from 'react';
-// import { AuthError } from 'firebase/auth';
 
 export default function SignIn({ switchFormHandler }: SignUpFormProps) {
-  // const [firebaseErrors, setFirebaseErrors] = useState<AuthError | null>(null);
+  // const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
+  //   null
+  // );
 
   const {
     register,
