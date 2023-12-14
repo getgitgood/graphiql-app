@@ -1,4 +1,6 @@
-export default function transformAuthErrorMessage(message: string) {
+import { FirebaseError } from 'firebase/app';
+
+export function transformAuthErrorMessage(message: string) {
   const index = message.indexOf('/') + 1;
   const slicedMessage = message.slice(index);
   const uppercaseMessage = `${slicedMessage
@@ -8,6 +10,6 @@ export default function transformAuthErrorMessage(message: string) {
   return formattedMessage;
 }
 
-// export function isUserInputAuthError(error: FirebaseError) {
-//   error.code.includes('email') ?
-// }
+export function isUserInputAuthError(error: FirebaseError, included: string) {
+  return error.code.includes(included);
+}

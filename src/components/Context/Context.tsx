@@ -17,7 +17,7 @@ export default function AppContextProvider({ children }: ContextProps) {
     if (typeof value === 'string' && value in LanguageEnum) {
       setLanguage(LanguageEnum[value]);
     } else {
-      console.log('There is not such language!');
+      console.log('There is no such language!');
     }
   };
 

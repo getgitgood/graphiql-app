@@ -8,7 +8,10 @@ import { useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../services/firebaseAuth';
 import { FirebaseError } from 'firebase/app';
-import transformAuthErrorMessage from '../../utils/authErrorMessages';
+import {
+  transformAuthErrorMessage,
+  isUserInputAuthError
+} from '../../utils/authErrorMessages';
 
 export default function SignUp({ switchFormHandler }: SignUpFormProps) {
   const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
@@ -29,19 +32,26 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
   const watchEmailField = watch('email');
 
   useEffect(() => {
-    firebaseErrorsCleaner();
+    setFirebaseErrors(null);
   }, [watchEmailField]);
 
-  const firebaseErrorsCleaner = () => {
-    setFirebaseErrors(null);
+  const isAuthError = () => {
+    if (firebaseErrors) {
+      return isUserInputAuthError(firebaseErrors, 'email');
+    }
+    return false;
   };
 
-  const onSubmit = async (formData: FieldValues) => {
-    const { email, password } = formData;
+  const isFormValid = () => {
+    return isValid && !Boolean(firebaseErrors);
+  };
+
+  const onSubmit = async (fieldValues: FieldValues) => {
+    const { email, password } = fieldValues;
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      firebaseErrorsCleaner();
+      setFirebaseErrors(null);
       navigate('/');
     } catch (e) {
       if (e instanceof FirebaseError) {
@@ -60,16 +70,15 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
           {...register('email')}
           placeholder="Enter your email"
           className={`${classes.input} ${
-            errors.email ||
-            (firebaseErrors?.code.includes('email') && classes.error_border)
+            (errors.email || isAuthError()) && classes.error_border
           }`}
         />
         {errors.email && (
           <p className={classes.error_message}>{errors.email.message}</p>
         )}
-        {firebaseErrors?.code.includes('email') && (
+        {isAuthError() && (
           <p className={classes.error_message}>
-            {transformAuthErrorMessage(firebaseErrors.code)}
+            {transformAuthErrorMessage(firebaseErrors!.code)}
           </p>
         )}
       </div>
@@ -105,11 +114,20 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
           </p>
         )}
       </div>
+
+      {firebaseErrors && !isAuthError() && (
+        <p
+          className={`${classes.error_message} ${classes.error_message_unknown}`}
+        >
+          {firebaseErrors.message}
+        </p>
+      )}
+
       <button
         className={`${classes.button_submit} ${
-          !isValid && classes.button_disabled
+          !isFormValid() && classes.button_disabled
         }`}
-        disabled={!isValid}
+        disabled={!isFormValid()}
       >
         Sign Up
       </button>

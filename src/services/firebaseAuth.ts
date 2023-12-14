@@ -5,15 +5,9 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  beforeAuthStateChanged,
   setPersistence,
   browserLocalPersistence
 } from 'firebase/auth';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBc176Kmg_rgWChwKl2A0qK3EfiWrPtV14',
@@ -25,13 +19,9 @@ const firebaseConfig = {
   measurementId: 'G-E3JTXEH0RM'
 };
 
-// Initialize Firebase
 initializeApp(firebaseConfig);
 const auth = getAuth();
 
-// if (window.location.hostname === 'localhost') {
-//   connectAuthEmulator(auth, 'http://127.0.0.1:9099');
-// }
 export {
   auth,
   firebaseConfig,
@@ -39,13 +29,11 @@ export {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  beforeAuthStateChanged,
   setPersistence
 };
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
     setPersistence(auth, browserLocalPersistence);
-    console.log(user.email);
   }
 });

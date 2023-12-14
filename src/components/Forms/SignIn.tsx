@@ -1,30 +1,61 @@
 import { useNavigate } from 'react-router-dom';
 import classes from './Forms.module.scss';
 import { signInSchema } from '../../utils/ValidationSchemas';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SignUpFormProps } from '../../types';
-// import { useState } from 'react';
+import { auth, signInWithEmailAndPassword } from '../../services/firebaseAuth';
+import { useEffect, useState } from 'react';
+import { FirebaseError } from 'firebase/app';
+import { isUserInputAuthError } from '../../utils/authErrorMessages';
 
 export default function SignIn({ switchFormHandler }: SignUpFormProps) {
-  // const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
-  //   null
-  // );
+  const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
+    null
+  );
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isValid }
   } = useForm({
     resolver: yupResolver(signInSchema),
     mode: 'onChange'
   });
 
+  const watchEmailField = watch('email');
+  const watchPasswordField = watch('password');
+
+  useEffect(() => {
+    setFirebaseErrors(null);
+  }, [watchEmailField, watchPasswordField]);
+
   const navigate = useNavigate();
 
-  const onSubmit = async () => {
-    console.log('submitted');
-    navigate('/');
+  const isFormValid = () => {
+    return isValid && !Boolean(firebaseErrors);
+  };
+
+  const onSubmit = async (fieldValues: FieldValues) => {
+    const { email, password } = fieldValues;
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      setFirebaseErrors(null);
+      navigate('/');
+    } catch (e) {
+      if (e instanceof FirebaseError) {
+        setFirebaseErrors(e);
+      }
+    }
+  };
+
+  const isAuthError = () => {
+    if (firebaseErrors) {
+      return isUserInputAuthError(firebaseErrors, 'invalid-credential');
+    }
+    return false;
   };
 
   return (
@@ -36,7 +67,9 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
           id="email"
           {...register('email')}
           placeholder="Enter your email"
-          className={`${classes.input} ${errors.email && classes.error_border}`}
+          className={`${classes.input} ${
+            (errors.email || isAuthError()) && classes.error_border
+          }`}
         />
         {errors.email && (
           <p className={classes.error_message}>{errors.email.message}</p>
@@ -50,19 +83,35 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
           placeholder="Enter your password"
           {...register('password')}
           className={`${classes.input} ${
-            errors.password && classes.error_border
+            (errors.password || isAuthError()) && classes.error_border
           }`}
         />
         {errors.password && (
           <p className={classes.error_message}>{errors.password.message}</p>
         )}
+        {isAuthError() && (
+          <p
+            className={`${classes.error_message} ${classes.error_message_auth}`}
+          >
+            {'No user was found with a provided data!'}
+          </p>
+        )}
       </div>
+
+      {firebaseErrors && !isAuthError() && (
+        <p
+          className={`${classes.error_message} ${classes.error_message_unknown}`}
+        >
+          {firebaseErrors.message}
+        </p>
+      )}
+
       <button
         type="submit"
         className={`${classes.button_submit} ${
-          !isValid && classes.button_disabled
+          !isFormValid() && classes.button_disabled
         }`}
-        disabled={!isValid}
+        disabled={!isFormValid()}
       >
         Sign In
       </button>
