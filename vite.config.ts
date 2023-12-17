@@ -12,4 +12,14 @@ export default defineConfig({
       }
     }
   }
+  // server: {
+  //   proxy: {
+  //     "/api": {
+  //       target: 'http://www.rickandmortyapi.graphcdn.app/',
+  //       changeOrigin: true,
+  //       secure: false,
+  //       rewrite: (path) => path.replace(/^\/api/, "")
+  //     }
+  //   }
+  // }
 });

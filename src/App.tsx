@@ -8,8 +8,11 @@ import AppContextProvider from './components/Context/Context';
 
 import WelcomePage from './layouts/WelcomePage/WelcomePage';
 import Main from './layouts/Main/Main';
-import Auth from './pages/auth/Auth';
+import Auth from './pages/Auth/Auth';
 import PrivateRoute from './utils/PrivateRoute';
+import Test from './pages/graphql/Test';
+import { setupStore } from './store';
+import { Provider } from 'react-redux';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,14 +26,19 @@ const router = createBrowserRouter(
         }
         path="/auth"
       />
+      <Route path="/test" element={<Test />} />
     </Route>
   )
 );
 
+const store = setupStore();
+
 export default function App() {
   return (
-    <AppContextProvider>
-      <RouterProvider router={router} />
-    </AppContextProvider>
+    <Provider store={store}>
+      <AppContextProvider>
+        <RouterProvider router={router} />
+      </AppContextProvider>
+    </Provider>
   );
 }
