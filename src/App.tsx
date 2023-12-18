@@ -10,9 +10,10 @@ import WelcomePage from './layouts/WelcomePage/WelcomePage';
 import Main from './layouts/Main/Main';
 import Auth from './pages/Auth/Auth';
 import PrivateRoute from './utils/PrivateRoute';
-import Test from './pages/graphql/Test';
+// import Test from './pages/graphql/Test';
 import { setupStore } from './store';
 import { Provider } from 'react-redux';
+import Editor from './components/Editor/Editor';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,7 +27,7 @@ const router = createBrowserRouter(
         }
         path="/auth"
       />
-      <Route path="/test" element={<Test />} />
+      <Route path="/graphiql" element={<Editor />} />
     </Route>
   )
 );

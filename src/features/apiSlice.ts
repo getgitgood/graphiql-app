@@ -21,12 +21,6 @@ const dynamicBaseQuery: BaseQueryFn<
     };
   }
 
-  // const urlEnd = typeof args === 'string' ? args : args.url;
-  // const adjustedUrl = `${userEndpoint}/${urlEnd}`;
-  // console.log(userEndpoint);
-  // const adjustedArgs =
-  //   typeof args === 'string' ? adjustedUrl : { ...args, url: adjustedUrl };
-
   const baseQueryWithDynamicUrl = fetchBaseQuery({
     baseUrl: `https://${userEndpoint}`
   });

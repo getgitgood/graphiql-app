@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react';
+import Editor from '../../components/Editor/Editor';
 import { useGetDataQuery } from '../../features/apiSlice';
 import { updateUserEndpoint } from '../../features/projectSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/appHooks';
@@ -47,6 +48,7 @@ export default function Test() {
       <p style={{ color: 'red' }}>{isError}</p>
 
       {data && <div> {JSON.stringify(data)} </div>}
+      <Editor />
     </>
   );
 }

@@ -1,7 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  userEndpoint: 'rickandmortyapi.com/graphql/'
+  userEndpoint: 'rickandmortyapi.com/graphql/',
+  request: {
+    query: '',
+    variables: '',
+    headers: ''
+  },
+  response: {}
 };
 
 // type ProjectSlicePayload = {
@@ -24,10 +30,28 @@ const projectSlice = createSlice({
   reducers: {
     updateUserEndpoint(state, { payload }) {
       state.userEndpoint = payload;
+    },
+    updateUserQuery(state, { payload }) {
+      state.request.query = payload;
+    },
+    updateUserVars(state, { payload }) {
+      state.request.variables = payload;
+    },
+    updateUserHeaders(state, { payload }) {
+      state.request.headers = payload;
+    },
+    updateResponse(state, { payload }) {
+      state.response = payload;
     }
   }
 });
 
-export const { updateUserEndpoint } = projectSlice.actions;
+export const {
+  updateUserEndpoint,
+  updateUserQuery,
+  updateUserVars,
+  updateUserHeaders,
+  updateResponse
+} = projectSlice.actions;
 
 export default projectSlice.reducer;
