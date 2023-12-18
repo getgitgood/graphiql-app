@@ -13,7 +13,10 @@ export default function EditorPanel({ userQuery }: EditorPanelProps) {
   };
   return (
     <div className={classes.panel}>
-      <button className={classes.send_btn} onClick={submitQuery} />
+      <button
+        className={`${classes.editor_btn} ${classes.send_btn}`}
+        onClick={submitQuery}
+      />
     </div>
   );
 }

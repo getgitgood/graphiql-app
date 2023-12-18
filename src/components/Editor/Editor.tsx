@@ -10,7 +10,9 @@ import { barf } from 'thememirror';
 import EditorPanel from '../EditorPanel/EditorPanel';
 import { useAppSelector } from '../../hooks/appHooks';
 import { useGetDataQuery } from '../../features/apiSlice';
+import { javascript } from '@codemirror/lang-javascript';
 import { json } from '@codemirror/lang-json';
+import Loader from '../Loader/Loader';
 
 export default function Editor() {
   const editorRef = useRef<HTMLDivElement>(null);
@@ -22,7 +24,7 @@ export default function Editor() {
 
   const { query } = useAppSelector((state) => state.project.request);
 
-  const { data, isError, error } = useGetDataQuery(query, {
+  const { data, isError, error, isFetching } = useGetDataQuery(query, {
     skip: query === ''
   });
 
@@ -40,7 +42,8 @@ export default function Editor() {
         keymap.of(defaultKeymap),
         barf,
         gutter({ renderEmptyElements: true }),
-        saveContent
+        saveContent,
+        javascript()
       ]
     });
 
@@ -88,12 +91,14 @@ export default function Editor() {
       }
     }
   }, [data, error, isError]);
-
   return (
     <div className={classes.editor_wrapper}>
       <div className={classes.editor_editable} ref={editorRef} />
       <EditorPanel userQuery={userQuery} />
-      <div ref={viewerRef} className={classes.editor_readonly} />
+
+      <div ref={viewerRef} className={classes.editor_readonly}>
+        {isFetching && <Loader />}
+      </div>
     </div>
   );
 }

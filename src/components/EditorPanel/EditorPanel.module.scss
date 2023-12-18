@@ -1,0 +1,14 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .editor_btn {
+    padding: 1rem;
+
+    &.send_btn {
+      background: no-repeat url('../../assets/img/play-square-svgrepo-com.svg');
+      background-size: 100% 100%;
+    }
+  }
+}
