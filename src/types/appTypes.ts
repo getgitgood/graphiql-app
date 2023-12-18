@@ -24,3 +24,12 @@ export type SignUpFormProps = {
   switchFormHandler: () => void;
 };
 
+export enum SideMenuOptions {
+  Documentation = 'Documentation',
+  History = 'History',
+  Hidden = ''
+}
+
+export interface SideMenuState {
+  value: SideMenuOptions;
+}
