@@ -3,12 +3,23 @@
   flex-direction: column;
   justify-content: center;
 
+  order: 1;
+
+  background-color: $editor-color;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
   .editor_btn {
     padding: 1rem;
+    cursor: pointer;
 
+    transition: filter 0.3s ease;
     &.send_btn {
       background: no-repeat url('../../assets/img/play-square-svgrepo-com.svg');
       background-size: 100% 100%;
+    }
+
+    &:hover {
+      filter: hue-rotate(50deg);
     }
   }
 }

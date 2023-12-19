@@ -2,16 +2,13 @@ import classes from './Editor.module.scss';
 
 import { useRef, useEffect, useState } from 'react';
 
-import { basicSetup } from 'codemirror';
-import { EditorView, keymap, gutter } from '@codemirror/view';
+import { EditorView } from '@codemirror/view';
 import { EditorState } from '@codemirror/state';
-import { defaultKeymap } from '@codemirror/commands';
-import { barf } from 'thememirror';
 import EditorPanel from '../EditorPanel/EditorPanel';
 import { useAppSelector } from '../../hooks/appHooks';
 import { useGetDataQuery } from '../../features/apiSlice';
-import { javascript } from '@codemirror/lang-javascript';
-import { json } from '@codemirror/lang-json';
+import { viewerBasicSetup } from '../../utils/cmViewerSetup';
+import { editorBasicSetup } from '../../utils/cmEditorSetup';
 import Loader from '../Loader/Loader';
 
 export default function Editor() {
@@ -38,12 +35,11 @@ export default function Editor() {
     const initialEditorState = EditorState.create({
       doc: 'editor',
       extensions: [
-        basicSetup,
-        keymap.of(defaultKeymap),
-        barf,
-        gutter({ renderEmptyElements: true }),
+        editorBasicSetup,
         saveContent,
-        javascript()
+        EditorView.editorAttributes.of({
+          class: 'editor_editable_cm'
+        })
       ]
     });
 
@@ -54,7 +50,17 @@ export default function Editor() {
 
     const initialViewerState = EditorState.create({
       doc: 'read only',
-      extensions: [basicSetup, barf, EditorState.readOnly.of(true), json()]
+      extensions: [
+        viewerBasicSetup,
+        EditorView.editorAttributes.of({
+          class: 'editor_view_cm'
+        }),
+        EditorView.theme({
+          '&.cm-focused': {
+            outline: 'none'
+          }
+        })
+      ]
     });
 
     const viewerView = new EditorView({
@@ -93,12 +99,13 @@ export default function Editor() {
   }, [data, error, isError]);
   return (
     <div className={classes.editor_wrapper}>
-      <div className={classes.editor_editable} ref={editorRef} />
-      <EditorPanel userQuery={userQuery} />
+      <section className={classes.editor_editable} ref={editorRef}>
+        <EditorPanel userQuery={userQuery} />
+      </section>
 
-      <div ref={viewerRef} className={classes.editor_readonly}>
+      <section ref={viewerRef} className={classes.editor_readonly}>
         {isFetching && <Loader />}
-      </div>
+      </section>
     </div>
   );
 }
