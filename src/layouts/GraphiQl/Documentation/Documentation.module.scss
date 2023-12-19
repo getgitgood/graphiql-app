@@ -1,0 +1,89 @@
+.documentation {
+ height: 100%;
+ padding: 1rem;
+ background-color: #20242d;
+ overflow-y: auto;
+
+ &::-webkit-scrollbar {
+  width: 0.25em
+ }
+
+ &::-webkit-scrollbar-track {
+  background-color: transparent;
+ }
+
+ &::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  transition: background-color 1s ease;
+ }
+
+ &:hover::-webkit-scrollbar-thumb {
+  background-color: gray;
+  cursor: pointer;
+ }
+ 
+ .documentation_title {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+ }
+  .documentation_query {
+   margin-bottom: 0.5rem;
+   font-size: 1.25rem;
+   line-height: 1.75rem;
+  }
+
+  .documentation_button_back {
+   cursor: pointer;
+   color: blue;
+   margin-bottom: 1rem;
+  }
+
+  .documentation_selectedtype,
+  .documentation_type,
+  .documentation_arguments {
+   font-weight: 600;
+   font-size: 1.125rem;
+   line-height: 1.75rem;
+  }
+
+  .documentation_type_description {
+   margin-bottom: 0.5rem;
+  }
+
+  .documentation_type_detailed {
+   margin-bottom: 0.5rem;
+   color: blue;
+  }
+
+  .documentation_arguments_list {
+   list-style-type: disc;
+   list-style-position: inside;
+  }
+
+  .documentation_arguments_lists {
+   list-style-type: none;
+   margin-bottom: 0.25rem;
+  }
+
+  .documentation_arguments_keys {
+   color: red;
+  }
+
+  .documentation_arguments_values {
+   color: yellow;
+  }
+
+  .documentation_button_type {
+   color: blue;
+   margin-bottom: 0.5rem;
+   cursor: pointer;
+  }
+
+  .documentation_type_argument {
+   color: pink;
+   margin-left: 0.25rem;
+   margin-right: 0.25rem;
+  }
+}

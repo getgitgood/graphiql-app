@@ -6,9 +6,9 @@ import { RootState } from '../../store';
 import classes from './Graphql.module.scss';
 
 export default function GraphqlEditor() {
-  /*const Documentation = lazy(
+  const Documentation = lazy(
     () => import('../../layouts/GraphiQl/Documentation/Documentation')
-  );*/
+  );
   const sideMenu = useSelector((state: RootState) => state.sideMenu.value);
 
   return (

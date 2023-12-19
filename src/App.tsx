@@ -21,6 +21,7 @@ const router = createBrowserRouter(
       <Route index element={<WelcomePage />} path="/" />
       <Route element={<Auth />} path="/authentication" />
       <Route element={<GraphqlEditor />} path="/welcome" />
+      <Route element={<GraphqlEditor />} path="/welcome" />
     </Route>
   )
 );
