@@ -3,10 +3,9 @@ import {
   combineReducers,
   configureStore
 } from '@reduxjs/toolkit';
-// import { sideMenuSlice } from './redux/SideMenu/sideMenuSlice';
 
-const rootReducer = combineReducers({
-  // sideMenu: sideMenuSlice.reducer
+import { sideMenuSlice } from './redux/SideMenu/sideMenuSlice';
+  const rootReducer = combineReducers({
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {

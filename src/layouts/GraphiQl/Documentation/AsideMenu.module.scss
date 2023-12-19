@@ -1,0 +1,37 @@
+.aside_menu {
+ display: flex;
+ flex-direction: column;
+ background-color: #20242d;
+ padding: 10px;
+
+ .buttons {
+   display: flex;
+   flex-direction: column;
+
+   .top_btns {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+     .aside_menu_button {
+       background-color: transparent;
+       color: #ffffff;
+       border: none;
+       outline: none;
+       padding: 10px;
+       margin-bottom: 10px;
+       cursor: pointer;
+       background-size: cover;
+       transition: background-color .3s;
+
+       &:hover {
+        background-color: gray;
+      }
+
+      &.selected {
+        background-color: #0b1044;
+      }
+     }
+   }
+ }
+}
