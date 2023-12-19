@@ -4,12 +4,12 @@ import { useRef, useEffect, useState } from 'react';
 
 import { EditorView } from '@codemirror/view';
 import { EditorState } from '@codemirror/state';
-import EditorPanel from '../EditorPanel/EditorPanel';
+import EditorPanel from '../../components/EditorPanel/EditorPanel';
 import { useAppSelector } from '../../hooks/appHooks';
 import { useGetDataQuery } from '../../features/apiSlice';
 import { viewerBasicSetup } from '../../utils/cmViewerSetup';
 import { editorBasicSetup } from '../../utils/cmEditorSetup';
-import Loader from '../Loader/Loader';
+import Loader from '../../components/Loader/Loader';
 
 export default function Editor() {
   const editorRef = useRef<HTMLDivElement>(null);
@@ -97,9 +97,10 @@ export default function Editor() {
       }
     }
   }, [data, error, isError]);
+
   return (
     <div className={classes.editor_wrapper}>
-      <section className={classes.editor_editable} ref={editorRef}>
+      <section ref={editorRef} className={classes.editor_editable}>
         <EditorPanel userQuery={userQuery} />
       </section>
 

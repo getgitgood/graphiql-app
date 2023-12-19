@@ -7,6 +7,8 @@ import type {
 
 import { RootState } from '../store';
 
+const IntrospectionQuery = `query IntrospectionQuery { __schema { queryType { name } mutationType { name } subscriptionType { name } directives { name description locations } } }`;
+
 const dynamicBaseQuery: BaseQueryFn<
   string | FetchArgs,
   unknown,
@@ -43,8 +45,21 @@ export const api = createApi({
           'Content-Type': 'application/json'
         }
       })
+    }),
+    schema: builder.query({
+      query: () => ({
+        url: '',
+        body: {
+          operationName: 'IntrospectionQuery',
+          query: IntrospectionQuery
+        },
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
     })
   })
 });
 
-export const { useGetDataQuery } = api;
+export const { useGetDataQuery, useSchemaQuery } = api;
