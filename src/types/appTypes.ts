@@ -29,7 +29,3 @@ export enum SideMenuOptions {
   History = 'History',
   Hidden = ''
 }
-
-export interface SideMenuState {
-  value: SideMenuOptions;
-}

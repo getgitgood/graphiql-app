@@ -12,7 +12,7 @@
     transition: all ease 0.3s;
     padding: 0.1rem 0.2rem;
     font-size: 0.9rem;
-    
+
     &.lang_active {
       background-color: $secondary-color;
       border-radius: 5px;
@@ -23,7 +23,7 @@
 
     &:not(.lang_active):hover {
       cursor: pointer;
-      color: $secondary-font-color
+      color: $secondary-font-color;
     }
   }
 }

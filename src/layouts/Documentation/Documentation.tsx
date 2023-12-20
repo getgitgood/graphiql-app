@@ -1,44 +1,29 @@
-import { useEffect, useState } from 'react';
-import {
-  buildClientSchema,
-  getIntrospectionQuery,
-  GraphQLSchema
-} from 'graphql';
-import { Suspense } from 'react';
+import { buildClientSchema } from 'graphql';
 import classes from './Documentation.module.scss';
+import { useSchemaQuery } from '../../features/apiSlice';
+import { useAppSelector } from '../../hooks/appHooks';
+import { useState } from 'react';
 
 export default function Documentation() {
-  const [schema, setSchema] = useState<GraphQLSchema | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-  const [selectedType, setSelectedType] = useState<string | null>(null);
-  useEffect(() => {
-    const fetchSchema = async () => {
-      try {
-        const response = await fetch('https://rickandmortyapi.com/graphql', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ query: getIntrospectionQuery() })
-        });
-        const { data } = await response.json();
-        setSchema(buildClientSchema(data));
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(error);
-        } else {
-          setError(new Error('An unknown error occurred'));
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchSchema();
-  }, []);
-  if (loading) return <Suspense fallback={<p>Loading...</p>}></Suspense>;
-  if (error) return <p>Error: {error.message}</p>;
-  if (!schema) return null;
+  const { userEndpoint } = useAppSelector((state) => state.project);
 
-  const queryType = schema.getQueryType();
+  const [selectedType, setSelectedType] = useState<string | null>(null);
+
+  const { data, isFetching, isError, error } = useSchemaQuery(userEndpoint);
+
+  if (isFetching) {
+    return <p>Loading...</p>;
+  }
+
+  if (isError && error && 'message' in error) {
+    return <p>Error: {error.message}</p>;
+  }
+
+  if (!data) return null;
+
+  const clientSchema = buildClientSchema(data.data);
+
+  const queryType = clientSchema.getQueryType();
 
   if (!queryType) return null;
   const fields = queryType.getFields();

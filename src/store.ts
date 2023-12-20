@@ -4,15 +4,20 @@ import {
   configureStore
 } from '@reduxjs/toolkit';
 
-import { sideMenuSlice } from './redux/SideMenu/sideMenuSlice';
-  const rootReducer = combineReducers({
+import projectReducer from './features/projectSlice';
+import { api } from './features/apiSlice';
+
+const rootReducer = combineReducers({
+  project: projectReducer,
+  [api.reducerPath]: api.reducer
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {
   return configureStore({
     reducer: rootReducer,
     preloadedState,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(api.middleware)
   });
 }
 
