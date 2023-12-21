@@ -10,7 +10,7 @@ import { setupStore } from './store';
 import WelcomePage from './layouts/WelcomePage/WelcomePage';
 import Main from './layouts/Main/Main';
 
-import Graphiql from './pages/Graphiql/GraphiQl';
+import Graphiql from './pages/Graphiql/Graphiql';
 import { Provider } from 'react-redux';
 import Auth from './pages/Auth/Auth';
 
