@@ -10,6 +10,8 @@
   top: 0;
 
   transition: all 0.3s ease-in-out;
+
+  z-index: 1000;
   &.header_animated {
     height: 2.5rem;
     background-color: $additional-color;

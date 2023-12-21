@@ -52,6 +52,7 @@ export const api = createApi({
         }
       })
     }),
+
     schema: builder.query<IntrospectionQueryData, string>({
       query: () => ({
         url: '',

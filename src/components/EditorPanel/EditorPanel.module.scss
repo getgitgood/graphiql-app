@@ -1,0 +1,136 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+
+  background-color: $editor-color;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+
+  order: -1;
+
+  .endpoint_container {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+
+    justify-content: flex-end;
+    column-gap: 0.5rem;
+
+    width: 50%;
+    .endpoint_input {
+      width: 50%;
+      padding: 0 0.3rem 0;
+      outline: none;
+      border: none;
+      border-bottom: 1px solid $additional-color;
+      background: $additional-color;
+      color: $font-color;
+      min-width: max-content;
+      font-size: 0.7rem;
+
+      border-radius: 10px;
+      &:focus {
+        padding: 0 0.4rem 0;
+        background-color: $header-color;
+      }
+    }
+    &::before {
+      content: 'https://';
+      font-size: 0.7rem;
+    }
+
+    [data-testid="loader"] {
+      position: static;
+      transform: none;
+      font-size: 0.8rem;
+      > * {
+        width: 1em;
+        height: 1em;
+        border: 0.1em solid transparent;
+        border-top-color: currentcolor;
+        &::before {
+          top: -0.1em;
+          left: -0.1em;
+          border: 0.1em solid currentcolor;
+        }
+      }
+    }
+
+    .indicator {
+      position: relative;
+      display: inline-block;
+      border-radius: 50%;
+
+      width: 0.7rem;
+      height: 0.7rem;
+
+      box-shadow: 0 0 2px 2px rgba($color: #ffffff, $alpha: 0.5);
+      box-shadow: inset 0 0 2px 2px rgba($color: #000000, $alpha: 0.5);
+      &:hover {
+        &::before {
+          content: '';
+          white-space: nowrap;
+          position: absolute;
+          font-size: 0.5rem;
+          left: 100%;
+          top: -50%;
+          border-radius: 10px;
+          padding: 0.2rem;
+          background-color: $header-color;
+        }
+      }
+      &.indicator_ok {
+        background-color: green;
+        &:hover {
+          &::before {
+            content: 'Connected to server';
+          }
+        }
+      }
+      &.indicator_error {
+        background-color: red;
+        &:hover {
+          &::before {
+            content: 'Server doesn`t respond';
+          }
+        }
+      }
+    }
+  }
+
+  .panel_items {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .panel_current_url {
+    font-size: 0.8rem;
+  }
+
+  .panel_form {
+    display: flex;
+    align-items: center;
+  }
+
+  .editor_btn {
+    padding: 1rem;
+    cursor: pointer;
+
+    transition: filter 0.3s ease;
+
+    &.request_btn {
+      background: no-repeat url('../../assets/img/play-square-svgrepo-com.svg');
+      background-size: 100% 100%;
+    }
+
+    &.endpoint_submit {
+      padding: 0;
+    }
+
+    &:hover {
+      filter: hue-rotate(50deg);
+    }
+  }
+}
