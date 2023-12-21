@@ -23,3 +23,9 @@ export enum LanguageEnum {
 export type SignUpFormProps = {
   switchFormHandler: () => void;
 };
+
+export enum SideMenuOptions {
+  Documentation = 'Documentation',
+  History = 'History',
+  Hidden = ''
+}

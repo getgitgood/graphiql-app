@@ -6,8 +6,13 @@ import type {
 } from '@reduxjs/toolkit/query/react';
 
 import { RootState } from '../store';
+import { getIntrospectionQuery, IntrospectionQuery } from 'graphql';
 
-const IntrospectionQuery = `query IntrospectionQuery { __schema { queryType { name } mutationType { name } subscriptionType { name } directives { name description locations } } }`;
+const IntrospectionQuery = getIntrospectionQuery;
+
+export type IntrospectionQueryData = {
+  data: IntrospectionQuery;
+};
 
 const dynamicBaseQuery: BaseQueryFn<
   string | FetchArgs,
@@ -26,6 +31,7 @@ const dynamicBaseQuery: BaseQueryFn<
   const baseQueryWithDynamicUrl = fetchBaseQuery({
     baseUrl: `https://${userEndpoint}`
   });
+
   return baseQueryWithDynamicUrl(args, api, extraOptions);
 };
 
@@ -46,12 +52,13 @@ export const api = createApi({
         }
       })
     }),
-    schema: builder.query({
+
+    schema: builder.query<IntrospectionQueryData, string>({
       query: () => ({
         url: '',
         body: {
           operationName: 'IntrospectionQuery',
-          query: IntrospectionQuery
+          query: IntrospectionQuery()
         },
         method: 'POST',
         headers: {

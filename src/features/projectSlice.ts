@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { SideMenuOptions } from '../types';
 
 export const initialState = {
   userEndpoint: 'rickandmortyapi.com/graphql/',
@@ -7,27 +8,17 @@ export const initialState = {
     variables: '',
     headers: ''
   },
+  sideMenuMode: SideMenuOptions.Hidden,
   response: {}
 };
-
-// type ProjectSlicePayload = {
-//   updateUserEndpoint(
-//     state: {
-//       userEndpoint: string;
-//     },
-//     {
-//       payload
-//     }: {
-//       payload: string;
-//       type: string;
-//     }
-//   ): void;
-// };
 
 const projectSlice = createSlice({
   name: 'project',
   initialState,
   reducers: {
+    toggleSideMenu: (state, { payload }: PayloadAction<SideMenuOptions>) => {
+      state.sideMenuMode = payload;
+    },
     updateUserEndpoint(state, { payload }) {
       state.userEndpoint = payload;
     },
@@ -51,7 +42,8 @@ export const {
   updateUserQuery,
   updateUserVars,
   updateUserHeaders,
-  updateResponse
+  updateResponse,
+  toggleSideMenu
 } = projectSlice.actions;
 
 export default projectSlice.reducer;
