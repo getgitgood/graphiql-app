@@ -16,12 +16,22 @@ import Auth from './pages/Auth/Auth';
 
 const store = setupStore();
 
+import PrivateRoute from './utils/PrivateRoute';
+
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Main />} path="/">
       <Route index element={<WelcomePage />} path="/" />
-      <Route element={<Auth />} path="/authentication" />
       <Route element={<Graphiql />} path="/welcome" />
+      <Route
+        element={
+          <PrivateRoute>
+            <Auth />
+          </PrivateRoute>
+        }
+        path="/auth"
+      />
     </Route>
   )
 );
