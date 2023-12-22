@@ -8,6 +8,8 @@ import {
   setPersistence,
   browserLocalPersistence
 } from 'firebase/auth';
+import { updateUserStatus } from '../features/projectSlice';
+import { useAppDispatch } from '../hooks/appHooks';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBc176Kmg_rgWChwKl2A0qK3EfiWrPtV14',
@@ -33,7 +35,9 @@ export {
 };
 
 onAuthStateChanged(auth, (user) => {
+  const dispatch = useAppDispatch();
   if (user) {
     setPersistence(auth, browserLocalPersistence);
   }
+  dispatch(updateUserStatus(Boolean(user)));
 });

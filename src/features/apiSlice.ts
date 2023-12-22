@@ -14,6 +14,10 @@ export type IntrospectionQueryData = {
   data: IntrospectionQuery;
 };
 
+export interface ResponseQueryData extends IntrospectionQueryData {
+  data: IntrospectionQuery;
+}
+
 const dynamicBaseQuery: BaseQueryFn<
   string | FetchArgs,
   unknown,
@@ -35,16 +39,24 @@ const dynamicBaseQuery: BaseQueryFn<
   return baseQueryWithDynamicUrl(args, api, extraOptions);
 };
 
+export type ApiQueryRequest = {
+  [key: string]: string | undefined;
+  query: string;
+  headers?: string;
+  variables?: string;
+};
+
 export const api = createApi({
   reducerPath: 'graphqlApi',
   baseQuery: dynamicBaseQuery,
   endpoints: (builder) => ({
-    // TODO: TYPE A PASSED PARAMETERS AND RETURN TYPE BELOW
-    getData: builder.query({
-      query: (graphqlQuery) => ({
+    getData: builder.query<ResponseQueryData, ApiQueryRequest>({
+      query: ({ query, headers, variables }) => ({
         url: '',
         body: {
-          query: graphqlQuery
+          query: query,
+          headers: headers,
+          variables: variables
         },
         method: 'POST',
         headers: {

@@ -9,7 +9,8 @@ export const initialState = {
     headers: ''
   },
   sideMenuMode: SideMenuOptions.Hidden,
-  response: {}
+  response: {},
+  isUserSignIn: false
 };
 
 const projectSlice = createSlice({
@@ -19,10 +20,10 @@ const projectSlice = createSlice({
     toggleSideMenu: (state, { payload }: PayloadAction<SideMenuOptions>) => {
       state.sideMenuMode = payload;
     },
-    updateUserEndpoint(state, { payload }) {
+    updateUserEndpoint(state, { payload }: PayloadAction<string>) {
       state.userEndpoint = payload;
     },
-    updateUserQuery(state, { payload }) {
+    updateUserQuery(state, { payload }: PayloadAction<string>) {
       state.request.query = payload;
     },
     updateUserVars(state, { payload }) {
@@ -33,6 +34,9 @@ const projectSlice = createSlice({
     },
     updateResponse(state, { payload }) {
       state.response = payload;
+    },
+    updateUserStatus(state, { payload }) {
+      state.isUserSignIn = payload;
     }
   }
 });
@@ -43,7 +47,8 @@ export const {
   updateUserVars,
   updateUserHeaders,
   updateResponse,
-  toggleSideMenu
+  toggleSideMenu,
+  updateUserStatus
 } = projectSlice.actions;
 
 export default projectSlice.reducer;

@@ -21,9 +21,12 @@ export default function Editor() {
 
   const { query } = useAppSelector((state) => state.project.request);
 
-  const { data, isError, error, isFetching } = useGetDataQuery(query, {
-    skip: query === ''
-  });
+  const { data, isError, error, isFetching } = useGetDataQuery(
+    { query },
+    {
+      skip: query === ''
+    }
+  );
 
   useEffect(() => {
     const saveContent = EditorView.updateListener.of((content) => {
