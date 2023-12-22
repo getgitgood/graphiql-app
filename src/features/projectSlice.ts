@@ -26,16 +26,13 @@ const projectSlice = createSlice({
     updateUserQuery(state, { payload }: PayloadAction<string>) {
       state.request.query = payload;
     },
-    updateUserVars(state, { payload }) {
+    updateUserVars(state, { payload }: PayloadAction<string>) {
       state.request.variables = payload;
     },
-    updateUserHeaders(state, { payload }) {
+    updateUserHeaders(state, { payload }: PayloadAction<string>) {
       state.request.headers = payload;
     },
-    updateResponse(state, { payload }) {
-      state.response = payload;
-    },
-    updateUserStatus(state, { payload }) {
+    updateUserStatus(state, { payload }: PayloadAction<boolean>) {
       state.isUserSignIn = payload;
     }
   }
@@ -46,7 +43,6 @@ export const {
   updateUserQuery,
   updateUserVars,
   updateUserHeaders,
-  updateResponse,
   toggleSideMenu,
   updateUserStatus
 } = projectSlice.actions;

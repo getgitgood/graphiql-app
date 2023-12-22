@@ -5,13 +5,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, useForm } from 'react-hook-form';
 import { SignUpFormProps } from '../../types';
 import { useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged
+} from 'firebase/auth';
 import { auth } from '../../services/firebaseAuth';
 import { FirebaseError } from 'firebase/app';
 import {
   transformAuthErrorMessage,
   isUserInputAuthError
 } from '../../utils/authErrorMessages';
+import { updateUserStatus } from '../../features/projectSlice';
+import { useAppDispatch } from '../../hooks/appHooks';
 
 export default function SignUp({ switchFormHandler }: SignUpFormProps) {
   const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
@@ -29,7 +34,14 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
 
   const navigate = useNavigate();
 
+  const dispatch = useAppDispatch();
+
   const watchEmailField = watch('email');
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      dispatch(updateUserStatus(Boolean(user)));
+    });
+  }, [dispatch]);
 
   useEffect(() => {
     setFirebaseErrors(null);
@@ -52,6 +64,7 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       setFirebaseErrors(null);
+
       navigate('/');
     } catch (e) {
       if (e instanceof FirebaseError) {

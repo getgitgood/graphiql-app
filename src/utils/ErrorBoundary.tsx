@@ -5,7 +5,7 @@ export default class ErrorBoundary extends Component<
   { children: ReactNode },
   ErrorBoundaryState
 > {
-  state = {
+  state: ErrorBoundaryState = {
     hasError: false,
     error: undefined
   };
@@ -16,7 +16,16 @@ export default class ErrorBoundary extends Component<
 
   render() {
     if (this.state.error) {
-      return <p>error={this.state.error}</p>;
+      return (
+        <section>
+          <p>Error occurred!</p>
+          <p>
+            {'message' in this.state.error
+              ? this.state.error.message
+              : 'Unknown error'}
+          </p>
+        </section>
+      );
     }
 
     return this.props.children;
