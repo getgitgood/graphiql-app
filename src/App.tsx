@@ -9,7 +9,7 @@ import AppContextProvider from './components/Context/Context';
 import WelcomePage from './layouts/WelcomePage/WelcomePage';
 import Main from './layouts/Main/Main';
 import Graphiql from './pages/Graphiql/Graphiql';
-import Auth from './pages/Auth/Auth';
+import Auth from './pages/auth/Auth';
 
 const store = setupStore();
 

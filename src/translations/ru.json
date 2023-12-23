@@ -1,0 +1,14 @@
+{
+ "aboutProject": "О проекте",
+ "aboutDevelopers": "О разработчиках",
+ "aboutCourse": "О курсе",
+ "signIn": "Войти",
+ "email": "Электронная почта",
+ "password": "Пароль",
+ "enterYourEmail": "Введите вашу электронную почту",
+ "enterYourPassword": "Введите ваш пароль",
+ "noUserFound": "Пользователь с предоставленными данными не найден!",
+ "signInButton": "Войти",
+ "dontHaveAccount": "У вас еще нет аккаунта?",
+ "registerHere": "Зарегистрируйтесь здесь!"
+}
