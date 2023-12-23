@@ -21,14 +21,21 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Main />} path="/">
       <Route index element={<WelcomePage />} path="/" />
-      <Route element={<Graphiql />} path="/graphiql" />
       <Route
         element={
-          <PrivateRoute>
+          <PrivateRoute redirectTo="/">
             <Auth />
           </PrivateRoute>
         }
         path="/auth"
+      />
+      <Route
+        element={
+          <PrivateRoute redirectTo="/" isReversedDirection={true}>
+            <Graphiql />
+          </PrivateRoute>
+        }
+        path="/graphiql"
       />
     </Route>
   )

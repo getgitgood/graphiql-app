@@ -29,3 +29,18 @@ export enum SideMenuOptions {
   History = 'History',
   Hidden = ''
 }
+
+export type RedirectProps = {
+  isUserSignIn: boolean;
+  isReversedDirection: boolean;
+};
+
+export type EditorPanelProps = {
+  userQuery: string;
+};
+
+export type PrivateRouteProps = {
+  children: ReactNode;
+  redirectTo: string;
+  isReversedDirection?: boolean;
+};

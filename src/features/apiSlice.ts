@@ -6,17 +6,14 @@ import type {
 } from '@reduxjs/toolkit/query/react';
 
 import { RootState } from '../store';
-import { getIntrospectionQuery, IntrospectionQuery } from 'graphql';
+import { getIntrospectionQuery } from 'graphql';
+import {
+  ApiQueryRequest,
+  IntrospectionQueryData,
+  ResponseQueryData
+} from '../types';
 
 const IntrospectionQuery = getIntrospectionQuery;
-
-export type IntrospectionQueryData = {
-  data: IntrospectionQuery;
-};
-
-export interface ResponseQueryData extends IntrospectionQueryData {
-  data: IntrospectionQuery;
-}
 
 const dynamicBaseQuery: BaseQueryFn<
   string | FetchArgs,
@@ -37,13 +34,6 @@ const dynamicBaseQuery: BaseQueryFn<
   });
 
   return baseQueryWithDynamicUrl(args, api, extraOptions);
-};
-
-export type ApiQueryRequest = {
-  [key: string]: string | undefined;
-  query: string;
-  headers?: string;
-  variables?: string;
 };
 
 export const api = createApi({

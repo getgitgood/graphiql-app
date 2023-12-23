@@ -1,7 +1,28 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { auth } from '../services/firebaseAuth';
 import { SideMenuOptions } from '../types';
 
-export const initialState = {
+interface ProjectState {
+  userEndpoint: string;
+  request: {
+    query: string;
+    variables: string;
+    headers: string;
+  };
+  sideMenuMode: SideMenuOptions;
+  response: object;
+  isUserSignIn: boolean | null;
+}
+
+export const getUserAuthStatus = createAsyncThunk(
+  'user/getAuthStatus',
+  async () => {
+    await auth.authStateReady();
+    return Boolean(auth.currentUser);
+  }
+);
+
+export const initialState: ProjectState = {
   userEndpoint: 'rickandmortyapi.com/graphql/',
   request: {
     query: '',
@@ -10,7 +31,7 @@ export const initialState = {
   },
   sideMenuMode: SideMenuOptions.Hidden,
   response: {},
-  isUserSignIn: false
+  isUserSignIn: null
 };
 
 const projectSlice = createSlice({
@@ -35,6 +56,11 @@ const projectSlice = createSlice({
     updateUserStatus(state, { payload }: PayloadAction<boolean>) {
       state.isUserSignIn = payload;
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getUserAuthStatus.fulfilled, (state, { payload }) => {
+      state.isUserSignIn = payload;
+    });
   }
 });
 

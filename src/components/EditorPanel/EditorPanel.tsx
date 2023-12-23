@@ -5,12 +5,9 @@ import {
   updateUserQuery
 } from '../../features/projectSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/appHooks';
+import { EditorPanelProps } from '../../types';
 import Loader from '../Loader/Loader';
 import classes from './EditorPanel.module.scss';
-
-export type EditorPanelProps = {
-  userQuery: string;
-};
 
 export default function EditorPanel({ userQuery }: EditorPanelProps) {
   const { userEndpoint } = useAppSelector((state) => state.project);

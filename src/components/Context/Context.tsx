@@ -1,13 +1,14 @@
 import { createContext, useState, useContext } from 'react';
 import { ContextProps, LanguageContextProps, LanguageEnum } from '../../types';
 
-export const defaultValue = {
+export const initialContextState = {
   currentLanguage: LanguageEnum.EN,
   changeLanguage: (value: string) => value,
   LanguageEnum: LanguageEnum
 };
 
-export const AppContext = createContext<LanguageContextProps>(defaultValue);
+export const AppContext =
+  createContext<LanguageContextProps>(initialContextState);
 
 export default function AppContextProvider({ children }: ContextProps) {
   const context = useContext(AppContext);
