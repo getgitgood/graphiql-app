@@ -27,12 +27,16 @@ export default function Editor() {
   const { request } = useAppSelector((state) => state.project);
 
   const { query, variables, headers } = request;
-  const { data, isError, error, isFetching } = useGetDataQuery(
+  const { data, isError, error, isFetching, isSuccess } = useGetDataQuery(
     { query, variables, headers },
     {
       skip: !isQuerySend
     }
   );
+
+  useEffect(() => {
+    setIsQuerySend(isSuccess);
+  }, [isSuccess]);
 
   useEffect(() => {
     const saveContent = saveEditorContent(setUserQuery);
@@ -76,16 +80,12 @@ export default function Editor() {
     }
   }, [data, error, isError]);
 
-  const requestData = {
-    userQuery: userQuery,
-    userVars: userVars,
-    userHeaders: userHeaders,
-    setIsQuerySend: setIsQuerySend
-  };
   return (
     <div className={classes.editor_wrapper}>
       <section ref={editorRef} className={classes.editor_editable}>
-        <EditorPanel {...requestData} />
+        <EditorPanel
+          {...{ userQuery, userVars, userHeaders, setIsQuerySend }}
+        />
         <EditorToolkit {...{ setUserVars, setUserHeaders }} />
       </section>
 

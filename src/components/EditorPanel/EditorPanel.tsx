@@ -34,11 +34,10 @@ export default function EditorPanel({
   const submitQuery = async () => {
     const request = {
       query: userQuery,
-      variables: userVars || '',
-      headers: userHeaders || ''
+      variables: userVars,
+      headers: userHeaders
     };
     dispatch(updateUserRequest(request));
-    console.log(userVars, userHeaders);
     setIsQuerySend(true);
   };
 

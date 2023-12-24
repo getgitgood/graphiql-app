@@ -41,12 +41,12 @@ export const api = createApi({
   baseQuery: dynamicBaseQuery,
   endpoints: (builder) => ({
     getData: builder.query<ResponseQueryData, ApiQueryRequest>({
-      query: ({ query, headers, variables }) => ({
+      query: ({ query, headers = '', variables = '' }) => ({
         url: '',
         body: {
           query: query,
-          headers: headers,
-          variables: variables
+          variables: JSON.parse(variables),
+          headers: JSON.parse(headers)
         },
         method: 'POST',
         headers: {

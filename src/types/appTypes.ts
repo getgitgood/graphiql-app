@@ -37,8 +37,8 @@ export type RedirectProps = {
 
 export type EditorPanelProps = {
   userQuery: string;
-  userVars?: string;
-  userHeaders?: string;
+  userVars: string;
+  userHeaders: string;
   setIsQuerySend: (value: boolean) => void;
 };
 

@@ -3,8 +3,8 @@ import { IntrospectionQuery } from 'graphql';
 export type ApiQueryRequest = {
   [key: string]: string | undefined;
   query: string;
-  headers?: string;
-  variables?: string;
+  headers: string;
+  variables: string;
 };
 
 export type IntrospectionQueryData = {
