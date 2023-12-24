@@ -1,3 +1,4 @@
+import { EditorView } from 'codemirror';
 import { RedirectProps } from '../types';
 
 function formatDisplayedName(email: string) {
@@ -23,4 +24,12 @@ function isRedirectionRequired({
   return value;
 }
 
-export { formatDisplayedName, isRedirectionRequired };
+function saveEditorContent(callback: (data: string) => void) {
+  return EditorView.updateListener.of((content) => {
+    if (content.changes) {
+      callback(content.state.doc.toString());
+    }
+  });
+}
+
+export { formatDisplayedName, isRedirectionRequired, saveEditorContent };

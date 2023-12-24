@@ -3,13 +3,14 @@ import classes from './Editor.module.scss';
 import { useRef, useEffect, useState } from 'react';
 
 import { EditorView } from '@codemirror/view';
-import { EditorState } from '@codemirror/state';
 import EditorPanel from '../../components/EditorPanel/EditorPanel';
 import { useAppSelector } from '../../hooks/appHooks';
 import { useGetDataQuery } from '../../features/apiSlice';
-import { viewerBasicSetup } from '../../utils/cmViewerSetup';
-import { editorBasicSetup } from '../../utils/cmEditorSetup';
+import { initialViewerState } from '../../utils/cmViewerSetup';
+import { initialEditorState } from '../../utils/cmEditorSetup';
 import Loader from '../../components/Loader/Loader';
+import { saveEditorContent } from '../../utils/helpers';
+import EditorToolkit from '../../components/EditorToolkit/EditorToolkit';
 
 export default function Editor() {
   const editorRef = useRef<HTMLDivElement>(null);
@@ -17,53 +18,27 @@ export default function Editor() {
 
   const viewerViewRef = useRef<EditorView | null>(null);
 
+  const [isQuerySend, setIsQuerySend] = useState(false);
+
   const [userQuery, setUserQuery] = useState('');
+  const [userVars, setUserVars] = useState('');
+  const [userHeaders, setUserHeaders] = useState('');
 
-  const { query } = useAppSelector((state) => state.project.request);
+  const { request } = useAppSelector((state) => state.project);
 
+  const { query, variables, headers } = request;
   const { data, isError, error, isFetching } = useGetDataQuery(
-    { query },
+    { query, variables, headers },
     {
-      skip: query === ''
+      skip: !isQuerySend
     }
   );
 
   useEffect(() => {
-    const saveContent = EditorView.updateListener.of((content) => {
-      if (content.changes) {
-        setUserQuery(content.state.doc.toString());
-      }
-    });
-
-    const initialEditorState = EditorState.create({
-      doc: 'editor',
-      extensions: [
-        editorBasicSetup,
-        saveContent,
-        EditorView.editorAttributes.of({
-          class: 'editor_editable_cm'
-        })
-      ]
-    });
-
+    const saveContent = saveEditorContent(setUserQuery);
     const editorView = new EditorView({
-      state: initialEditorState,
+      state: initialEditorState(saveContent),
       parent: editorRef.current as HTMLDivElement
-    });
-
-    const initialViewerState = EditorState.create({
-      doc: 'read only',
-      extensions: [
-        viewerBasicSetup,
-        EditorView.editorAttributes.of({
-          class: 'editor_view_cm'
-        }),
-        EditorView.theme({
-          '&.cm-focused': {
-            outline: 'none'
-          }
-        })
-      ]
     });
 
     const viewerView = new EditorView({
@@ -101,10 +76,17 @@ export default function Editor() {
     }
   }, [data, error, isError]);
 
+  const requestData = {
+    userQuery: userQuery,
+    userVars: userVars,
+    userHeaders: userHeaders,
+    setIsQuerySend: setIsQuerySend
+  };
   return (
     <div className={classes.editor_wrapper}>
       <section ref={editorRef} className={classes.editor_editable}>
-        <EditorPanel userQuery={userQuery} />
+        <EditorPanel {...requestData} />
+        <EditorToolkit {...{ setUserVars, setUserHeaders }} />
       </section>
 
       <section ref={viewerRef} className={classes.editor_readonly}>

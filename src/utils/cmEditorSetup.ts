@@ -29,6 +29,7 @@ import {
 import { lintKeymap } from '@codemirror/lint';
 import { javascript } from '@codemirror/lang-javascript';
 import { union } from './theme';
+import { EditorView } from 'codemirror';
 
 export const editorBasicSetup: Extension = (() => [
   lineNumbers(),
@@ -63,3 +64,15 @@ export const editorBasicSetup: Extension = (() => [
     ...lintKeymap
   ])
 ])();
+
+export const initialEditorState = (ext: Extension, doc?: string) =>
+  EditorState.create({
+    doc: doc || '',
+    extensions: [
+      editorBasicSetup,
+      ext,
+      EditorView.editorAttributes.of({
+        class: 'editor_editable_cm'
+      })
+    ]
+  });

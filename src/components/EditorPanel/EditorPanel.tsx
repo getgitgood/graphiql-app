@@ -2,14 +2,19 @@ import { ChangeEvent, useState } from 'react';
 import { useSchemaQuery } from '../../features/apiSlice';
 import {
   updateUserEndpoint,
-  updateUserQuery
+  updateUserRequest
 } from '../../features/projectSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/appHooks';
 import { EditorPanelProps } from '../../types';
 import Loader from '../Loader/Loader';
 import classes from './EditorPanel.module.scss';
 
-export default function EditorPanel({ userQuery }: EditorPanelProps) {
+export default function EditorPanel({
+  userQuery,
+  userVars,
+  userHeaders,
+  setIsQuerySend
+}: EditorPanelProps) {
   const { userEndpoint } = useAppSelector((state) => state.project);
   const [endpoint, setEndpoint] = useState(userEndpoint);
   const dispatch = useAppDispatch();
@@ -27,7 +32,14 @@ export default function EditorPanel({ userQuery }: EditorPanelProps) {
   };
 
   const submitQuery = async () => {
-    dispatch(updateUserQuery(userQuery));
+    const request = {
+      query: userQuery,
+      variables: userVars || '',
+      headers: userHeaders || ''
+    };
+    dispatch(updateUserRequest(request));
+    console.log(userVars, userHeaders);
+    setIsQuerySend(true);
   };
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
