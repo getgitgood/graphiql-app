@@ -1,3 +1,5 @@
+import { RedirectProps } from '../types';
+
 function formatDisplayedName(email: string) {
   const slicedEmail = email.split('@');
   const [prefix, postfix] = slicedEmail as string[];
@@ -11,4 +13,14 @@ function formatDisplayedName(email: string) {
   return `${formattedPrefix}***@${postfix}`;
 }
 
-export { formatDisplayedName };
+function isRedirectionRequired({
+  isUserSignIn,
+  isReversedDirection
+}: RedirectProps) {
+  const value =
+    (isUserSignIn && !isReversedDirection) ||
+    (!isUserSignIn && isReversedDirection);
+  return value;
+}
+
+export { formatDisplayedName, isRedirectionRequired };

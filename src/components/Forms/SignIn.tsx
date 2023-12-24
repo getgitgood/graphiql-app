@@ -4,10 +4,16 @@ import { signInSchema } from '../../utils/ValidationSchemas';
 import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SignUpFormProps } from '../../types';
-import { auth, signInWithEmailAndPassword } from '../../services/firebaseAuth';
+import {
+  auth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword
+} from '../../services/firebaseAuth';
 import { useEffect, useState } from 'react';
 import { FirebaseError } from 'firebase/app';
 import { isUserInputAuthError } from '../../utils/authErrorMessages';
+import { updateUserStatus } from '../../features/projectSlice';
+import { useAppDispatch } from '../../hooks/appHooks';
 
 export default function SignIn({ switchFormHandler }: SignUpFormProps) {
   const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
@@ -33,6 +39,14 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
 
   const navigate = useNavigate();
 
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      dispatch(updateUserStatus(Boolean(user)));
+    });
+  }, [dispatch]);
+
   const isFormValid = () => {
     return isValid && !Boolean(firebaseErrors);
   };
@@ -43,6 +57,7 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setFirebaseErrors(null);
+
       navigate('/');
     } catch (e) {
       if (e instanceof FirebaseError) {

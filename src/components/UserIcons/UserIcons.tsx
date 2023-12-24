@@ -4,10 +4,14 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { auth } from '../../services/firebaseAuth';
 import { formatDisplayedName } from '../../utils/helpers';
+import { useAppDispatch } from '../../hooks/appHooks';
+import { updateUserStatus } from '../../features/projectSlice';
 
 export default function UserIcons() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState<string | null>(null);
+
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -26,6 +30,7 @@ export default function UserIcons() {
   const signOutButtonHandler = async () => {
     try {
       await auth.signOut();
+      dispatch(updateUserStatus(false));
       navigate('/');
     } catch (e) {
       // TODO: Add a proper user notification about logout issues
