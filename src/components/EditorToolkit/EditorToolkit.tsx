@@ -1,30 +1,23 @@
 import { EditorView } from 'codemirror';
 import { useEffect, useRef, useState } from 'react';
+import { useEditorContext } from '../../hooks/appHooks';
 import { initialEditorState } from '../../utils/cmEditorSetup';
 import { saveEditorContent } from '../../utils/helpers';
 import classes from './EditorToolkit.module.scss';
 
 export type EditorToolkitProps = {
-  setUserVars: (vars: string) => void;
+  setUserVariables: (vars: string) => void;
   setUserHeaders: (headers: string) => void;
 };
 
-export default function EditorToolkit({
-  setUserVars,
-  setUserHeaders
-}: EditorToolkitProps) {
+export default function EditorToolkit() {
+  const { setUserVariables, setUserHeaders } = useEditorContext();
   const varsRef = useRef<HTMLDivElement>(null);
   const headersRef = useRef<HTMLDivElement>(null);
 
   const [isVarsShown, setIsVarsShown] = useState(true);
-
   const [isHeadersShown, setIsHeadersShown] = useState(false);
-
   const [isExpanded, setIsExpanded] = useState(false);
-
-  const [currentVars, setCurrentVars] = useState('');
-
-  const [currentHeaders, setCurrentHeaders] = useState('');
 
   const toggleHeadersTool = () => {
     setIsExpanded(true);
@@ -43,16 +36,8 @@ export default function EditorToolkit({
   };
 
   useEffect(() => {
-    setUserVars(currentVars);
-  }, [setUserVars, currentVars]);
-
-  useEffect(() => {
-    setUserHeaders(currentHeaders);
-  }, [setUserHeaders, currentHeaders]);
-
-  useEffect(() => {
-    const saveVarsContent = saveEditorContent(setCurrentVars);
-    const saveHeadersContent = saveEditorContent(setCurrentHeaders);
+    const saveVarsContent = saveEditorContent(setUserVariables);
+    const saveHeadersContent = saveEditorContent(setUserHeaders);
 
     const varsInitialState = initialEditorState(saveVarsContent);
     const headersInitialState = initialEditorState(saveHeadersContent);
@@ -71,7 +56,7 @@ export default function EditorToolkit({
       varsView.destroy();
       headersView.destroy();
     };
-  }, [isVarsShown, isHeadersShown]);
+  }, [setUserVariables, setUserHeaders]);
 
   return (
     <div

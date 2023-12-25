@@ -1,10 +1,10 @@
 import { IntrospectionQuery } from 'graphql';
 
 export type ApiQueryRequest = {
-  [key: string]: string | undefined;
+  [key: string]: string | undefined | object;
   query: string;
-  headers: string;
-  variables: string;
+  userHeaders: object;
+  userVariables: object;
 };
 
 export type IntrospectionQueryData = {

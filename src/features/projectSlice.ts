@@ -6,8 +6,8 @@ interface ProjectState {
   userEndpoint: string;
   request: {
     query: string;
-    variables: string;
-    headers: string;
+    userVariables: object;
+    userHeaders: object;
   };
   sideMenuMode: SideMenuOptions;
   response: object;
@@ -26,8 +26,8 @@ export const initialState: ProjectState = {
   userEndpoint: 'rickandmortyapi.com/graphql/',
   request: {
     query: '',
-    variables: '',
-    headers: ''
+    userVariables: {},
+    userHeaders: {}
   },
   sideMenuMode: SideMenuOptions.Hidden,
   response: {},
@@ -50,8 +50,8 @@ const projectSlice = createSlice({
         payload
       }: PayloadAction<{
         query: string;
-        variables: string;
-        headers: string;
+        userVariables: object;
+        userHeaders: object;
       }>
     ) {
       state.request = payload;

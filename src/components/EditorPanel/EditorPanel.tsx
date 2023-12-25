@@ -4,17 +4,17 @@ import {
   updateUserEndpoint,
   updateUserRequest
 } from '../../features/projectSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks/appHooks';
-import { EditorPanelProps } from '../../types';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEditorContext
+} from '../../hooks/appHooks';
 import Loader from '../Loader/Loader';
 import classes from './EditorPanel.module.scss';
 
-export default function EditorPanel({
-  userQuery,
-  userVars,
-  userHeaders,
-  setIsQuerySend
-}: EditorPanelProps) {
+export default function EditorPanel() {
+  const { graphqlQuery, setParseError, setIsRequestCollecting } =
+    useEditorContext();
   const { userEndpoint } = useAppSelector((state) => state.project);
   const [endpoint, setEndpoint] = useState(userEndpoint);
   const dispatch = useAppDispatch();
@@ -31,14 +31,25 @@ export default function EditorPanel({
     }
   };
 
-  const submitQuery = async () => {
-    const request = {
-      query: userQuery,
-      variables: userVars,
-      headers: userHeaders
-    };
-    dispatch(updateUserRequest(request));
-    setIsQuerySend(true);
+  const submitQuery = () => {
+    const { query, variables, headers } = graphqlQuery;
+    try {
+      let userVariables = {};
+      let userHeaders = {};
+      if (variables.trim()) {
+        userVariables = JSON.parse(variables);
+      }
+      if (headers.trim()) {
+        userHeaders = JSON.parse(headers);
+      }
+      dispatch(updateUserRequest({ query, userVariables, userHeaders }));
+      setParseError(null);
+      setIsRequestCollecting(false);
+    } catch (e) {
+      if (e instanceof Error) {
+        setParseError(e);
+      }
+    }
   };
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

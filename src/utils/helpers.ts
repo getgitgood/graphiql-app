@@ -32,4 +32,14 @@ function saveEditorContent(callback: (data: string) => void) {
   });
 }
 
+export function codeMirrorDispatcher(cmInstance: EditorView, value: string) {
+  cmInstance.dispatch({
+    changes: {
+      from: 0,
+      to: cmInstance.state.doc.length,
+      insert: value
+    }
+  });
+}
+
 export { formatDisplayedName, isRedirectionRequired, saveEditorContent };
