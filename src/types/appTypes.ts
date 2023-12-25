@@ -6,6 +6,7 @@ export interface ErrorBoundaryState {
 }
 
 export type LanguageContextProps = {
+  translations: Record<keyof typeof LanguageEnum, Record<string, string>>;
   currentLanguage: LanguageEnum;
   changeLanguage: (value: keyof typeof LanguageEnum) => void;
   LanguageEnum: typeof LanguageEnum;

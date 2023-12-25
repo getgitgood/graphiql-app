@@ -1,18 +1,34 @@
+import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './Forms.module.scss';
 import { signInSchema } from '../../utils/ValidationSchemas';
+import { signInSchemaRu } from '../../utils/ValidationSchemasRu';
 import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { SignUpFormProps } from '../../types';
+import { LanguageEnum, SignUpFormProps } from '../../types';
 import { auth, signInWithEmailAndPassword } from '../../services/firebaseAuth';
-import { useEffect, useState } from 'react';
 import { FirebaseError } from 'firebase/app';
 import { isUserInputAuthError } from '../../utils/authErrorMessages';
+import { AppContext } from '../Context/Context';
 
 export default function SignIn({ switchFormHandler }: SignUpFormProps) {
   const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
     null
   );
+  const context = useContext(AppContext);
+  const validationSchema =
+    context.currentLanguage === LanguageEnum.RU ? signInSchemaRu : signInSchema;
+  const {
+    signIn,
+    email,
+    password,
+    enterYourEmail,
+    enterYourPassword,
+    signInButton,
+    dontHaveAccount,
+    registerHere,
+    noUserFound
+  } = context.translations[context.currentLanguage];
 
   const {
     register,
@@ -20,7 +36,7 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
     watch,
     formState: { errors, isValid }
   } = useForm({
-    resolver: yupResolver(signInSchema),
+    resolver: yupResolver(validationSchema),
     mode: 'onChange'
   });
 
@@ -60,13 +76,13 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-      <h2 className={classes.form_heading}>Sign In</h2>
+      <h2 className={classes.form_heading}>{signIn}</h2>
       <div className={classes.input_container}>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">{email}</label>
         <input
           id="email"
           {...register('email')}
-          placeholder="Enter your email"
+          placeholder={enterYourEmail}
           className={`${classes.input} ${
             (errors.email || isAuthError()) && classes.error_border
           }`}
@@ -76,11 +92,11 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
         )}
       </div>
       <div className={classes.input_container}>
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">{password}</label>
         <input
           id="password"
           type="password"
-          placeholder="Enter your password"
+          placeholder={enterYourPassword}
           {...register('password')}
           className={`${classes.input} ${
             (errors.password || isAuthError()) && classes.error_border
@@ -93,7 +109,7 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
           <p
             className={`${classes.error_message} ${classes.error_message_auth}`}
           >
-            {'No user was found with a provided data!'}
+            {noUserFound}
           </p>
         )}
       </div>
@@ -113,13 +129,13 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
         }`}
         disabled={!isFormValid()}
       >
-        Sign In
+        {signInButton}
       </button>
       <p className={classes.sign}>
-        Don`t have an account yet?
+        {dontHaveAccount}
         <span className={classes.sign_link} onClick={switchFormHandler}>
           {' '}
-          Register here!
+          {registerHere}
         </span>
       </p>
     </form>
