@@ -4,7 +4,9 @@ import {
   Route,
   RouterProvider
 } from 'react-router-dom';
+
 import AppContextProvider from './components/Context/Context';
+import EditorContextProvider from './components/EditorContext/EditorContext';
 
 import WelcomePage from './layouts/WelcomePage/WelcomePage';
 import Main from './layouts/Main/Main';
@@ -21,14 +23,23 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Main />} path="/">
       <Route index element={<WelcomePage />} path="/" />
-      <Route element={<Graphiql />} path="/graphiql" />
       <Route
         element={
-          <PrivateRoute>
+          <PrivateRoute redirectTo="/">
             <Auth />
           </PrivateRoute>
         }
         path="/auth"
+      />
+      <Route
+        element={
+          <PrivateRoute redirectTo="/" isReversedDirection={true}>
+            <EditorContextProvider>
+              <Graphiql />
+            </EditorContextProvider>
+          </PrivateRoute>
+        }
+        path="/graphiql"
       />
     </Route>
   )

@@ -1,3 +1,6 @@
+import { EditorView } from 'codemirror';
+import { RedirectProps } from '../types';
+
 function formatDisplayedName(email: string) {
   const slicedEmail = email.split('@');
   const [prefix, postfix] = slicedEmail as string[];
@@ -11,4 +14,32 @@ function formatDisplayedName(email: string) {
   return `${formattedPrefix}***@${postfix}`;
 }
 
-export { formatDisplayedName };
+function isRedirectionRequired({
+  isUserSignIn,
+  isReversedDirection
+}: RedirectProps) {
+  const value =
+    (isUserSignIn && !isReversedDirection) ||
+    (!isUserSignIn && isReversedDirection);
+  return value;
+}
+
+function saveEditorContent(callback: (data: string) => void) {
+  return EditorView.updateListener.of((content) => {
+    if (content.changes) {
+      callback(content.state.doc.toString());
+    }
+  });
+}
+
+export function codeMirrorDispatcher(cmInstance: EditorView, value: string) {
+  cmInstance.dispatch({
+    changes: {
+      from: 0,
+      to: cmInstance.state.doc.length,
+      insert: value
+    }
+  });
+}
+
+export { formatDisplayedName, isRedirectionRequired, saveEditorContent };

@@ -61,3 +61,21 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+::-webkit-scrollbar {
+  width: 0.25em;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  transition: background-color 1s ease;
+}
+
+:hover::-webkit-scrollbar-thumb {
+  background-color: gray;
+  cursor: pointer;
+}

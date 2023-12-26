@@ -6,13 +6,14 @@ import type {
 } from '@reduxjs/toolkit/query/react';
 
 import { RootState } from '../store';
-import { getIntrospectionQuery, IntrospectionQuery } from 'graphql';
+import { getIntrospectionQuery } from 'graphql';
+import {
+  ApiQueryRequest,
+  IntrospectionQueryData,
+  ResponseQueryData
+} from '../types';
 
 const IntrospectionQuery = getIntrospectionQuery;
-
-export type IntrospectionQueryData = {
-  data: IntrospectionQuery;
-};
 
 const dynamicBaseQuery: BaseQueryFn<
   string | FetchArgs,
@@ -39,17 +40,15 @@ export const api = createApi({
   reducerPath: 'graphqlApi',
   baseQuery: dynamicBaseQuery,
   endpoints: (builder) => ({
-    // TODO: TYPE A PASSED PARAMETERS AND RETURN TYPE BELOW
-    getData: builder.query({
-      query: (graphqlQuery) => ({
+    getData: builder.query<ResponseQueryData, ApiQueryRequest>({
+      query: ({ query, userHeaders, userVariables }) => ({
         url: '',
         body: {
-          query: graphqlQuery
+          query: query,
+          variables: userVariables
         },
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: userHeaders as Headers
       })
     }),
 

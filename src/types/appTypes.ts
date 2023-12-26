@@ -30,3 +30,30 @@ export enum SideMenuOptions {
   History = 'History',
   Hidden = ''
 }
+
+export type RedirectProps = {
+  isUserSignIn: boolean;
+  isReversedDirection: boolean;
+};
+
+export type graphqlQuery = {
+  query: string;
+  variables: string;
+  headers: string;
+};
+
+export type EditorPanelProps = {
+  graphqlQuery: graphqlQuery;
+  setIsRequestReady: (value: boolean) => void;
+};
+
+export type PrivateRouteProps = {
+  children: ReactNode;
+  redirectTo: string;
+  isReversedDirection?: boolean;
+};
+
+export type EditorProps = {
+  setUserQuery: (value: string) => void;
+  children: ReactNode;
+};

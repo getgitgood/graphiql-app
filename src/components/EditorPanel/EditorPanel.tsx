@@ -2,17 +2,19 @@ import { ChangeEvent, useState } from 'react';
 import { useSchemaQuery } from '../../features/apiSlice';
 import {
   updateUserEndpoint,
-  updateUserQuery
+  updateUserRequest
 } from '../../features/projectSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks/appHooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEditorContext
+} from '../../hooks/appHooks';
 import Loader from '../Loader/Loader';
 import classes from './EditorPanel.module.scss';
 
-export type EditorPanelProps = {
-  userQuery: string;
-};
-
-export default function EditorPanel({ userQuery }: EditorPanelProps) {
+export default function EditorPanel() {
+  const { graphqlQuery, setParseError, setIsRequestCollecting } =
+    useEditorContext();
   const { userEndpoint } = useAppSelector((state) => state.project);
   const [endpoint, setEndpoint] = useState(userEndpoint);
   const dispatch = useAppDispatch();
@@ -29,8 +31,25 @@ export default function EditorPanel({ userQuery }: EditorPanelProps) {
     }
   };
 
-  const submitQuery = async () => {
-    dispatch(updateUserQuery(userQuery));
+  const submitQuery = () => {
+    const { query, variables, headers } = graphqlQuery;
+    try {
+      let userVariables = {};
+      let userHeaders = {};
+      if (variables.trim()) {
+        userVariables = JSON.parse(variables);
+      }
+      if (headers.trim()) {
+        userHeaders = JSON.parse(headers);
+      }
+      dispatch(updateUserRequest({ query, userVariables, userHeaders }));
+      setParseError(null);
+      setIsRequestCollecting(false);
+    } catch (e) {
+      if (e instanceof Error) {
+        setParseError(e);
+      }
+    }
   };
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

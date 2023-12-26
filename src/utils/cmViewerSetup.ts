@@ -23,6 +23,7 @@ import {
 import { lintKeymap } from '@codemirror/lint';
 import { json } from '@codemirror/lang-json';
 import { union } from './theme';
+import { EditorView } from 'codemirror';
 
 export const viewerBasicSetup: Extension = (() => [
   highlightSpecialChars(),
@@ -52,3 +53,18 @@ export const viewerBasicSetup: Extension = (() => [
     ...lintKeymap
   ])
 ])();
+
+export const initialViewerState = EditorState.create({
+  doc: 'read only',
+  extensions: [
+    viewerBasicSetup,
+    EditorView.editorAttributes.of({
+      class: 'editor_view_cm'
+    }),
+    EditorView.theme({
+      '&.cm-focused': {
+        outline: 'none'
+      }
+    })
+  ]
+});
