@@ -6,8 +6,8 @@ interface ProjectState {
   userEndpoint: string;
   request: {
     query: string;
-    variables: string;
-    headers: string;
+    userVariables: object;
+    userHeaders: object;
   };
   sideMenuMode: SideMenuOptions;
   response: object;
@@ -26,8 +26,8 @@ export const initialState: ProjectState = {
   userEndpoint: 'rickandmortyapi.com/graphql/',
   request: {
     query: '',
-    variables: '',
-    headers: ''
+    userVariables: {},
+    userHeaders: {}
   },
   sideMenuMode: SideMenuOptions.Hidden,
   response: {},
@@ -44,14 +44,17 @@ const projectSlice = createSlice({
     updateUserEndpoint(state, { payload }: PayloadAction<string>) {
       state.userEndpoint = payload;
     },
-    updateUserQuery(state, { payload }: PayloadAction<string>) {
-      state.request.query = payload;
-    },
-    updateUserVars(state, { payload }: PayloadAction<string>) {
-      state.request.variables = payload;
-    },
-    updateUserHeaders(state, { payload }: PayloadAction<string>) {
-      state.request.headers = payload;
+    updateUserRequest(
+      state,
+      {
+        payload
+      }: PayloadAction<{
+        query: string;
+        userVariables: object;
+        userHeaders: object;
+      }>
+    ) {
+      state.request = payload;
     },
     updateUserStatus(state, { payload }: PayloadAction<boolean>) {
       state.isUserSignIn = payload;
@@ -66,9 +69,7 @@ const projectSlice = createSlice({
 
 export const {
   updateUserEndpoint,
-  updateUserQuery,
-  updateUserVars,
-  updateUserHeaders,
+  updateUserRequest,
   toggleSideMenu,
   updateUserStatus
 } = projectSlice.actions;

@@ -4,7 +4,9 @@ import {
   Route,
   RouterProvider
 } from 'react-router-dom';
+
 import AppContextProvider from './components/Context/Context';
+import EditorContextProvider from './components/EditorContext/EditorContext';
 
 import WelcomePage from './layouts/WelcomePage/WelcomePage';
 import Main from './layouts/Main/Main';
@@ -32,7 +34,9 @@ const router = createBrowserRouter(
       <Route
         element={
           <PrivateRoute redirectTo="/" isReversedDirection={true}>
-            <Graphiql />
+            <EditorContextProvider>
+              <Graphiql />
+            </EditorContextProvider>
           </PrivateRoute>
         }
         path="/graphiql"

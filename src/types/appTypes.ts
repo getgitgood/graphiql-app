@@ -35,12 +35,24 @@ export type RedirectProps = {
   isReversedDirection: boolean;
 };
 
+export type graphqlQuery = {
+  query: string;
+  variables: string;
+  headers: string;
+};
+
 export type EditorPanelProps = {
-  userQuery: string;
+  graphqlQuery: graphqlQuery;
+  setIsRequestReady: (value: boolean) => void;
 };
 
 export type PrivateRouteProps = {
   children: ReactNode;
   redirectTo: string;
   isReversedDirection?: boolean;
+};
+
+export type EditorProps = {
+  setUserQuery: (value: string) => void;
+  children: ReactNode;
 };
