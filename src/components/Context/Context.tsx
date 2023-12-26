@@ -15,6 +15,12 @@ export const defaultValue: LanguageContextProps = {
   translations: translations
 };
 
+export const defaultValue: LanguageContextProps = {
+  currentLanguage: LanguageEnum.EN,
+  changeLanguage: (value: keyof typeof LanguageEnum) => value,
+  LanguageEnum,
+  translations: translations
+};
 export const AppContext = createContext<LanguageContextProps>(defaultValue);
 
 export default function AppContextProvider({ children }: ContextProps) {
