@@ -7,12 +7,13 @@ import { AppContext } from '../Context/Context';
 
 export default function Navigation() {
   const context = useContext(AppContext);
-  const { welcomeHeader } = context.translations[context.currentLanguage];
+  const { welcomeHeader, mainPage } =
+    context.translations[context.currentLanguage];
   const { isUserSignIn } = useAppSelector((state) => state.project);
 
   const currentLinkAppearance = () => {
     const link = isUserSignIn ? '/graphiql' : '/';
-    const title = isUserSignIn ? 'GraphiQL Sandbox' : 'Welcome';
+    const title = isUserSignIn ? mainPage : welcomeHeader;
     return (
       <NavLink className={classes.nav_link} to={link}>
         {title}
@@ -23,9 +24,6 @@ export default function Navigation() {
   return (
     <nav className={classes.container}>
       <NavLink className={`${classes.nav_link} ${classes.logo_link}`} to="/" />
-      <NavLink className={classes.nav_link} to="/">
-        {welcomeHeader}
-      </NavLink>
       {currentLinkAppearance()}
       <UserPanel />
     </nav>
