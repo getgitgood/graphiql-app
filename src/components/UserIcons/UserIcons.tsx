@@ -18,6 +18,7 @@ export default function UserIcons() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        dispatch(updateUserStatus(true));
         setIsUserLoggedIn(true);
         setCurrentUser(user.email);
       } else {

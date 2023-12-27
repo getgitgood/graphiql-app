@@ -14,6 +14,7 @@ import {
 } from '../../utils/authErrorMessages';
 import { AppContext } from '../Context/Context';
 import { signUpSchemaRu } from '../../utils/ValidationSchemasRu';
+import { useLanguageContext } from '../../hooks/appHooks';
 
 export default function SignUp({ switchFormHandler }: SignUpFormProps) {
   const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
@@ -33,7 +34,7 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
     signInButton,
     signUpButton,
     alreadyHaveAccount
-  } = context.translations[context.currentLanguage];
+  } = useLanguageContext();
   const {
     register,
     handleSubmit,

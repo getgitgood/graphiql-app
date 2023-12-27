@@ -12,14 +12,12 @@
   .language_selector {
     transition: all ease 0.3s;
     padding: 0.1rem 0.2rem;
-    font-size: 0.9rem;
 
     &.lang_active {
       background-color: $secondary-color;
       border-radius: 5px;
       box-shadow: inset 0 0 2px 2px rgba($color: #000000, $alpha: 0.6);
       pointer-events: none;
-      font-size: 1.01rem;
     }
 
     &:not(.lang_active):hover {

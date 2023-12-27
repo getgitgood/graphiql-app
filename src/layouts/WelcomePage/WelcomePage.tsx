@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import classes from './WelcomePage.module.scss';
-import { AppContext } from '../../components/Context/Context';
+import { useLanguageContext } from '../../hooks/appHooks';
 
 const WelcomePage: React.FC = () => {
-  const context = useContext(AppContext);
   const {
     aboutProject,
     aboutDevelopers,
@@ -11,7 +10,7 @@ const WelcomePage: React.FC = () => {
     textProject,
     textCourse,
     textDevelopers
-  } = context.translations[context.currentLanguage];
+  } = useLanguageContext();
 
   return (
     <section className={classes.about}>

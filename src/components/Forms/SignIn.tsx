@@ -10,6 +10,7 @@ import { auth, signInWithEmailAndPassword } from '../../services/firebaseAuth';
 import { FirebaseError } from 'firebase/app';
 import { isUserInputAuthError } from '../../utils/authErrorMessages';
 import { AppContext } from '../Context/Context';
+import { useLanguageContext } from '../../hooks/appHooks';
 
 export default function SignIn({ switchFormHandler }: SignUpFormProps) {
   const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
@@ -28,7 +29,7 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
     dontHaveAccount,
     registerHere,
     noUserFound
-  } = context.translations[context.currentLanguage];
+  } = useLanguageContext();
 
   const {
     register,
@@ -141,5 +142,3 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
     </form>
   );
 }
-
- 

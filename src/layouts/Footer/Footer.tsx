@@ -10,7 +10,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="src/assets/img/rs_school.png" alt="Course Logo" />
+            <img src="/src/assets/img/rs_school.png" alt="Course Logo" />
           </a>
         </div>
         <div className={classes.github_wrapper}>
