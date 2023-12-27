@@ -42,4 +42,16 @@ export function codeMirrorDispatcher(cmInstance: EditorView, value: string) {
   });
 }
 
+export function formatEndpointLink(value: string) {
+  let url = 'not connected';
+  try {
+    const { hostname } = new URL(value);
+    url = hostname;
+  } catch {
+    return false;
+  } finally {
+    return url;
+  }
+}
+
 export { formatDisplayedName, isRedirectionRequired, saveEditorContent };

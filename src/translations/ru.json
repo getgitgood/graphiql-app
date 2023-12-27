@@ -34,5 +34,12 @@
   "button404": "Домой",
 
   "titleError": "ПРОИЗОШЛА НЕИЗВЕСТНАЯ ОШИБКА",
-  "textError": "Пожалуйста, вернитесь на главную страницу."
+  "textError": "Пожалуйста, вернитесь на главную страницу.",
+
+  "switchEndpointPlaceholder": "Новый graphql адрес",
+  "switchEndpointButton": "Сменить",
+  "serverStatusOK": "Подключен",
+  "serverStatusError": "Cервер не отвечает",
+  "connectingInfo": "соединение...",
+  "disconnectedInfo": "отключен"
 }
