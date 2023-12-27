@@ -1,4 +1,5 @@
 import { EditorView } from 'codemirror';
+import { toast } from 'react-toastify';
 import { RedirectProps } from '../types';
 
 function formatDisplayedName(email: string) {
@@ -52,6 +53,22 @@ export function formatEndpointLink(value: string) {
   } finally {
     return url;
   }
+}
+
+export function emitNotification(
+  type: 'success' | 'warn' | 'error',
+  message: string
+) {
+  return toast[type](message, {
+    position: 'top-right',
+    autoClose: 2500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'dark'
+  });
 }
 
 export { formatDisplayedName, isRedirectionRequired, saveEditorContent };

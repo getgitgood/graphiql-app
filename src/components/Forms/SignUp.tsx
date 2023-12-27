@@ -15,11 +15,15 @@ import {
 import { AppContext } from '../Context/Context';
 import { signUpSchemaRu } from '../../utils/ValidationSchemasRu';
 import { useLanguageContext } from '../../hooks/appHooks';
+import Loader from '../Loader/Loader';
+import { emitNotification } from '../../utils/helpers';
 
 export default function SignUp() {
   const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState(false);
+
   const context = useContext(AppContext);
   const validationSchema =
     context.currentLanguage === LanguageEnum.RU ? signUpSchemaRu : signUpSchema;
@@ -33,7 +37,9 @@ export default function SignUp() {
     confirmYourPassword,
     signInButton,
     signUpButton,
-    alreadyHaveAccount
+    alreadyHaveAccount,
+    toastSuccessSignUp,
+    toastErrorSignUp
   } = useLanguageContext();
   const {
     register,
@@ -66,17 +72,26 @@ export default function SignUp() {
 
   const onSubmit = async (fieldValues: FieldValues) => {
     const { email, password } = fieldValues;
-
     try {
+      setIsLoading(true);
       await createUserWithEmailAndPassword(auth, email, password);
       setFirebaseErrors(null);
+      emitNotification('success', toastSuccessSignUp);
       navigate('/');
     } catch (e) {
       if (e instanceof FirebaseError) {
         setFirebaseErrors(e);
+      } else {
+        emitNotification('error', toastErrorSignUp);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>

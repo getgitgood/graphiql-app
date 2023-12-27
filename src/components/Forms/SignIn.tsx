@@ -11,11 +11,15 @@ import { FirebaseError } from 'firebase/app';
 import { isUserInputAuthError } from '../../utils/authErrorMessages';
 import { AppContext } from '../Context/Context';
 import { useLanguageContext } from '../../hooks/appHooks';
+import Loader from '../Loader/Loader';
+import { emitNotification } from '../../utils/helpers';
 
 export default function SignIn() {
   const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState(false);
+
   const context = useContext(AppContext);
   const validationSchema =
     context.currentLanguage === LanguageEnum.RU ? signInSchemaRu : signInSchema;
@@ -28,7 +32,9 @@ export default function SignIn() {
     signInButton,
     dontHaveAccount,
     registerHere,
-    noUserFound
+    noUserFound,
+    toastSuccessSignIn,
+    toastSuccessLogout
   } = useLanguageContext();
 
   const {
@@ -58,13 +64,19 @@ export default function SignIn() {
     const { email, password } = fieldValues;
 
     try {
+      setIsLoading(true);
       await signInWithEmailAndPassword(auth, email, password);
       setFirebaseErrors(null);
       navigate('/');
+      emitNotification('success', toastSuccessSignIn);
     } catch (e) {
       if (e instanceof FirebaseError) {
         setFirebaseErrors(e);
+      } else {
+        emitNotification('error', toastSuccessLogout);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -74,6 +86,10 @@ export default function SignIn() {
     }
     return false;
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>

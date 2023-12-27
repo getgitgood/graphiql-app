@@ -3,6 +3,20 @@
   box-sizing: border-box;
 }
 
+:root {
+  --toastify-color-success: #e535ab;
+  --toastify-color-warning: #f1c40f;
+  --toastify-color-error: #e74c3c;  
+  --toastify-color-light: #fff;
+  --toastify-color-dark: #2e3445;
+  --toastify-font-family: 'Roboto Slab', serif;
+  --toastify-color-info: #dbcd34;
+  --toastify-color-transparent: rgba(255, 255, 255, 0.7);
+}
+
+.Toastify {
+  font-size: 0.8em;
+}
 html {
   height: 100%;
   font-family: $font;
@@ -79,3 +93,4 @@ button:focus-visible {
   background-color: gray;
   cursor: pointer;
 }
+// ---- toastify

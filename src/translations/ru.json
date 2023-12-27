@@ -41,5 +41,11 @@
   "serverStatusOK": "Подключен",
   "serverStatusError": "Cервер не отвечает",
   "connectingInfo": "соединение...",
-  "disconnectedInfo": "отключен"
+  "disconnectedInfo": "отключен",
+
+  "toastSuccessSignUp": "Успешно! Наслаждайтесь нашим редактором!",
+
+  "toastSuccessSignIn": "С возвращением, мы скучали!",
+  "toastSuccessLogout": "Вы вышли из аккаунта.",
+  "toastErrorLogout": "Ошибка при выходе из аккаунта!"
 }
