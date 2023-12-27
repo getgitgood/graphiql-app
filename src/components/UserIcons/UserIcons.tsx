@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import classes from './UserIcons.module.scss';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
@@ -56,13 +56,13 @@ export default function UserIcons() {
         </>
       ) : (
         <>
-          <Link
+          <NavLink
             className={`${classes.user_icon} ${classes.icon_signin}`}
             aria-label="sign in button"
             to={'/auth'}
             state={{ formType: 'signin' }}
           />
-          <Link
+          <NavLink
             className={`${classes.user_icon} ${classes.icon_signup}`}
             aria-label="sign up button"
             to={'/auth'}
