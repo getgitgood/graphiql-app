@@ -23,7 +23,7 @@ export const getUserAuthStatus = createAsyncThunk(
 );
 
 export const initialState: ProjectState = {
-  userEndpoint: 'rickandmortyapi.com/graphql/',
+  userEndpoint: 'https://rickandmortyapi.com/graphql/',
   request: {
     query: '',
     userVariables: {},

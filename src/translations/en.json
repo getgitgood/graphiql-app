@@ -34,5 +34,12 @@
   "button404": "Back Home",
 
   "titleError": "AN UNKNOWN ERROR HAS OCCURRED",
-  "textError": "Please, proceed to the main page."
+  "textError": "Please, proceed to the main page.",
+
+  "switchEndpointPlaceholder": "New graphql endpoint",
+  "switchEndpointButton": "Change",
+  "serverStatusOK": "Connected",
+  "serverStatusError": "Server doesn't responds",
+  "connectingInfo": "connecting...",
+  "disconnectedInfo": "disconnected"
 }

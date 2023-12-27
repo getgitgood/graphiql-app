@@ -30,7 +30,7 @@ const dynamicBaseQuery: BaseQueryFn<
   }
 
   const baseQueryWithDynamicUrl = fetchBaseQuery({
-    baseUrl: `https://${userEndpoint}`
+    baseUrl: `${userEndpoint}`
   });
 
   return baseQueryWithDynamicUrl(args, api, extraOptions);

@@ -12,7 +12,7 @@ html {
 body {
   height: 100%;
   color: $font-color;
-  background-color: #242424;
+  background-color: $body-background;
 }
 
 #root {
@@ -32,7 +32,7 @@ section {
 }
 
 footer {
-  background-color: #333;
+  background-color: $body-background;
   color: #fff;
   padding: 1.5rem 0;
 }
@@ -46,8 +46,9 @@ button {
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-weight: 500;
+  color: $font-color;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: $secondary-color-dim;
   cursor: pointer;
   transition: border-color 0.25s;
 }
