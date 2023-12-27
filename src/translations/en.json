@@ -41,5 +41,10 @@
   "serverStatusOK": "Connected",
   "serverStatusError": "Server doesn't responds",
   "connectingInfo": "connecting...",
-  "disconnectedInfo": "disconnected"
+  "disconnectedInfo": "disconnected",
+
+  "toastSuccessSignUp": "Success! Now you can enjoy our Playground!",
+  "toastSuccessSignIn": "Welcome back, we missed you!",
+  "toastSuccessLogout": "Successful log out.",
+  "toastErrorLogout": "Error on account log out!"
 }

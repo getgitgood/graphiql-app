@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classes from './Forms.module.scss';
 import { signUpSchema } from '../../utils/ValidationSchemas';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, useForm } from 'react-hook-form';
-import { LanguageEnum, SignUpFormProps } from '../../types';
+import { LanguageEnum } from '../../types';
 import { useContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../services/firebaseAuth';
@@ -15,11 +15,15 @@ import {
 import { AppContext } from '../Context/Context';
 import { signUpSchemaRu } from '../../utils/ValidationSchemasRu';
 import { useLanguageContext } from '../../hooks/appHooks';
+import Loader from '../Loader/Loader';
+import { emitNotification } from '../../utils/helpers';
 
-export default function SignUp({ switchFormHandler }: SignUpFormProps) {
+export default function SignUp() {
   const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState(false);
+
   const context = useContext(AppContext);
   const validationSchema =
     context.currentLanguage === LanguageEnum.RU ? signUpSchemaRu : signUpSchema;
@@ -33,7 +37,9 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
     confirmYourPassword,
     signInButton,
     signUpButton,
-    alreadyHaveAccount
+    alreadyHaveAccount,
+    toastSuccessSignUp,
+    toastErrorSignUp
   } = useLanguageContext();
   const {
     register,
@@ -66,17 +72,26 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
 
   const onSubmit = async (fieldValues: FieldValues) => {
     const { email, password } = fieldValues;
-
     try {
+      setIsLoading(true);
       await createUserWithEmailAndPassword(auth, email, password);
       setFirebaseErrors(null);
+      emitNotification('success', toastSuccessSignUp);
       navigate('/');
     } catch (e) {
       if (e instanceof FirebaseError) {
         setFirebaseErrors(e);
+      } else {
+        emitNotification('error', toastErrorSignUp);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
@@ -151,10 +166,14 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
       </button>
       <p className={classes.sign}>
         {alreadyHaveAccount}
-        <span className={classes.sign_link} onClick={switchFormHandler}>
+        <Link
+          className={classes.sign_link}
+          to={'/auth'}
+          state={{ formType: 'signin' }}
+        >
           {' '}
           {signInButton}
-        </span>
+        </Link>
       </p>
     </form>
   );

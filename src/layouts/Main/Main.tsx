@@ -5,6 +5,7 @@ import { getUserAuthStatus } from '../../features/projectSlice';
 import { useAppDispatch } from '../../hooks/appHooks';
 import { Suspense, useEffect } from 'react';
 import Loader from '../../components/Loader/Loader';
+import { ToastContainer } from 'react-toastify';
 
 export default function Main() {
   const dispatch = useAppDispatch();
@@ -18,6 +19,7 @@ export default function Main() {
       <Header />
       <main className="main">
         <Suspense fallback={<Loader />}>
+          <ToastContainer />
           <Outlet />
         </Suspense>
       </main>
