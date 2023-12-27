@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classes from './Forms.module.scss';
 import { signUpSchema } from '../../utils/ValidationSchemas';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, useForm } from 'react-hook-form';
-import { LanguageEnum, SignUpFormProps } from '../../types';
+import { LanguageEnum } from '../../types';
 import { useContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../services/firebaseAuth';
@@ -16,7 +16,7 @@ import { AppContext } from '../Context/Context';
 import { signUpSchemaRu } from '../../utils/ValidationSchemasRu';
 import { useLanguageContext } from '../../hooks/appHooks';
 
-export default function SignUp({ switchFormHandler }: SignUpFormProps) {
+export default function SignUp() {
   const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
     null
   );
@@ -151,10 +151,14 @@ export default function SignUp({ switchFormHandler }: SignUpFormProps) {
       </button>
       <p className={classes.sign}>
         {alreadyHaveAccount}
-        <span className={classes.sign_link} onClick={switchFormHandler}>
+        <Link
+          className={classes.sign_link}
+          to={'/auth'}
+          state={{ formType: 'signin' }}
+        >
           {' '}
           {signInButton}
-        </span>
+        </Link>
       </p>
     </form>
   );

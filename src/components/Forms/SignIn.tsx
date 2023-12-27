@@ -1,18 +1,18 @@
 import { useEffect, useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classes from './Forms.module.scss';
 import { signInSchema } from '../../utils/ValidationSchemas';
 import { signInSchemaRu } from '../../utils/ValidationSchemasRu';
 import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { LanguageEnum, SignUpFormProps } from '../../types';
+import { LanguageEnum } from '../../types';
 import { auth, signInWithEmailAndPassword } from '../../services/firebaseAuth';
 import { FirebaseError } from 'firebase/app';
 import { isUserInputAuthError } from '../../utils/authErrorMessages';
 import { AppContext } from '../Context/Context';
 import { useLanguageContext } from '../../hooks/appHooks';
 
-export default function SignIn({ switchFormHandler }: SignUpFormProps) {
+export default function SignIn() {
   const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
     null
   );
@@ -134,10 +134,14 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
       </button>
       <p className={classes.sign}>
         {dontHaveAccount}
-        <span className={classes.sign_link} onClick={switchFormHandler}>
+        <Link
+          className={classes.sign_link}
+          to={'/auth'}
+          state={{ formType: 'signup' }}
+        >
           {' '}
           {registerHere}
-        </span>
+        </Link>
       </p>
     </form>
   );
