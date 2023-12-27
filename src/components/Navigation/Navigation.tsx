@@ -1,20 +1,15 @@
 import { NavLink } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/appHooks';
+import { useAppSelector, useLanguageContext } from '../../hooks/appHooks';
 import UserPanel from '../../layouts/UserPanel/UserPanel';
 import classes from './Navigation.module.scss';
-import { useContext } from 'react';
-import { AppContext } from '../Context/Context';
 
 export default function Navigation() {
-  const context = useContext(AppContext);
-  const { welcomeHeader, mainPage } =
-    context.translations[context.currentLanguage];
+  const { welcomeHeader, mainPage } = useLanguageContext();
   const { isUserSignIn } = useAppSelector((state) => state.project);
 
   const currentLinkAppearance = () => {
     const link = isUserSignIn ? '/graphiql' : '/';
     const title = isUserSignIn ? mainPage : welcomeHeader;
-    console.log(link, title, isUserSignIn);
     return (
       <NavLink className={classes.nav_link} to={link}>
         {title}
