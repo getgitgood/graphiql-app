@@ -14,6 +14,7 @@ export default function Navigation() {
   const currentLinkAppearance = () => {
     const link = isUserSignIn ? '/graphiql' : '/';
     const title = isUserSignIn ? mainPage : welcomeHeader;
+    console.log(link, title, isUserSignIn);
     return (
       <NavLink className={classes.nav_link} to={link}>
         {title}

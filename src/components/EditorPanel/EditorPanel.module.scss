@@ -27,7 +27,6 @@
       background: $additional-color;
       color: $font-color;
       min-width: max-content;
-      font-size: 0.7rem;
 
       border-radius: 10px;
       &:focus {
@@ -37,7 +36,6 @@
     }
     &::before {
       content: 'https://';
-      font-size: 0.7rem;
     }
 
     [data-testid='loader'] {
@@ -103,10 +101,6 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-  }
-
-  .panel_current_url {
-    font-size: 0.8rem;
   }
 
   .panel_form {
