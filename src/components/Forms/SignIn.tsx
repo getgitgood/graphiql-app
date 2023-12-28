@@ -13,6 +13,7 @@ import { AppContext } from '../Context/Context';
 import { useLanguageContext } from '../../hooks/appHooks';
 import Loader from '../Loader/Loader';
 import { emitNotification } from '../../utils/helpers';
+import { signInSchemaKz } from '../../utils/ValidationSchemasKz';
 
 export default function SignIn() {
   const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
@@ -22,7 +23,13 @@ export default function SignIn() {
 
   const context = useContext(AppContext);
   const validationSchema =
-    context.currentLanguage === LanguageEnum.RU ? signInSchemaRu : signInSchema;
+    context.currentLanguage === LanguageEnum.RU
+      ? signInSchemaRu
+      : context.currentLanguage === LanguageEnum.EN
+        ? signInSchema
+        : context.currentLanguage === LanguageEnum.KZ
+          ? signInSchemaKz
+          : signInSchema;
   const {
     signIn,
     email,

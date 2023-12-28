@@ -1,10 +1,12 @@
 import { buildClientSchema } from 'graphql';
 import classes from './Documentation.module.scss';
 import { useSchemaQuery } from '../../features/apiSlice';
-import { useAppSelector } from '../../hooks/appHooks';
+import { useAppSelector, useLanguageContext } from '../../hooks/appHooks';
 import { useState } from 'react';
 
 export default function Documentation() {
+  const { docs, query, type, argumentsTitle, backButton } =
+    useLanguageContext();
   const { userEndpoint } = useAppSelector((state) => state.project);
 
   const [selectedType, setSelectedType] = useState<string | null>(null);
@@ -30,25 +32,25 @@ export default function Documentation() {
 
   return (
     <div className={classes.documentation}>
-      <h2 className={classes.documentation_title}>Docs</h2>
-      <h3 className={classes.documentation_query}>Query</h3>
+      <h2 className={classes.documentation_title}>{docs}</h2>
+      <h3 className={classes.documentation_query}>{query}</h3>
       {selectedType ? (
         <>
           <button
             className={classes.documentation_button_back}
             onClick={() => setSelectedType(null)}
           >
-            Back
+            {backButton}
           </button>
           <h3 className={classes.documentation_selectedtype}>{selectedType}</h3>
           <p className={classes.documentation_type_description}>
             {fields[selectedType].description}
           </p>
-          <h4 className={classes.documentation_selectedtype}>Type</h4>
+          <h4 className={classes.documentation_selectedtype}>{type}</h4>
           <p className={classes.documentation_type_description}>
             {fields[selectedType].type.toString()}
           </p>
-          <h4 className={classes.documentation_arguments}>Arguments</h4>
+          <h4 className={classes.documentation_arguments}>{argumentsTitle}</h4>
           <ul className={classes.documentation_arguments_list}>
             {fields[selectedType].args.map((arg) => (
               <li

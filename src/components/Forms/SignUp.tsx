@@ -17,6 +17,7 @@ import { signUpSchemaRu } from '../../utils/ValidationSchemasRu';
 import { useLanguageContext } from '../../hooks/appHooks';
 import Loader from '../Loader/Loader';
 import { emitNotification } from '../../utils/helpers';
+import { signUpSchemaKz } from '../../utils/ValidationSchemasKz';
 
 export default function SignUp() {
   const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
@@ -26,7 +27,13 @@ export default function SignUp() {
 
   const context = useContext(AppContext);
   const validationSchema =
-    context.currentLanguage === LanguageEnum.RU ? signUpSchemaRu : signUpSchema;
+    context.currentLanguage === LanguageEnum.RU
+      ? signUpSchemaRu
+      : context.currentLanguage === LanguageEnum.EN
+        ? signUpSchema
+        : context.currentLanguage === LanguageEnum.KZ
+          ? signUpSchemaKz
+          : signUpSchema;
   const {
     signUp,
     email,
@@ -171,8 +178,14 @@ export default function SignUp() {
           to={'/auth'}
           state={{ formType: 'signin' }}
         >
-          {' '}
-          {signInButton}
+          <Link
+            className={classes.sign_link}
+            to={'/auth'}
+            state={{ formType: 'signin' }}
+          >
+            {' '}
+            {signInButton}
+          </Link>
         </Link>
       </p>
     </form>

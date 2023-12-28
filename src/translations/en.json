@@ -46,5 +46,11 @@
   "toastSuccessSignUp": "Success! Now you can enjoy our Playground!",
   "toastSuccessSignIn": "Welcome back, we missed you!",
   "toastSuccessLogout": "Successful log out.",
-  "toastErrorLogout": "Error on account log out!"
+  "toastErrorLogout": "Error on account log out!",
+
+  "docs": "Docs",
+  "query": "Query",
+  "backButton": "Back",
+  "type": "Type",
+  "argumentsTitle": "Arguments"
 }

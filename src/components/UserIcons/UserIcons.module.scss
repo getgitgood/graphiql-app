@@ -13,11 +13,11 @@
     &.icon_signout {
       background-image: url('../../assets/img/sign-out-alt-2-svgrepo-com.svg');
     }
-  
+
     &.icon_signin {
       background-image: url('../../assets/img/sign-in-svgrepo-com.svg');
     }
-  
+
     &.icon_signup {
       background-image: url('../../assets/img/user-id-svgrepo-com.svg');
     }
@@ -26,8 +26,6 @@
       filter: hue-rotate(-75deg);
     }
   }
-
-
 
   .current_user {
     position: absolute;
