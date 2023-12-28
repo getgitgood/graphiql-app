@@ -47,5 +47,11 @@
 
   "toastSuccessSignIn": "С возвращением, мы скучали!",
   "toastSuccessLogout": "Вы вышли из аккаунта.",
-  "toastErrorLogout": "Ошибка при выходе из аккаунта!"
+  "toastErrorLogout": "Ошибка при выходе из аккаунта!",
+
+  "docs": "Документация",
+  "query": "Запросы",
+  "backButton": "Назад",
+  "type": "Тип",
+  "argumentsTitle": "Аргументы"
 }

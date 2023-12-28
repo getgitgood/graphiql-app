@@ -46,5 +46,11 @@
  "toastSuccessSignUp": "Сәтті! Қазір біздің Playground-тан өзіңізді айтар аласыз!",
  "toastSuccessSignIn": "Қайтадан келдіңіз, біз сізді құтыламызды!",
  "toastSuccessLogout": "Сәтті шығу.",
- "toastErrorLogout": "Тіркеуден шығу кезінде қате пайда болды!"
+ "toastErrorLogout": "Тіркеуден шығу кезінде қате пайда болды!",
+
+ "docs": "Құжаттама",
+ "query": "Сұраулар",
+ "backButton": "Негізгі бетке",
+ "type": "Тип",
+ "argumentsTitle": "Аргументтер"
 }
