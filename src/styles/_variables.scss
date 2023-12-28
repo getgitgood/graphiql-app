@@ -1,4 +1,5 @@
 $font: 'Roboto Slab', serif;
+$font-size-regular: 20px;
 
 $font-color: #c5cad5;
 $secondary-font-color: #959db1;
@@ -12,6 +13,11 @@ $header-color: #2d457e;
 $error-warning: #ff0000;
 $editor-color: #15191efa;
 $aside-color: #20242d;
+$body-background: #242424;
+
+$indicator-fetching: #d2c72c;
+$indicator-error: #d13030;
+$indicator-ok: #3cb142fa;
 
 $tablet: 768px;
 $fhd: 1280px;

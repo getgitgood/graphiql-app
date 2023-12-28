@@ -5,7 +5,7 @@ import { LanguageEnum } from '../../types';
 
 export default function LanguageSelector() {
   const context = useContext(AppContext);
-  const [en, ru] = Object.values(context.LanguageEnum);
+  const [en, ru, kz] = Object.values(context.LanguageEnum);
 
   const changeLanguage = context.changeLanguage;
 
@@ -37,6 +37,14 @@ export default function LanguageSelector() {
         data-language={ru}
       >
         {ru}
+      </div>
+      <div
+        className={`${classes.language_selector} ${
+          currentLanguage === 'KZ' ? classes.lang_active : ''
+        }`}
+        data-language={kz}
+      >
+        {kz}
       </div>
     </div>
   );

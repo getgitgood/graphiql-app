@@ -20,16 +20,11 @@
     a {
       transition: all 0.3s ease;
       color: #fff;
-      font-size: 14px;
 
       &:hover {
         text-decoration: underline;
         color: $secondary-font-color;
       }
     }
-  }
-
-  .year_wrapper {
-    font-size: 0.9rem;
   }
 }

@@ -18,12 +18,9 @@ export type ContextProps = {
 
 export enum LanguageEnum {
   EN = 'EN',
-  RU = 'RU'
+  RU = 'RU',
+  KZ = 'KZ'
 }
-
-export type SignUpFormProps = {
-  switchFormHandler: () => void;
-};
 
 export enum SideMenuOptions {
   Documentation = 'Documentation',

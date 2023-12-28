@@ -1,23 +1,35 @@
 import { useEffect, useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classes from './Forms.module.scss';
 import { signInSchema } from '../../utils/ValidationSchemas';
 import { signInSchemaRu } from '../../utils/ValidationSchemasRu';
 import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { LanguageEnum, SignUpFormProps } from '../../types';
+import { LanguageEnum } from '../../types';
 import { auth, signInWithEmailAndPassword } from '../../services/firebaseAuth';
 import { FirebaseError } from 'firebase/app';
 import { isUserInputAuthError } from '../../utils/authErrorMessages';
 import { AppContext } from '../Context/Context';
+import { useLanguageContext } from '../../hooks/appHooks';
+import Loader from '../Loader/Loader';
+import { emitNotification } from '../../utils/helpers';
+import { signInSchemaKz } from '../../utils/ValidationSchemasKz';
 
-export default function SignIn({ switchFormHandler }: SignUpFormProps) {
+export default function SignIn() {
   const [firebaseErrors, setFirebaseErrors] = useState<FirebaseError | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState(false);
+
   const context = useContext(AppContext);
   const validationSchema =
-    context.currentLanguage === LanguageEnum.RU ? signInSchemaRu : signInSchema;
+    context.currentLanguage === LanguageEnum.RU
+      ? signInSchemaRu
+      : context.currentLanguage === LanguageEnum.EN
+        ? signInSchema
+        : context.currentLanguage === LanguageEnum.KZ
+          ? signInSchemaKz
+          : signInSchema;
   const {
     signIn,
     email,
@@ -27,8 +39,10 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
     signInButton,
     dontHaveAccount,
     registerHere,
-    noUserFound
-  } = context.translations[context.currentLanguage];
+    noUserFound,
+    toastSuccessSignIn,
+    toastSuccessLogout
+  } = useLanguageContext();
 
   const {
     register,
@@ -57,13 +71,19 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
     const { email, password } = fieldValues;
 
     try {
+      setIsLoading(true);
       await signInWithEmailAndPassword(auth, email, password);
       setFirebaseErrors(null);
       navigate('/');
+      emitNotification('success', toastSuccessSignIn);
     } catch (e) {
       if (e instanceof FirebaseError) {
         setFirebaseErrors(e);
+      } else {
+        emitNotification('error', toastSuccessLogout);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -73,6 +93,10 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
     }
     return false;
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
@@ -133,13 +157,15 @@ export default function SignIn({ switchFormHandler }: SignUpFormProps) {
       </button>
       <p className={classes.sign}>
         {dontHaveAccount}
-        <span className={classes.sign_link} onClick={switchFormHandler}>
+        <Link
+          className={classes.sign_link}
+          to={'/auth'}
+          state={{ formType: 'signup' }}
+        >
           {' '}
           {registerHere}
-        </span>
+        </Link>
       </p>
     </form>
   );
 }
-
- 

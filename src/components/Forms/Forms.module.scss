@@ -9,7 +9,6 @@
   background-color: $additional-color;
 
   .form_heading {
-    font-size: 1.125rem;
     margin-bottom: 1rem;
   }
 
@@ -21,8 +20,6 @@
 
     label {
       display: block;
-      font-size: 2rem;
-      font-size: 0.75rem;
       margin-bottom: 0.3rem;
     }
 
@@ -37,10 +34,8 @@
 .error_message {
   position: absolute;
   transform: translateY(35%);
-  font-size: 0.5rem;
   color: $error-warning;
   bottom: 0;
-  font-size: 0.65rem;
   text-align: center;
 
   &.error_message_auth {
@@ -84,7 +79,6 @@
 }
 
 .sign {
-  font-size: 0.7rem;
   margin-top: 1rem;
   text-align: center;
 

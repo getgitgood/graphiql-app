@@ -1,4 +1,5 @@
 import { EditorView } from 'codemirror';
+import { toast } from 'react-toastify';
 import { RedirectProps } from '../types';
 
 function formatDisplayedName(email: string) {
@@ -39,6 +40,34 @@ export function codeMirrorDispatcher(cmInstance: EditorView, value: string) {
       to: cmInstance.state.doc.length,
       insert: value
     }
+  });
+}
+
+export function formatEndpointLink(value: string) {
+  let url = 'not connected';
+  try {
+    const { hostname } = new URL(value);
+    url = hostname;
+  } catch {
+    return false;
+  } finally {
+    return url;
+  }
+}
+
+export function emitNotification(
+  type: 'success' | 'warn' | 'error',
+  message: string
+) {
+  return toast[type](message, {
+    position: 'top-right',
+    autoClose: 2500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'dark'
   });
 }
 

@@ -2,10 +2,12 @@ import { createContext, useState, useContext } from 'react';
 import { ContextProps, LanguageContextProps, LanguageEnum } from '../../types';
 import enTranslations from '../../translations/en.json';
 import ruTranslations from '../../translations/ru.json';
+import kzTranslations from '../../translations/kz.json';
 
 const translations = {
   EN: enTranslations,
-  RU: ruTranslations
+  RU: ruTranslations,
+  KZ: kzTranslations
 };
 
 export const defaultValue: LanguageContextProps = {
