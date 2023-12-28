@@ -11,7 +11,7 @@ import EditorContextProvider from './components/EditorContext/EditorContext';
 import WelcomePage from './layouts/WelcomePage/WelcomePage';
 import Main from './layouts/Main/Main';
 import Graphiql from './pages/Graphiql/Graphiql';
-import Auth from './pages/auth/Auth';
+import Auth from './pages/Auth/Auth';
 
 const store = setupStore();
 

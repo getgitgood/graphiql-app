@@ -178,8 +178,14 @@ export default function SignUp() {
           to={'/auth'}
           state={{ formType: 'signin' }}
         >
-          {' '}
-          {signInButton}
+          <Link
+            className={classes.sign_link}
+            to={'/auth'}
+            state={{ formType: 'signin' }}
+          >
+            {' '}
+            {signInButton}
+          </Link>
         </Link>
       </p>
     </form>
