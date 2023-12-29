@@ -41,22 +41,28 @@ export type CleanUpLineProps = {
 
 export const queryPrettify = (query: string) => {
   const lines = query.split('\n');
-  const prettifiedArray = [];
+  const prettifiedArray: string[] = [];
   let prettifiedLine = '';
   let indentationLevel = 0;
   for (let line of lines) {
-    line = line.trim();
-
+    line = line
+      .trim()
+      .split(' ')
+      .filter((item) => item !== '')
+      .join(' ');
     if (line === '') continue;
-
+    line = line.replace(' (', '(').replace(' )', ')').replace('){', ') {');
     if (line.startsWith('}')) {
       indentationLevel = Math.max(indentationLevel - 1, 0);
     }
 
     prettifiedLine += '  '.repeat(indentationLevel) + line + '\n';
 
-    if (line.endsWith('{')) indentationLevel += 1;
+    if (line.endsWith('{')) {
+      indentationLevel += 1;
+    }
   }
+
   prettifiedArray.push(prettifiedLine);
 
   return prettifiedArray.join('');
