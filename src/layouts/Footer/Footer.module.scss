@@ -11,20 +11,69 @@
     img {
       width: 3.5rem;
     }
+    @media only screen and (min-width: 320px) {
+      max-width: 8%;
+      img {
+        width: 2rem;
+      }
+    }
+    
+    @media only screen and (min-width: $tablet) and (max-width: $fhd) {
+      max-width: 10%;
+      img {
+        width: 3.3rem;
+      }
+    }
+    
+    @media only screen and (min-width: $fhd) {
+      max-width: 10%;
+      img {
+        width: 3.5rem;
+      }
+    }
   }
 
   .github_wrapper {
     display: flex;
     gap: 2rem;
+    font-size: 1.3em;
 
     a {
       transition: all 0.3s ease;
-      color: #fff;
+      color: $font-color;
 
       &:hover {
-        text-decoration: underline;
         color: $secondary-font-color;
       }
+    }
+    @media only screen and (min-width: 320px) {
+      gap: 0.6rem;
+      font-size: 0.5em;
+    }
+    
+    @media only screen and (min-width: $tablet) and (max-width: $fhd) {
+      gap: 0.9rem;
+      font-size: 0.8em;
+    }
+    
+    @media only screen and (min-width: $fhd) {
+      gap: 1rem;
+      font-size: 0.9em;
+    }
+  }
+  .year_wrapper {
+    font-size: 1.3em;
+    color: $font-color;
+    @media only screen and (min-width: 320px) {
+      font-size: 0.5em;
+    }
+    
+    @media only screen and (min-width: $tablet) and (max-width: $fhd) {
+      font-size: 0.8em;
+    }
+    
+    @media only screen and (min-width: $fhd) {
+      font-size: 0.9em;
     }
   }
 }
