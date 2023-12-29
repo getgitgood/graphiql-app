@@ -39,8 +39,8 @@ export default function EditorToolkit() {
     const saveVarsContent = saveEditorContent(setUserVariables);
     const saveHeadersContent = saveEditorContent(setUserHeaders);
 
-    const varsInitialState = initialEditorState(saveVarsContent);
-    const headersInitialState = initialEditorState(saveHeadersContent);
+    const varsInitialState = initialEditorState([saveVarsContent]);
+    const headersInitialState = initialEditorState([saveHeadersContent]);
 
     const varsView = new EditorView({
       state: varsInitialState,

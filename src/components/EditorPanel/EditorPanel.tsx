@@ -22,8 +22,12 @@ export default function EditorPanel() {
     connectingInfo,
     disconnectedInfo
   } = useLanguageContext();
-  const { graphqlQuery, setParseError, setIsRequestCollecting } =
-    useEditorContext();
+  const {
+    graphqlQuery,
+    setParseError,
+    setIsRequestCollecting,
+    setIsCleanerCalled
+  } = useEditorContext();
   const { userEndpoint } = useAppSelector((state) => state.project);
   const [endpoint, setEndpoint] = useState(userEndpoint);
   const [isTooltipShown, setIsTooltipShown] = useState(false);
@@ -80,13 +84,20 @@ export default function EditorPanel() {
   };
 
   const cleanUpQuery = () => {
-    console.log('cleaning up');
+    setIsCleanerCalled(true);
   };
 
   return (
     <div className={classes.panel}>
       <div className={classes.panel_items}>
         <div className={classes.info_container}>
+          <div
+            className={`${classes.current_endpoint} ${
+              isFetching ? classes.fetching : ''
+            }`}
+          >
+            {calculateEndpointStatus()}
+          </div>
           <div
             aria-description={isError ? serverStatusError : serverStatusOK}
             className={`${classes.indicator} ${
@@ -100,13 +111,6 @@ export default function EditorPanel() {
                 {isError ? serverStatusError : serverStatusOK}
               </span>
             )}
-          </div>
-          <div
-            className={`${classes.current_endpoint} ${
-              isFetching ? classes.fetching : ''
-            }`}
-          >
-            {calculateEndpointStatus()}
           </div>
         </div>
         <div className={classes.buttons}>
