@@ -1,9 +1,12 @@
 import classes from './Header.module.scss';
 import { useEffect, useState } from 'react';
 import Navigation from '../../components/Navigation/Navigation';
+import { useAppSelector } from '../../hooks/appHooks';
 
 export default function Header() {
   const [isHeaderAnimated, setIsHeaderAnimate] = useState(false);
+
+  const { isUserSignIn } = useAppSelector((state) => state.project);
 
   useEffect(() => {
     const headerAnimationStateHandler = () => {
@@ -22,7 +25,7 @@ export default function Header() {
 
   return (
     <header className={`${classes.header} ${headerAnimationHandler()}`}>
-      <Navigation />
+      {isUserSignIn !== null && <Navigation />}
     </header>
   );
 }

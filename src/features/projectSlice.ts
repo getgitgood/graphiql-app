@@ -1,15 +1,37 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { auth } from '../services/firebaseAuth';
 import { SideMenuOptions } from '../types';
 
-export const initialState = {
-  userEndpoint: 'rickandmortyapi.com/graphql/',
+interface ProjectState {
+  userEndpoint: string;
+  request: {
+    query: string;
+    userVariables: object;
+    userHeaders: object;
+  };
+  sideMenuMode: SideMenuOptions;
+  response: object;
+  isUserSignIn: boolean | null;
+}
+
+export const getUserAuthStatus = createAsyncThunk(
+  'user/getAuthStatus',
+  async () => {
+    await auth.authStateReady();
+    return Boolean(auth.currentUser);
+  }
+);
+
+export const initialState: ProjectState = {
+  userEndpoint: 'https://rickandmortyapi.com/graphql/',
   request: {
     query: '',
-    variables: '',
-    headers: ''
+    userVariables: {},
+    userHeaders: {}
   },
   sideMenuMode: SideMenuOptions.Hidden,
-  response: {}
+  response: {},
+  isUserSignIn: null
 };
 
 const projectSlice = createSlice({
@@ -19,31 +41,37 @@ const projectSlice = createSlice({
     toggleSideMenu: (state, { payload }: PayloadAction<SideMenuOptions>) => {
       state.sideMenuMode = payload;
     },
-    updateUserEndpoint(state, { payload }) {
+    updateUserEndpoint(state, { payload }: PayloadAction<string>) {
       state.userEndpoint = payload;
     },
-    updateUserQuery(state, { payload }) {
-      state.request.query = payload;
+    updateUserRequest(
+      state,
+      {
+        payload
+      }: PayloadAction<{
+        query: string;
+        userVariables: object;
+        userHeaders: object;
+      }>
+    ) {
+      state.request = payload;
     },
-    updateUserVars(state, { payload }) {
-      state.request.variables = payload;
-    },
-    updateUserHeaders(state, { payload }) {
-      state.request.headers = payload;
-    },
-    updateResponse(state, { payload }) {
-      state.response = payload;
+    updateUserStatus(state, { payload }: PayloadAction<boolean>) {
+      state.isUserSignIn = payload;
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getUserAuthStatus.fulfilled, (state, { payload }) => {
+      state.isUserSignIn = payload;
+    });
   }
 });
 
 export const {
   updateUserEndpoint,
-  updateUserQuery,
-  updateUserVars,
-  updateUserHeaders,
-  updateResponse,
-  toggleSideMenu
+  updateUserRequest,
+  toggleSideMenu,
+  updateUserStatus
 } = projectSlice.actions;
 
 export default projectSlice.reducer;

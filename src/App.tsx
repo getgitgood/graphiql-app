@@ -4,7 +4,9 @@ import {
   Route,
   RouterProvider
 } from 'react-router-dom';
+
 import AppContextProvider from './components/Context/Context';
+import EditorContextProvider from './components/EditorContext/EditorContext';
 
 import WelcomePage from './layouts/WelcomePage/WelcomePage';
 import Main from './layouts/Main/Main';
@@ -16,20 +18,32 @@ const store = setupStore();
 import PrivateRoute from './utils/PrivateRoute';
 import { setupStore } from './store';
 import { Provider } from 'react-redux';
+import Page404 from './pages/Page404/Page404';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<Main />} path="/">
+    <Route element={<Main />} path="/" errorElement={<ErrorPage />}>
       <Route index element={<WelcomePage />} path="/" />
-      <Route element={<Graphiql />} path="/graphiql" />
       <Route
         element={
-          <PrivateRoute>
+          <PrivateRoute redirectTo="/">
             <Auth />
           </PrivateRoute>
         }
         path="/auth"
       />
+      <Route
+        element={
+          <PrivateRoute redirectTo="/" isReversedDirection={true}>
+            <EditorContextProvider>
+              <Graphiql />
+            </EditorContextProvider>
+          </PrivateRoute>
+        }
+        path="/graphiql"
+      />
+      <Route element={<Page404 />} path="*" />
     </Route>
   )
 );

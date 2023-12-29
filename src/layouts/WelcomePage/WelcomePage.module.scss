@@ -1,30 +1,30 @@
-.welcome_header {
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-
-  h1 {
-    margin: 0;
-    font-size: 1.2em;
-  }
-
-  p {
-    margin: 10px 0 0;
-    color: #cd9a00;
-    font-size: 0.8em;
-  }
-}
-
 .about {
-  padding: 20px 0;
-  h2 {
-    font-size: 0.9em;
-  }
+  padding: 20px 20px;
 
   p {
     line-height: 1.2;
-    font-size: 0.7em;
-    color: #9e9e9e;
+    color: $welcome-color;
+    text-align: justify;
   }
+  h2 {
+    color:$secondary-color-dim;
+    font-size: 1.5em;
+    text-align: center;
+  }
+  section {
+    padding:1rem;
+  }
+
+@media (min-width: 320px) and (max-width: $tablet) {
+    font-size: 0.6em;
+    padding: 0.7rem;
+}
+@media (min-width: $tablet) and (max-width: $fhd) {
+    font-size: 0.9em;
+    padding: 1rem;
+}
+@media (min-width: $fhd) {
+    font-size: 1em;
+    padding: 1.1rem;
+}
 }

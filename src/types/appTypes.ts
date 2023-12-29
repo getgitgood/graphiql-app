@@ -6,6 +6,7 @@ export interface ErrorBoundaryState {
 }
 
 export type LanguageContextProps = {
+  translations: Record<keyof typeof LanguageEnum, Record<string, string>>;
   currentLanguage: LanguageEnum;
   changeLanguage: (value: keyof typeof LanguageEnum) => void;
   LanguageEnum: typeof LanguageEnum;
@@ -17,15 +18,39 @@ export type ContextProps = {
 
 export enum LanguageEnum {
   EN = 'EN',
-  RU = 'RU'
+  RU = 'RU',
+  KZ = 'KZ'
 }
-
-export type SignUpFormProps = {
-  switchFormHandler: () => void;
-};
 
 export enum SideMenuOptions {
   Documentation = 'Documentation',
   History = 'History',
   Hidden = ''
 }
+
+export type RedirectProps = {
+  isUserSignIn: boolean;
+  isReversedDirection: boolean;
+};
+
+export type graphqlQuery = {
+  query: string;
+  variables: string;
+  headers: string;
+};
+
+export type EditorPanelProps = {
+  graphqlQuery: graphqlQuery;
+  setIsRequestReady: (value: boolean) => void;
+};
+
+export type PrivateRouteProps = {
+  children: ReactNode;
+  redirectTo: string;
+  isReversedDirection?: boolean;
+};
+
+export type EditorProps = {
+  setUserQuery: (value: string) => void;
+  children: ReactNode;
+};

@@ -1,0 +1,35 @@
+.error_wrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  * {
+    padding-bottom: 1rem;
+  }
+}
+
+.error_title {
+  font-size: 2em;
+}
+
+.error_message {
+  font-size: 3rem;
+}
+
+.home {
+  padding: 1em;
+  font-size: 2em;
+  background-color: $primary-color;
+  color: $font-color;
+
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: $secondary-color-hovered;
+    color: $secondary-font-color;
+  }
+}

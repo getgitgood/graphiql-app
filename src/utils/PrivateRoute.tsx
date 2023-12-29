@@ -1,31 +1,31 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth, onAuthStateChanged } from '../services/firebaseAuth';
+import Loader from '../components/Loader/Loader';
+import { useAppSelector } from '../hooks/appHooks';
+import { PrivateRouteProps } from '../types';
+import { isRedirectionRequired } from './helpers';
 
-export type ChildrenProps = {
-  children: ReactNode;
-};
-
-export default function PrivateRoute({ children }: ChildrenProps) {
+export default function PrivateRoute({
+  children,
+  redirectTo,
+  isReversedDirection = false
+}: PrivateRouteProps) {
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const { isUserSignIn } = useAppSelector((state) => state.project);
+
+  const isRedirected =
+    isUserSignIn !== null &&
+    isRedirectionRequired({ isUserSignIn, isReversedDirection });
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setIsAuthenticated(Boolean(user));
-    });
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/');
+    if (isRedirected) {
+      navigate(redirectTo);
     }
-  }, [isAuthenticated, navigate]);
+  }, [isUserSignIn, isReversedDirection, navigate, redirectTo, isRedirected]);
 
-  if (isAuthenticated === null) {
-    return null;
+  if (isUserSignIn === null) {
+    return <Loader />;
   }
 
-  return !isAuthenticated ? <>{children}</> : null;
+  return <Suspense fallback={<Loader />}>{!isRedirected && children}</Suspense>;
 }
