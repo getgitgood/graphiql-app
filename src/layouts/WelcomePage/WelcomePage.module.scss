@@ -15,7 +15,7 @@
     padding:1rem;
   }
 
-@media (min-width: 320px) and (max-width: $tablet) {
+@media (min-width: $mobile) and (max-width: $tablet) {
     font-size: 0.6em;
     padding: 0.7rem;
 }
