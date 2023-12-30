@@ -1,5 +1,50 @@
 $font: 'Roboto Slab', serif;
-$font-size-regular: 20px;
+$fs-bold: 1.2em;
+$fs-regular: 20px;
+$fs-semi: 0.8em;
+$fs-small: 0.7em;
+$fs-smallest: 0.6em;
+
+@mixin media-col-gap($gap1: 0.5em, $gap2: 0.2em) {
+  @media screen and (max-width: $tablet) {
+    column-gap: $gap1;
+  }
+  @media screen and (max-width: $mobile) {
+    column-gap: $gap2;
+  }
+}
+
+@mixin media-screen($screen, $prop, $value) {
+  @media screen and (max-width: $screen) {
+    $prop: $value;
+  }
+}
+
+@mixin media-hover($prop, $value) {
+  @media screen and (hover: hover) {
+    $prop: $value;
+  }
+}
+
+@mixin media-fs($fs1: $fs-small, $fs2: $fs-smallest) {
+  @media screen and (max-width: $tablet) {
+    font-size: $fs1;
+  }
+  @media screen and (max-width: $mobile) {
+    font-size: $fs2;
+  }
+}
+
+@mixin media-wh($w1, $h1, $w2: $w1, $h2: $h1) {
+  @media screen and (max-width: $tablet) {
+    width: $w1;
+    height: $h1;
+  }
+  @media screen and (max-width: $mobile) {
+    width: $w2;
+    height: $h2;
+  }
+}
 
 $font-color: #c5cad5;
 $secondary-font-color: #959db1;
