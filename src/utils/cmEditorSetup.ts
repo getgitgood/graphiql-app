@@ -65,12 +65,12 @@ export const editorBasicSetup: Extension = (() => [
   ])
 ])();
 
-export const initialEditorState = (ext: Extension, doc?: string) =>
+export const initialEditorState = (ext: Extension[], doc?: string) =>
   EditorState.create({
     doc: doc || '',
     extensions: [
       editorBasicSetup,
-      ext,
+      ...ext,
       EditorView.editorAttributes.of({
         class: 'editor_editable_cm'
       })

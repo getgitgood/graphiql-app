@@ -3,6 +3,8 @@
   box-sizing: border-box;
 }
 
+// ---- toastify
+
 :root {
   --toastify-color-success: #e535ab;
   --toastify-color-warning: #f1c40f;
@@ -17,6 +19,9 @@
 .Toastify {
   font-size: 0.8em;
 }
+
+// --------
+
 html {
   height: 100%;
   font-family: $font;
@@ -93,4 +98,3 @@ button:focus-visible {
   background-color: gray;
   cursor: pointer;
 }
-// ---- toastify
