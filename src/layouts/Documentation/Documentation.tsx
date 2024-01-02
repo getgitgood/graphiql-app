@@ -89,7 +89,9 @@ export default function Documentation() {
                 {field.type.toString()}
               </span>
               <br />
-              {field.description}
+              <p className={classes.documentation_type_description}>
+                {field.description}
+              </p>
             </li>
           ))}
         </ul>
