@@ -2,7 +2,7 @@ import { EditorView } from 'codemirror';
 import { toast } from 'react-toastify';
 import { RedirectProps } from '../types';
 
-function formatDisplayedName(email: string) {
+export function formatDisplayedName(email: string) {
   const slicedEmail = email.split('@');
   const [prefix, postfix] = slicedEmail as string[];
   let formattedPrefix;
@@ -15,7 +15,7 @@ function formatDisplayedName(email: string) {
   return `${formattedPrefix}***@${postfix}`;
 }
 
-function isRedirectionRequired({
+export function isRedirectionRequired({
   isUserSignIn,
   isReversedDirection
 }: RedirectProps) {
@@ -25,7 +25,7 @@ function isRedirectionRequired({
   return value;
 }
 
-function saveEditorContent(callback: (data: string) => void) {
+export function saveEditorContent(callback: (data: string) => void) {
   return EditorView.updateListener.of((content) => {
     if (content.changes) {
       callback(content.state.doc.toString());
@@ -33,7 +33,46 @@ function saveEditorContent(callback: (data: string) => void) {
   });
 }
 
-export function codeMirrorDispatcher(cmInstance: EditorView, value: string) {
+export type CleanUpLineProps = {
+  line: string;
+  counter: number;
+  setCounter: (value: number) => void;
+};
+
+export const queryPrettify = (query: string) => {
+  const lines = query.split('\n');
+  const prettifiedArray: string[] = [];
+  let prettifiedLine = '';
+  let indentationLevel = 0;
+  for (let line of lines) {
+    line = line
+      .trim()
+      .split(' ')
+      .filter((item) => item !== '')
+      .join(' ');
+    if (line === '') continue;
+    line = line.replace(' (', '(').replace(' )', ')').replace('){', ') {');
+    if (line.startsWith('}')) {
+      indentationLevel = Math.max(indentationLevel - 1, 0);
+    }
+
+    prettifiedLine += '  '.repeat(indentationLevel) + line + '\n';
+
+    if (line.endsWith('{')) {
+      indentationLevel += 1;
+    }
+  }
+
+  prettifiedArray.push(prettifiedLine);
+
+  return prettifiedArray.join('');
+};
+
+export function codeMirrorDispatcher(
+  cmInstance: EditorView | null,
+  value: string
+) {
+  if (!cmInstance) return;
   cmInstance.dispatch({
     changes: {
       from: 0,
@@ -70,5 +109,3 @@ export function emitNotification(
     theme: 'dark'
   });
 }
-
-export { formatDisplayedName, isRedirectionRequired, saveEditorContent };
