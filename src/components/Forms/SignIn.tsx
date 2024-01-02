@@ -110,6 +110,7 @@ export default function SignIn() {
           className={`${classes.input} ${
             (errors.email || isAuthError()) && classes.error_border
           }`}
+          autoComplete="email"
         />
         {errors.email && (
           <p className={classes.error_message}>{errors.email.message}</p>
@@ -125,6 +126,7 @@ export default function SignIn() {
           className={`${classes.input} ${
             (errors.password || isAuthError()) && classes.error_border
           }`}
+          autoComplete="new-password"
         />
         {errors.password && (
           <p className={classes.error_message}>{errors.password.message}</p>
