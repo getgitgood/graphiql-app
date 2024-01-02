@@ -112,6 +112,7 @@ export default function SignUp() {
           className={`${classes.input} ${
             (errors.email || isAuthError()) && classes.error_border
           }`}
+          autoComplete="email"
         />
         {errors.email && (
           <p className={classes.error_message}>{errors.email.message}</p>
@@ -132,6 +133,7 @@ export default function SignUp() {
           className={`${classes.input} ${
             errors.password && classes.error_border
           }`}
+          autoComplete="new-password"
         />
         {errors.password && (
           <p className={classes.error_message}>{errors.password.message}</p>
@@ -147,6 +149,7 @@ export default function SignUp() {
           className={`${classes.input} ${
             errors.passwordConfirm && classes.error_border
           }`}
+          autoComplete="new-password"
         />
         {errors.passwordConfirm && (
           <p className={classes.error_message}>
@@ -178,14 +181,8 @@ export default function SignUp() {
           to={'/auth'}
           state={{ formType: 'signin' }}
         >
-          <Link
-            className={classes.sign_link}
-            to={'/auth'}
-            state={{ formType: 'signin' }}
-          >
-            {' '}
-            {signInButton}
-          </Link>
+          {' '}
+          {signInButton}
         </Link>
       </p>
     </form>
