@@ -4,20 +4,50 @@
   background-color: #20242d;
   overflow-y: auto;
 
+  @media (min-width: $mobile) and (max-width: 767.98px) {
+    text-align: center;
+    padding: 0.5rem;
+  }
+
   .documentation_title {
     margin-bottom: 1rem;
     line-height: 2rem;
     font-weight: 700;
+
+    @media (min-width: $mobile) and (max-width: 767.98px) {
+      font-size: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (min-width: $tablet) and (max-width: $fhd) {
+      font-size: 1.25rem;
+    }
   }
   .documentation_query {
     margin-bottom: 0.5rem;
     line-height: 1.75rem;
+
+    @media (min-width: $mobile) and (max-width: 767.98px) {
+      font-size: 0.7rem;
+    }
+
+    @media (min-width: $tablet) and (max-width: $fhd) {
+      font-size: 0.9rem;
+    }
   }
 
   .documentation_button_back {
     cursor: pointer;
     color: blue;
     margin-bottom: 1rem;
+
+    @media (min-width: $mobile) and (max-width: 767.98px) {
+     font-size: 0.65rem;
+    }
+
+    @media (min-width: $tablet) and (max-width: $fhd) {
+     font-size: 0.5rem;
+   }
   }
 
   .documentation_selectedtype,
@@ -25,10 +55,26 @@
   .documentation_arguments {
     font-weight: 600;
     line-height: 1.75rem;
+
+    @media (min-width: $mobile) and (max-width: 767.98px) {
+      font-size: 0.7rem;
+    }
+
+    @media (min-width: $tablet) and (max-width: $fhd) {
+      font-size: 0.9rem;
+    }
   }
 
   .documentation_type_description {
     margin-bottom: 0.5rem;
+
+    @media (min-width: $mobile) and (max-width: 767.98px) {
+      font-size: 0.5rem;
+    }
+
+    @media (min-width: $tablet) and (max-width: $fhd) {
+      font-size: 0.75rem;
+    }
   }
 
   .documentation_type_detailed {
@@ -48,21 +94,49 @@
 
   .documentation_arguments_keys {
     color: red;
+
+    @media (min-width: $mobile) and (max-width: 767.98px) {
+     font-size: 0.7rem;
+   }
+
+    @media (min-width: $tablet) and (max-width: $fhd) {
+      font-size: 0.75rem;
+    }
   }
 
   .documentation_arguments_values {
     color: yellow;
+
+    @media (min-width: $mobile) and (max-width: 767.98px) {
+      font-size: 0.5rem;
+    }
+
+    @media (min-width: $tablet) and (max-width: $fhd) {
+      font-size: 0.62rem;
+    }
   }
 
   .documentation_button_type {
     color: blue;
     margin-bottom: 0.5rem;
     cursor: pointer;
+
+    @media (min-width: $mobile) and (max-width: 767.98px) {
+     font-size: 0.4rem;
+   }
   }
 
   .documentation_type_argument {
     color: pink;
     margin-left: 0.25rem;
     margin-right: 0.25rem;
+
+    @media (min-width: $mobile) and (max-width: 767.98px) {
+      font-size: 0.5rem;
+    }
+
+    @media (min-width: $tablet) and (max-width: $fhd) {
+      font-size: 0.75rem;
+    }
   }
 }
