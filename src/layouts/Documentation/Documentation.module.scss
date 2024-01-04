@@ -42,12 +42,12 @@
     margin-bottom: 1rem;
 
     @media (min-width: $mobile) and (max-width: 767.98px) {
-     font-size: 0.65rem;
+      font-size: 0.65rem;
     }
 
     @media (min-width: $tablet) and (max-width: $fhd) {
-     font-size: 0.5rem;
-   }
+      font-size: 0.5rem;
+    }
   }
 
   .documentation_selectedtype,
@@ -96,8 +96,8 @@
     color: red;
 
     @media (min-width: $mobile) and (max-width: 767.98px) {
-     font-size: 0.7rem;
-   }
+      font-size: 0.7rem;
+    }
 
     @media (min-width: $tablet) and (max-width: $fhd) {
       font-size: 0.75rem;
@@ -122,8 +122,8 @@
     cursor: pointer;
 
     @media (min-width: $mobile) and (max-width: 767.98px) {
-     font-size: 0.4rem;
-   }
+      font-size: 0.4rem;
+    }
   }
 
   .documentation_type_argument {

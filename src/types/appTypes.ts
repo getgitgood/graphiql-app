@@ -54,3 +54,8 @@ export type EditorProps = {
   setUserQuery: (value: string) => void;
   children: ReactNode;
 };
+
+export type NavigationProps = {
+  isBurgerOpen: boolean;
+  setIsBurgerOpen: (value: boolean) => void;
+};

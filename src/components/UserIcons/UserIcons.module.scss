@@ -10,7 +10,7 @@
     width: 2em;
     height: 2em;
     background-size: 100%;
-
+    background-repeat: no-repeat;
     transition: all 0.3s ease;
     &.icon_signout {
       background-image: url('../../assets/img/sign-out-alt-2-svgrepo-com.svg');
@@ -28,7 +28,7 @@
       filter: hue-rotate(-75deg);
     }
 
-    @include media-wh(1.7em, 1.7em, 1.3em, 1.3em);
+    @include media-wh(1.7em, 1.7em, 1.9em, 1.9em);
   }
 
   .current_user {

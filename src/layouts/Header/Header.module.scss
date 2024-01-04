@@ -4,9 +4,10 @@
   display: flex;
   justify-content: space-between;
   height: 3em;
-  min-height: 1.6em;
+  min-height: 2em;
   position: sticky;
 
+  align-items: center;
   line-height: 0.8em;
   vertical-align: middle;
   top: 0;
@@ -14,8 +15,6 @@
   transition: all 0.3s ease-in-out;
 
   z-index: 1000;
-
-  @include media-screen($tablet, 'height', 2.5em);
 
   &.header_animated {
     height: 2.5em;

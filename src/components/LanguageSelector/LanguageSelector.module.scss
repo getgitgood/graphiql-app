@@ -11,12 +11,12 @@
   user-select: none;
 
   @media screen and (max-width: $tablet) {
-    font-size: $fs-semi;
+    font-size: $fs-bold;
   }
 
   .language_selector {
     transition: all ease 0.3s;
-    padding: 0.1em 0.2em;
+    padding: 0.25em;
 
     &.lang_active {
       background-color: $secondary-color;
