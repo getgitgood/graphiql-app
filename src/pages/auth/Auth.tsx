@@ -5,7 +5,7 @@ import { useLocation } from 'react-router';
 
 export default function Auth() {
   const location = useLocation();
-  let { formType } = location.state;
+  let { formType } = location.state || {};
 
   if (!formType) formType = 'signin';
 
