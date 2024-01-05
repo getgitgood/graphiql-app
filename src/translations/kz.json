@@ -52,5 +52,8 @@
   "query": "Сұраулар",
   "backButton": "Негізгі бетке",
   "type": "Тип",
-  "argumentsTitle": "Аргументтер"
+  "argumentsTitle": "Аргументтер",
+
+  "variables": "Айнымалы",
+  "headers": "Тақырыптар"
 }

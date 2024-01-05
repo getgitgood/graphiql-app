@@ -15,14 +15,18 @@
     padding: 1rem;
   }
 
-  @media (min-width: $mobile) and (max-width: $tablet) {
+  @media (max-width: $mobile) {
     font-size: 0.6em;
     padding: 0.7rem;
   }
-  @media (min-width: $tablet) and (max-width: $fhd) {
-    font-size: 0.9em;
-    padding: 1rem;
+
+  @media (min-width: $mobile) and (max-width: $tablet) {
+    font-size: 0.7em;
+    section {
+      padding: 0.7rem;
+    }
   }
+
   @media (min-width: $fhd) {
     font-size: 1em;
     padding: 1.1rem;

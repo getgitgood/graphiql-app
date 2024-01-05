@@ -3,6 +3,7 @@ import classes from './Documentation.module.scss';
 import { useSchemaQuery } from '../../features/apiSlice';
 import { useAppSelector, useLanguageContext } from '../../hooks/appHooks';
 import { useState } from 'react';
+import AsideMenu from '../Aside/AsideMenu';
 
 export default function Documentation() {
   const { docs, query, type, argumentsTitle, backButton } =
@@ -11,11 +12,7 @@ export default function Documentation() {
 
   const [selectedType, setSelectedType] = useState<string | null>(null);
 
-  const { data, isFetching, isError, error } = useSchemaQuery(userEndpoint);
-
-  if (isFetching) {
-    return <p>Loading...</p>;
-  }
+  const { data, isError, error } = useSchemaQuery(userEndpoint);
 
   if (isError && error && 'message' in error) {
     return <p>Error: {error.message}</p>;
@@ -32,16 +29,13 @@ export default function Documentation() {
 
   return (
     <div className={classes.documentation}>
-      <h2 className={classes.documentation_title}>{docs}</h2>
+      <div className={classes.close_btn_wrapper}>
+        <h2 className={classes.documentation_title}>{docs}</h2>
+        <AsideMenu />
+      </div>
       <h3 className={classes.documentation_query}>{query}</h3>
       {selectedType ? (
-        <>
-          <button
-            className={classes.documentation_button_back}
-            onClick={() => setSelectedType(null)}
-          >
-            {backButton}
-          </button>
+        <div className={classes.types}>
           <h3 className={classes.documentation_selectedtype}>{selectedType}</h3>
           <p className={classes.documentation_type_description}>
             {fields[selectedType].description}
@@ -51,23 +45,31 @@ export default function Documentation() {
             {fields[selectedType].type.toString()}
           </p>
           <h4 className={classes.documentation_arguments}>{argumentsTitle}</h4>
-          <ul className={classes.documentation_arguments_list}>
+          <ul className={classes.documentation_arguments_list_type}>
             {fields[selectedType].args.map((arg) => (
               <li
                 key={arg.name}
                 className={classes.documentation_arguments_lists}
               >
-                <span className={classes.documentation_arguments_keys}>
-                  {arg.name}
-                </span>{' '}
-                {` : `}
-                <span className={classes.documentation_arguments_values}>
-                  {arg.type.toString()}
-                </span>{' '}
+                <div className={classes.documentation_arguments_lists_wrapper}>
+                  <span className={classes.documentation_arguments_keys}>
+                    {`${arg.name}:`}
+                    &nbsp;
+                  </span>
+                  <span className={classes.documentation_arguments_values}>
+                    {`${arg.type.toString()}`}
+                  </span>
+                </div>
               </li>
             ))}
           </ul>
-        </>
+          <button
+            className={classes.documentation_button_back}
+            onClick={() => setSelectedType(null)}
+          >
+            {backButton}
+          </button>
+        </div>
       ) : (
         <ul className={classes.documentation_arguments_list}>
           {Object.values(fields).map((field) => (
@@ -81,14 +83,15 @@ export default function Documentation() {
               >
                 {field.name}
               </button>
-              <span className={classes.documentation_type_argument}>
-                ({field.args.map((arg) => arg.name).join(', ')})
-              </span>
-              {` : `}
-              <span className={classes.documentation_arguments_values}>
-                {field.type.toString()}
-              </span>
-              <br />
+              <div className={classes.arguments}>
+                <span className={classes.documentation_type_argument}>
+                  ({field.args.map((arg) => arg.name).join(', ')}){`: `}
+                </span>
+
+                <span className={classes.documentation_arguments_values}>
+                  {field.type.toString()}
+                </span>
+              </div>
               <p className={classes.documentation_type_description}>
                 {field.description}
               </p>

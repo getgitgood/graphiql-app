@@ -1,5 +1,4 @@
 import {
-  keymap,
   highlightSpecialChars,
   dropCursor,
   crosshairCursor
@@ -9,18 +8,11 @@ import {
   defaultHighlightStyle,
   syntaxHighlighting,
   bracketMatching,
-  foldGutter,
-  foldKeymap
+  foldGutter
 } from '@codemirror/language';
-import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
-import { searchKeymap, highlightSelectionMatches } from '@codemirror/search';
-import {
-  autocompletion,
-  completionKeymap,
-  closeBrackets,
-  closeBracketsKeymap
-} from '@codemirror/autocomplete';
-import { lintKeymap } from '@codemirror/lint';
+import { history } from '@codemirror/commands';
+import { highlightSelectionMatches } from '@codemirror/search';
+import { autocompletion, closeBrackets } from '@codemirror/autocomplete';
 import { json } from '@codemirror/lang-json';
 import { union } from './theme';
 import { EditorView } from 'codemirror';
@@ -35,6 +27,7 @@ export const viewerBasicSetup: Extension = (() => [
   dropCursor(),
   EditorState.allowMultipleSelections.of(true),
   EditorState.readOnly.of(true),
+  EditorView.lineWrapping,
   union,
   syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
   bracketMatching(),
@@ -42,16 +35,7 @@ export const viewerBasicSetup: Extension = (() => [
   autocompletion(),
   crosshairCursor(),
   highlightSelectionMatches(),
-  json(),
-  keymap.of([
-    ...closeBracketsKeymap,
-    ...defaultKeymap,
-    ...searchKeymap,
-    ...historyKeymap,
-    ...foldKeymap,
-    ...completionKeymap,
-    ...lintKeymap
-  ])
+  json()
 ])();
 
 export const initialViewerState = EditorState.create({

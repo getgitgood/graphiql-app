@@ -5,30 +5,24 @@
   flex-basis: 1000px;
   user-select: none;
 
+  @include media-fs();
   .course_wrapper {
-    max-width: 10%;
 
     img {
-      width: 3.5rem;
-    }
-    @media only screen and (min-width: 320px) {
-      max-width: 8%;
-      img {
-        width: 2rem;
-      }
+      width: 5rem;
     }
 
     @media only screen and (min-width: $tablet) and (max-width: $fhd) {
-      max-width: 10%;
+      width: 5%;
       img {
         width: 3.3rem;
       }
     }
 
-    @media only screen and (min-width: $fhd) {
+    @media only screen and (max-width: $fhd) {
       max-width: 10%;
       img {
-        width: 3.5rem;
+        width: 3em;
       }
     }
   }
@@ -36,7 +30,7 @@
   .github_wrapper {
     display: flex;
     gap: 2rem;
-    font-size: 1.3em;
+    font-size: 1.2em;
 
     a {
       transition: all 0.3s ease;
@@ -46,34 +40,22 @@
         color: $secondary-font-color;
       }
     }
-    @media only screen and (min-width: 320px) {
+    @include media-fs();
+    @media screen and (max-width: $mobile) {
       gap: 0.6rem;
-      font-size: 0.5em;
     }
 
     @media only screen and (min-width: $tablet) and (max-width: $fhd) {
       gap: 0.9rem;
-      font-size: 0.8em;
     }
 
-    @media only screen and (min-width: $fhd) {
+    @media only screen and (max-width: $fhd) {
       gap: 1rem;
-      font-size: 0.9em;
     }
   }
   .year_wrapper {
     font-size: 1.3em;
     color: $font-color;
-    @media only screen and (min-width: 320px) {
-      font-size: 0.5em;
-    }
-
-    @media only screen and (min-width: $tablet) and (max-width: $fhd) {
-      font-size: 0.8em;
-    }
-
-    @media only screen and (min-width: $fhd) {
-      font-size: 0.9em;
-    }
+    @include media-fs()
   }
 }

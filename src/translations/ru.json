@@ -53,5 +53,8 @@
   "query": "Запросы",
   "backButton": "Назад",
   "type": "Тип",
-  "argumentsTitle": "Аргументы"
+  "argumentsTitle": "Аргументы",
+
+  "variables": "Переменные",
+  "headers": "Заголовки"
 }

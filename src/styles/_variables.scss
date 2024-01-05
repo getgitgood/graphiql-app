@@ -26,7 +26,7 @@ $indicator-ok: #3cb142fa;
 
 $tablet: 768px;
 $fhd: 1280px;
-$mobile: 320px;
+$mobile: 330px;
 
 
 @mixin media-col-gap($gap1: 0.5em, $gap2: 0.2em) {
@@ -50,12 +50,15 @@ $mobile: 320px;
   }
 }
 
-@mixin media-fs($fs1: $fs-small, $fs2: $fs-smallest) {
-  @media screen and (max-width: $tablet) {
+@mixin media-fs($fs1: $fs-semi, $fs2: $fs-small, $fs3: $fs-smallest) {
+  @media screen and (max-width: $fhd) {
     font-size: $fs1;
   }
-  @media screen and (max-width: $mobile) {
+  @media screen and (max-width: $tablet) {
     font-size: $fs2;
+  }
+  @media screen and (max-width: $mobile) {
+    font-size: $fs3;
   }
 }
 
