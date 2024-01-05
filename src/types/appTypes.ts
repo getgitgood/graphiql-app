@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, Ref } from 'react';
 
 export interface ErrorBoundaryState {
   hasError: boolean;
@@ -58,4 +58,5 @@ export type EditorProps = {
 export type NavigationProps = {
   isBurgerOpen: boolean;
   setIsBurgerOpen: (value: boolean) => void;
+  ref?: Ref<HTMLDivElement>;
 };

@@ -1,13 +1,15 @@
+import { ForwardedRef, forwardRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAppSelector, useLanguageContext } from '../../hooks/appHooks';
 import UserPanel from '../../layouts/UserPanel/UserPanel';
 import { NavigationProps } from '../../types';
 import classes from './Navigation.module.scss';
 
-export default function Navigation({
-  isBurgerOpen,
-  setIsBurgerOpen
-}: NavigationProps) {
+export const Navigation = forwardRef(function Navigation(
+  props: NavigationProps,
+  ref: ForwardedRef<HTMLDivElement>
+) {
+  const { isBurgerOpen, setIsBurgerOpen } = props;
   const { welcomeHeader, mainPage } = useLanguageContext();
   const { isUserSignIn } = useAppSelector((state) => state.project);
 
@@ -37,6 +39,7 @@ export default function Navigation({
           <UserPanel />
         </div>
         <div
+          ref={ref}
           className={`${classes.burger_menu} ${
             isBurgerOpen ? classes.active : ''
           }`}
@@ -49,4 +52,6 @@ export default function Navigation({
       </nav>
     </>
   );
-}
+});
+
+export default Navigation;

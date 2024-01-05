@@ -1,4 +1,5 @@
 import { onAuthStateChanged } from 'firebase/auth';
+import { ForwardedRef, forwardRef } from 'react';
 import { useEffect, useState } from 'react';
 import { auth } from '../../services/firebaseAuth';
 import { NavigationProps } from '../../types';
@@ -7,12 +8,14 @@ import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import UserIcons from '../UserIcons/UserIcons';
 import classes from './BurgerMenu.module.scss';
 
-export default function BurgerMenu({
-  isBurgerOpen,
-  setIsBurgerOpen
-}: NavigationProps) {
+export const BurgerMenu = forwardRef(function BurgerMenu(
+  props: NavigationProps,
+  ref: ForwardedRef<HTMLDivElement>
+) {
+  const { isBurgerOpen, setIsBurgerOpen } = props;
+
   const layoutHandler = () => {
-    setIsBurgerOpen(false);
+    setIsBurgerOpen(!isBurgerOpen);
   };
 
   const [currentUser, setCurrentUser] = useState<string | null>(null);
@@ -31,6 +34,7 @@ export default function BurgerMenu({
     <div
       className={`${classes.menu_layout} ${isBurgerOpen ? classes.open : ''}`}
       onClick={layoutHandler}
+      ref={ref}
     >
       <div className={classes.menu_wrapper}>
         {currentUser && (
@@ -45,4 +49,6 @@ export default function BurgerMenu({
       </div>
     </div>
   );
-}
+});
+
+export default BurgerMenu;

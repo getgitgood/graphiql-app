@@ -45,7 +45,6 @@
 
 .burger_menu {
   display: flex;
-  flex-direction: column;
   gap: 0.2em;
   background-color: rgba($color: $body-background, $alpha: .5);
   border: 1px solid transparent; 
@@ -57,14 +56,47 @@
   align-items: center;
   justify-content: center;
 
-  transition: border-color 0.3s ease, transform 0.3s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
 
   &.active {
     background-color: rgba($color: $body-background, $alpha: .8);
     transform: rotate(90deg);
+    gap: 0;
+
     .burger_bar {
+      position: relative;
       background-color: $secondary-color-dim;
+
+      &:not(.burger_bar:last-child) {
+        border-radius: initial;
+        height: .1em;
+        width: 0.4em;
+      }
+      
+      &:first-child {
+        border-top-left-radius: 20% !important;
+        border-bottom-left-radius: 20% !important;
+      }
+
+      &:last-child {
+        background-color: transparent;
+      }
+
+      &:last-child:before, &:last-child::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0%;
+        
+        border: .1em solid transparent; border-left: .1em solid $secondary-color-dim; border-top: .1em solid $secondary-color-dim;
+      }
+      
+      &:last-child::after {
+        top: -50%;
+        bottom: 100%;
+        border: .1em solid transparent; border-bottom: .1em solid $secondary-color-dim; border-left: .1em solid $secondary-color-dim;
+      }
     }
   }
   .burger_bar {
