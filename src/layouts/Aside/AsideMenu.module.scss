@@ -1,40 +1,37 @@
-.aside_menu {
-  display: flex;
-  flex-direction: column;
-  background-color: $aside-color;
-  padding: 0.5rem;
 
-  .buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
+  .aside_menu_button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 1rem;
+    transition: filter 0.3s ease;
 
-    .aside_menu_button {
-      background-color: transparent;
-      border: none;
-      outline: none;
-      padding: 1rem;
-      transition: background-color 0.3s;
-
-      &.btn_doc {
-        background: no-repeat url('../../assets/img/doc_icon.svg');
-        background-size: 95% 95%;
+    &.btn_doc {
+      background: no-repeat url('../../assets/img/doc_icon.svg');
+      background-size: 95% 95%;
+      background-position: 50% 50%;
+      @media screen and (max-width: $tablet) {
+        background-size: 75% 75%;
         background-position: 50% 50%;
       }
+    }
 
-      &.btn_history {
-        background: no-repeat url('../../assets/img/history_icon.svg');
-        background-size: 95% 95%;
-        background-position: 50% 50%;
-      }
+    &.btn_history {
+      background: no-repeat url('../../assets/img/history_icon.svg');
+      background-size: 95% 95%;
+      background-position: 50% 50%;
+    }
+
+    &:hover {
+      filter: hue-rotate(-75deg);
+    }
+
+    &.selected {
+      background-color: $header-color;
 
       &:hover {
-        background-color: $secondary-font-color;
-      }
-
-      &.selected {
-        background-color: $header-color;
+        filter: none;
       }
     }
   }
-}
+

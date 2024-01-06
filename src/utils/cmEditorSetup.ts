@@ -20,13 +20,7 @@ import {
 } from '@codemirror/language';
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
 import { searchKeymap, highlightSelectionMatches } from '@codemirror/search';
-import {
-  autocompletion,
-  completionKeymap,
-  closeBrackets,
-  closeBracketsKeymap
-} from '@codemirror/autocomplete';
-import { lintKeymap } from '@codemirror/lint';
+import { closeBrackets, closeBracketsKeymap } from '@codemirror/autocomplete';
 import { javascript } from '@codemirror/lang-javascript';
 import { union } from './theme';
 import { EditorView } from 'codemirror';
@@ -47,7 +41,6 @@ export const editorBasicSetup: Extension = (() => [
   syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
   bracketMatching(),
   closeBrackets(),
-  autocompletion(),
   rectangularSelection(),
   crosshairCursor(),
   highlightActiveLine(),
@@ -59,18 +52,16 @@ export const editorBasicSetup: Extension = (() => [
     ...defaultKeymap,
     ...searchKeymap,
     ...historyKeymap,
-    ...foldKeymap,
-    ...completionKeymap,
-    ...lintKeymap
+    ...foldKeymap
   ])
 ])();
 
-export const initialEditorState = (ext: Extension, doc?: string) =>
+export const initialEditorState = (ext: Extension[], doc?: string) =>
   EditorState.create({
     doc: doc || '',
     extensions: [
       editorBasicSetup,
-      ext,
+      ...ext,
       EditorView.editorAttributes.of({
         class: 'editor_editable_cm'
       })

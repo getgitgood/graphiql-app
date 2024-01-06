@@ -1,6 +1,6 @@
 import { EditorView } from 'codemirror';
 import { useEffect, useRef, useState } from 'react';
-import { useEditorContext } from '../../hooks/appHooks';
+import { useEditorContext, useLanguageContext } from '../../hooks/appHooks';
 import { initialEditorState } from '../../utils/cmEditorSetup';
 import { saveEditorContent } from '../../utils/helpers';
 import classes from './EditorToolkit.module.scss';
@@ -12,6 +12,7 @@ export type EditorToolkitProps = {
 
 export default function EditorToolkit() {
   const { setUserVariables, setUserHeaders } = useEditorContext();
+  const { variables, headers } = useLanguageContext();
   const varsRef = useRef<HTMLDivElement>(null);
   const headersRef = useRef<HTMLDivElement>(null);
 
@@ -39,8 +40,8 @@ export default function EditorToolkit() {
     const saveVarsContent = saveEditorContent(setUserVariables);
     const saveHeadersContent = saveEditorContent(setUserHeaders);
 
-    const varsInitialState = initialEditorState(saveVarsContent);
-    const headersInitialState = initialEditorState(saveHeadersContent);
+    const varsInitialState = initialEditorState([saveVarsContent]);
+    const headersInitialState = initialEditorState([saveHeadersContent]);
 
     const varsView = new EditorView({
       state: varsInitialState,
@@ -66,21 +67,28 @@ export default function EditorToolkit() {
     >
       <div className={classes.toolkit_header}>
         <div className={classes.button_wrapper}>
-          <button onClick={toggleVarsTool} className={classes.toolkit_button}>
-            Variables
+          <button
+            onClick={toggleVarsTool}
+            className={`${classes.toolkit_button} ${
+              isVarsShown ? classes.active : ''
+            }`}
+          >
+            {variables}
           </button>
           <button
             onClick={toggleHeadersTool}
-            className={classes.toolkit_button}
+            className={`${classes.toolkit_button} ${
+              isHeadersShown ? classes.active : ''
+            }`}
           >
-            Headers
+            {headers}
           </button>
         </div>
         <button
           onClick={expandToolkit}
           className={classes.toggle_toolkit_button}
         >
-          ^
+          {isExpanded ? '▼' : '▲'}
         </button>
       </div>
       <div

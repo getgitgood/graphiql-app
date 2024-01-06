@@ -52,5 +52,7 @@
   "query": "Query",
   "backButton": "Back",
   "type": "Type",
-  "argumentsTitle": "Arguments"
+  "argumentsTitle": "Arguments",
+  "variables": "Variables",
+  "headers": "Headers"
 }
