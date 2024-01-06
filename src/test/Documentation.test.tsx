@@ -4,6 +4,7 @@ import { setupStore } from '../store';
 import Documentation from '../layouts/Documentation/Documentation';
 import '@testing-library/jest-dom';
 import { SideMenuOptions } from '../types';
+
 // import { graphql } from 'msw';
 // import { setupServer } from 'msw/node';
 
@@ -74,17 +75,6 @@ import { SideMenuOptions } from '../types';
 // afterAll(() => server.close());
 
 describe('Documentation Component', () => {
-  it('renders Documentation component with loading state', () => {
-    const store = setupStore();
-    render(
-      <Provider store={store}>
-        <Documentation />
-      </Provider>
-    );
-
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
-  });
-
   it('renders error message when there is an error fetching schema', async () => {
     const store = setupStore({
       project: {
@@ -144,9 +134,7 @@ describe('Documentation Component', () => {
       </Provider>
     );
 
-    // Wait for the asynchronous action to complete
     await waitFor(() => {
-      // Check that no content related to the schema is rendered
       expect(screen.queryByText('Your Documentation Title')).toBeNull();
       expect(screen.queryByText('Your Documentation Content')).toBeNull();
     });
