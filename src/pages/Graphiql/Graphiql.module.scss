@@ -6,7 +6,7 @@
   flex-basis: 0;
   min-height: 0;
 
-  @media (min-width: $mobile) and (max-width: 767.98px) {
+  @media (max-width: $tablet) {
     flex-direction: column;
   }
 }

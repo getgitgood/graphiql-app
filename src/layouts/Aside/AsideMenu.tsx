@@ -18,22 +18,12 @@ export default function AsideMenu() {
   };
 
   return (
-    <aside className={classes.aside_menu}>
-      <div className={classes.buttons}>
-        <button
-          title="Show documentation"
-          onClick={handleToggleDocumentation}
-          className={`${classes.aside_menu_button} ${classes.btn_doc} ${
-            sideMenuMode === SideMenuOptions.Documentation && classes.selected
-          }`}
-        ></button>
-        <button
-          title="Show history"
-          className={`${classes.aside_menu_button} ${classes.btn_history} ${
-            sideMenuMode === SideMenuOptions.History && classes.selected
-          }`}
-        ></button>
-      </div>
-    </aside>
+    <button
+      title="Show documentation"
+      onClick={handleToggleDocumentation}
+      className={`${classes.aside_menu_button} ${classes.btn_doc} ${
+        sideMenuMode === SideMenuOptions.Documentation && classes.selected
+      }`}
+    />
   );
 }

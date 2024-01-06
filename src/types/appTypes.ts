@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, Ref } from 'react';
 
 export interface ErrorBoundaryState {
   hasError: boolean;
@@ -53,4 +53,10 @@ export type PrivateRouteProps = {
 export type EditorProps = {
   setUserQuery: (value: string) => void;
   children: ReactNode;
+};
+
+export type NavigationProps = {
+  isBurgerOpen: boolean;
+  setIsBurgerOpen: (value: boolean) => void;
+  ref?: Ref<HTMLDivElement>;
 };
