@@ -22,13 +22,6 @@ const dynamicBaseQuery: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   const userEndpoint = (api.getState() as RootState).project.userEndpoint;
 
-  if (!userEndpoint) {
-    return {
-      data: {},
-      errors: ["GraphQL server on specified endpoint doesn't respond!"]
-    };
-  }
-
   const baseQueryWithDynamicUrl = fetchBaseQuery({
     baseUrl: `${userEndpoint}`
   });

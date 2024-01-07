@@ -35,7 +35,7 @@
 
   "titleError": "AN UNKNOWN ERROR HAS OCCURRED",
   "textError": "Please, proceed to the main page.",
-
+  "errorMsg": "Error",
   "switchEndpointPlaceholder": "New graphql endpoint",
   "switchEndpointButton": "Change",
   "serverStatusOK": "Connected",

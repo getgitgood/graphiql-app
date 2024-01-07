@@ -13,7 +13,7 @@ export default function Graphiql() {
   const { sideMenuMode } = useAppSelector((state) => state.project);
 
   return (
-    <section className={classes.graphiql}>
+    <section className={classes.graphiql} data-testid={'graphiql'}>
       {sideMenuMode === SideMenuOptions.Documentation && (
         <Suspense fallback={<Loader />}>
           <LazyDocumentation />

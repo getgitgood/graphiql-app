@@ -1,4 +1,4 @@
-import { http } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 export const schema = {
   data: {
@@ -76,15 +76,14 @@ export const schema = {
     ]
   }
 };
-
 const handlers = [
-  http.post(`https://test.io/*`, () => {
-    return new Response(JSON.stringify(schema), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json'
-      }
+  http.post(`https://test.io/*`, async () => {
+    const res = new HttpResponse(JSON.stringify(schema), {
+      status: 400,
+      statusText: 'sheet',
+      headers: { 'content-type': 'application/json' }
     });
+    return res;
   }),
   http.post(`https://identitytoolkit.googleapis.com/*`, async () => {
     return new Response(JSON.stringify({ data: 'success api call' }), {

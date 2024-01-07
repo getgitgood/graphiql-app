@@ -1,7 +1,7 @@
 import 'whatwg-fetch';
-import server from './server/server';
 import '@testing-library/jest-dom';
 import 'firestore-jest-mock';
+import server from './server/server';
 
 beforeAll(() => {
   server.resetHandlers();
@@ -11,8 +11,5 @@ afterEach(() => {
   server.resetHandlers();
   jest.clearAllMocks();
 });
-afterAll(() => server.close());
 
-// server.events.on('request:start', ({ request }) => {
-//   console.log('msw invoked', request.url, request.method);
-// });
+afterAll(() => server.close());

@@ -36,6 +36,7 @@
   "titleError": "Белгісіз қате пайда болды",
   "textError": "Өтінеміз, басты бетке өтуіңізді сұрау етеміз.",
 
+  "errorMsg": "қате",
   "switchEndpointPlaceholder": "Жаңа GraphQL аралық нүктесі",
   "switchEndpointButton": "Өзгерту",
   "serverStatusOK": "Қосылды",

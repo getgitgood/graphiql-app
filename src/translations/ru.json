@@ -36,6 +36,7 @@
   "titleError": "ПРОИЗОШЛА НЕИЗВЕСТНАЯ ОШИБКА",
   "textError": "Пожалуйста, вернитесь на главную страницу.",
 
+  "errorMsg": "Ошибка",
   "switchEndpointPlaceholder": "Новый graphql адрес",
   "switchEndpointButton": "Сменить",
   "serverStatusOK": "Подключен",

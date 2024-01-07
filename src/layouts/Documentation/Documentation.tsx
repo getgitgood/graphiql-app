@@ -6,17 +6,31 @@ import { useState } from 'react';
 import AsideMenu from '../Aside/AsideMenu';
 
 export default function Documentation() {
-  const { docs, query, type, argumentsTitle, backButton } =
-    useLanguageContext();
+  const {
+    docs,
+    query,
+    type,
+    argumentsTitle,
+    backButton,
+    titleError,
+    errorMsg
+  } = useLanguageContext();
   const { userEndpoint } = useAppSelector((state) => state.project);
 
   const [selectedType, setSelectedType] = useState<string | null>(null);
 
   const { data, isError, error } = useSchemaQuery(userEndpoint);
-  console.log(useSchemaQuery(userEndpoint));
-  if (isError && error && 'message' in error) {
-    return <p>Error: {error.message}</p>;
+
+  if (isError && error && 'error' in error) {
+    return (
+      <p>
+        {errorMsg}: {error.error}
+      </p>
+    );
+  } else if (isError && !('error' in error)) {
+    return <p>{titleError}</p>;
   }
+
   if (!data) return null;
 
   const clientSchema = buildClientSchema(data.data);

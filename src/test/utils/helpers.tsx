@@ -14,7 +14,7 @@ import { RootState, setupStore } from '../../store';
 const user = userEvent.setup();
 
 const providersWrapper = (children: JSX.Element, initStore?: ToolkitStore) => {
-  const store = initStore ?? setupStore();
+  const store = initStore || setupStore();
   return (
     <MemoryRouter>
       <Provider store={store}>
@@ -23,6 +23,20 @@ const providersWrapper = (children: JSX.Element, initStore?: ToolkitStore) => {
         </AppContextProvider>
       </Provider>
     </MemoryRouter>
+  );
+};
+
+const providersWrapperNoRouter = (
+  children: JSX.Element,
+  initStore?: ToolkitStore
+) => {
+  const store = initStore || setupStore();
+  return (
+    <Provider store={store}>
+      <AppContextProvider>
+        <EditorContextProvider>{children}</EditorContextProvider>
+      </AppContextProvider>
+    </Provider>
   );
 };
 
@@ -65,5 +79,6 @@ export {
   visibleElement,
   user,
   providersWrapper,
-  renderWithRtkProviders
+  renderWithRtkProviders,
+  providersWrapperNoRouter
 };

@@ -6,7 +6,12 @@ module.exports = {
     '!src/test/**',
     '!src/**/*.d.ts',
     '!src/**/store.ts',
-    '!src/utils/**'
+    '!src/utils/**',
+    '!src/App.tsx',
+    '!src/main.tsx',
+    '!src/types/**',
+    '!src/components/Context/Context.tsx',
+    '!src/components/EditorContext/EditorContext.tsx'
   ],
   transform: {
     '\\.[jt]sx?$': 'babel-jest'
