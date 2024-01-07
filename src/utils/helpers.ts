@@ -51,7 +51,11 @@ export const queryPrettify = (query: string) => {
       .filter((item) => item !== '')
       .join(' ');
     if (line === '') continue;
-    line = line.replace(' (', '(').replace(' )', ')').replace('){', ') {');
+    line = line
+      .replace(' (', '(')
+      .replace(' )', ')')
+      .replace('){', ') {')
+      .replace(/(?<! )\{/g, ' {');
     if (line.startsWith('}')) {
       indentationLevel = Math.max(indentationLevel - 1, 0);
     }

@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { useGetDataQuery } from '../../features/apiSlice';
 import { useAppSelector, useEditorContext } from '../../hooks/appHooks';
 import { initialViewerState } from '../../utils/cmViewerSetup';
-import { codeMirrorDispatcher } from '../../utils/helpers';
+import { codeMirrorDispatcher, emitNotification } from '../../utils/helpers';
 import Loader from '../Loader/Loader';
 import classes from './EditorViewier.module.scss';
 
@@ -45,11 +45,35 @@ export default function EditorViewier() {
       let content = '';
 
       if (parseError) {
-        codeMirrorDispatcher(viewerViewRef.current, parseError.message);
+        emitNotification('error', parseError.message);
         return;
       }
 
       const contentData = error && 'data' in error ? error.data : data?.data;
+      if (contentData && error && 'data' in error) {
+        type ErrorObj = {
+          errors: ErrorArray[];
+        };
+        type ErrorArray = {
+          extensions?: {
+            code: string;
+          };
+          locations?: { line: number; column: number }[];
+          message: string;
+        };
+        const { errors } = error.data as ErrorObj;
+        errors.forEach((item) => {
+          let errorString = item.message.split(':').join(':\n');
+          if (item.locations) {
+            const [locations] = [...item.locations];
+            const { line, column } = locations;
+            errorString += ' at line: ' + line + ', column: ' + column;
+          }
+
+          emitNotification('error', errorString);
+        });
+        return;
+      }
       if (contentData) {
         content = JSON.stringify(contentData, undefined, 2);
       }

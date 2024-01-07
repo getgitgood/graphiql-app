@@ -28,7 +28,7 @@ const router = createBrowserRouter(
       <Route index element={<WelcomePage />} path="/" />
       <Route
         element={
-          <PrivateRoute redirectTo="/">
+          <PrivateRoute redirectTo="/graphiql">
             <Auth />
           </PrivateRoute>
         }
