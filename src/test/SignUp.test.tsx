@@ -92,7 +92,6 @@ describe('SignUp component', () => {
     });
   });
 
-  // Новые тесты
   test('displays validation errors when need 1 digit in the password', async () => {
     render(
       <MemoryRouter>

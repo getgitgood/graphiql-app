@@ -6,19 +6,18 @@ import { setupStore } from '../store';
 
 describe('AsideMenu Component', () => {
   test('renders AsideMenu component', () => {
-    const store = setupStore(); // Assuming you have a setupStore function
+    const store = setupStore();
     render(
       <Provider store={store}>
         <AsideMenu />
       </Provider>
     );
 
-    // Updated assertion using the title attribute
     expect(screen.getByTitle(/Show documentation/i)).toBeInTheDocument();
   });
 
   test('handles button click', () => {
-    const store = setupStore(); // Assuming you have a setupStore function
+    const store = setupStore();
     render(
       <Provider store={store}>
         <AsideMenu />
@@ -27,8 +26,6 @@ describe('AsideMenu Component', () => {
 
     fireEvent.click(screen.getByTitle(/Show documentation/i));
 
-    // Add your assertions based on the expected behavior after the button click
-    // For example:
     expect(store.getState().project.sideMenuMode).toBe('Documentation');
   });
 });
