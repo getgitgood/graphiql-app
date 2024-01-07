@@ -17,7 +17,7 @@ export default function Main() {
   return (
     <>
       <Header />
-      <main className="main">
+      <main className="main" data-testid="main page">
         <Suspense fallback={<Loader />}>
           <ToastContainer />
           <Outlet />
