@@ -26,6 +26,7 @@ export const BurgerMenu = forwardRef(function BurgerMenu(
         setCurrentUser(user.email);
       } else {
         setCurrentUser(null);
+        localStorage.removeItem('tokenExp');
       }
     });
   });

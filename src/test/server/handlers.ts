@@ -108,6 +108,30 @@ const handlers = [
         status: 200
       }
     );
+  }),
+  http.post(`test-submit`, async () => {
+    return new Response(
+      JSON.stringify({
+        data: {
+          so: 'it`s just works!'
+        }
+      }),
+      {
+        status: 200
+      }
+    );
+  }),
+  http.post(`https://test-doc`, async () => {
+    return new Response(
+      JSON.stringify({
+        data: {
+          so: 'it`s just works!'
+        }
+      }),
+      {
+        status: 200
+      }
+    );
   })
 ];
 

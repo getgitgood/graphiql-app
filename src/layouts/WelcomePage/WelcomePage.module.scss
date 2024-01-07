@@ -2,6 +2,18 @@
   padding: 20px 20px;
   justify-content: space-between;
   height: 100%;
+
+  .link_wrapper {
+    display: flex;
+    justify-content: flex-end;
+    .link {
+      color: $font-color;
+      transition: color 0.3s ease;
+      &:hover {
+        color: $font-color-hovered;
+      }
+    }
+  }
   .about_wrapper {
     display: flex;
     flex-direction: column;
@@ -21,6 +33,7 @@
       width: 100%;
       text-align: justify;
     }
+
   }
   h2 {
     color: $secondary-color-dim;
@@ -36,6 +49,7 @@
     padding: 0.7rem;
   }
 
+
   @media (min-width: $mobile) and (max-width: $tablet) {
     font-size: 0.7em;
     section {
@@ -46,5 +60,15 @@
   @media (min-width: $fhd) {
     font-size: 1em;
     padding: 1.1rem;
+  }
+  
+  @media screen and (max-height: 800px) {
+    font-size: 0.6em;
+  }
+  @media (max-width: $tablet) and (max-height: $tablet) {
+    font-size: 0.5em;
+  }
+  @media (max-width: $tablet) and (max-height: 450px) {
+    font-size: 0.4em;
   }
 }

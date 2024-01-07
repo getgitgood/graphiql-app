@@ -7,6 +7,7 @@ import {
 
 import AppContextProvider from './components/Context/Context';
 import EditorContextProvider from './components/EditorContext/EditorContext';
+import { tokenCheckInterval } from './utils/checkTokenExp ';
 
 import WelcomePage from './layouts/WelcomePage/WelcomePage';
 import Main from './layouts/Main/Main';
@@ -47,6 +48,8 @@ const router = createBrowserRouter(
     </Route>
   )
 );
+
+tokenCheckInterval;
 
 export default function App() {
   return (

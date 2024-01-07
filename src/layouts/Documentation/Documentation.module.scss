@@ -32,6 +32,7 @@
 
     @media screen and (max-width: $tablet) {
       margin-bottom: 0.3em;
+      line-height: 1.2em;
     }
     @include media-fs($fs-bold, $fs-regular, $fs-semi);
   }
@@ -176,6 +177,9 @@
     background-size: 100% 100% !important;
     background-position: 50% 50% !important;
 
+    @media screen and (max-width: $tablet) {
+      padding: 0.8em !important;
+    }
     &:hover {
       filter: hue-rotate(-75deg) !important;
     }

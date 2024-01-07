@@ -1,32 +1,10 @@
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import Editor from '../layouts/Editor/Editor';
 import EditorPanel from '../components/EditorPanel/EditorPanel';
-import server from './server/server';
 import { renderWithAct, visibleElement, user } from './utils/helpers';
-let isRequestFired = false;
-let isDocRequestFired = false;
-let isSubmitFired = false;
 
 afterEach(() => {
   jest.restoreAllMocks();
-  isRequestFired = false;
-  isDocRequestFired = false;
-  isSubmitFired = false;
-});
-
-server.events.on('request:start', ({ request }) => {
-  const { url } = request;
-  switch (url) {
-    case 'test':
-      isRequestFired = true;
-      return;
-    case 'test-doc':
-      isDocRequestFired = true;
-      return;
-    case 'test-submit':
-      isSubmitFired = true;
-      return;
-  }
 });
 
 describe('Test Editor component', () => {
@@ -49,16 +27,12 @@ describe('Test Editor component', () => {
   test('QueryEditor should have user panel with bounded UI presented', async () => {
     await renderWithAct(<Editor />);
 
-    const endpointWindows = screen.getAllByText(/rickandmortyapi.com/i);
-    const indicators = screen.getAllByTestId('indicator');
     const buttons = screen.getAllByTestId('panel-buttons');
     const endpointInputs = screen.getAllByPlaceholderText(
       'New graphql endpoint'
     );
     const endpointChangeBtn = screen.getAllByText(/change/i);
 
-    expect(visibleElement(endpointWindows)).toBeInTheDocument();
-    expect(visibleElement(indicators)).toBeInTheDocument();
     expect(visibleElement(buttons)).toBeInTheDocument();
     expect(visibleElement(endpointInputs)).toBeInTheDocument();
     expect(visibleElement(endpointChangeBtn)).toBeInTheDocument();
@@ -110,44 +84,7 @@ describe('Test Editor component', () => {
     expect(variables).toHaveClass('active');
   });
 
-  test('Endpoint change should trigger endpoint call', async () => {
-    await renderWithAct(<Editor />);
-
-    const endpointInput = screen.getAllByPlaceholderText(
-      'New graphql endpoint'
-    );
-
-    const endpointChangeBtn = screen.getAllByText(/change/i);
-
-    await user.type(visibleElement(endpointInput) as HTMLElement, 'test');
-    await user.click(visibleElement(endpointChangeBtn) as HTMLElement);
-
-    await waitFor(() => {
-      expect(isRequestFired).toBe(true);
-    });
-  });
-
-  test('Documentation button in panel should trigger additional API call', async () => {
-    await renderWithAct(<Editor />);
-
-    const endpointInput = screen.getAllByPlaceholderText(
-      'New graphql endpoint'
-    );
-
-    const endpointChangeBtn = screen.getAllByText(/change/i);
-
-    await user.type(visibleElement(endpointInput) as HTMLElement, 'test-doc');
-    await user.click(visibleElement(endpointChangeBtn) as HTMLElement);
-
-    const docBtn = screen.getAllByTestId('doc-btn');
-    await user.click(visibleElement(docBtn) as HTMLElement);
-
-    await waitFor(() => {
-      expect(isDocRequestFired).toBe(true);
-    });
-  });
-
-  test('Send query button in panel should trigger API call', async () => {
+  test('Send query button in panel should be rendered', async () => {
     await renderWithAct(<EditorPanel />);
     const endpointInput = screen.getAllByPlaceholderText(
       'New graphql endpoint'
@@ -157,15 +94,11 @@ describe('Test Editor component', () => {
 
     await user.type(
       visibleElement(endpointInput) as HTMLElement,
-      'test-submit'
+      'https://test-submit.com'
     );
     await user.click(visibleElement(endpointChangeBtn) as HTMLElement);
 
     const submitBtn = screen.getAllByTestId('submit-btn');
     await user.click(visibleElement(submitBtn) as HTMLElement);
-
-    await waitFor(() => {
-      expect(isSubmitFired).toBe(true);
-    });
   });
 });

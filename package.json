@@ -11,7 +11,7 @@
     "prepare": "husky install",
     "preview": "vite preview",
     "test": "jest --coverage",
-    "test-nocoverage": "jest --coverage",
+    "test-nocoverage": "jest",
     "test:watch": "jest --watch",
     "pre-push": "jest"
   },

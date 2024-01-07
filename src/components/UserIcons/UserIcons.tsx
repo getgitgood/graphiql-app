@@ -24,6 +24,7 @@ export default function UserIcons() {
       } else {
         setIsUserLoggedIn(false);
         setCurrentUser(null);
+        localStorage.removeItem('tokenExp');
       }
     });
   }, [dispatch]);

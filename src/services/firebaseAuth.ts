@@ -32,8 +32,16 @@ export {
   setPersistence
 };
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (user) {
+    const t = await user.getIdTokenResult();
+    const date = new Date(t.expirationTime);
+    const tokenExp = {
+      tokenExp: date.getTime() - 360000
+    };
+    localStorage.setItem('tokenExp', JSON.stringify(tokenExp));
     setPersistence(auth, browserLocalPersistence);
+  } else {
+    localStorage.removeItem('tokenExp');
   }
 });

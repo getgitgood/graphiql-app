@@ -1,22 +1,32 @@
-import React from 'react';
 import classes from './WelcomePage.module.scss';
-import { useLanguageContext } from '../../hooks/appHooks';
+import { useAppSelector, useLanguageContext } from '../../hooks/appHooks';
 import UserIcons from '../../components/UserIcons/UserIcons';
+import { Link } from 'react-router-dom';
 
-const WelcomePage: React.FC = () => {
+const WelcomePage = () => {
+  const { isUserSignIn } = useAppSelector((state) => state.project);
   const {
     aboutProject,
     aboutDevelopers,
     aboutCourse,
     textProject,
     textCourse,
-    textDevelopers
+    textDevelopers,
+    mainPage
   } = useLanguageContext();
 
   return (
     <>
       <section className={classes.about}>
-        <UserIcons />
+        {isUserSignIn ? (
+          <div className={classes.link_wrapper}>
+            <Link to={'/graphiql'} className={classes.link}>
+              {mainPage}
+            </Link>
+          </div>
+        ) : (
+          <UserIcons />
+        )}
         <div className={classes.about_wrapper}>
           <section className={classes.about_content}>
             <h2>{aboutProject}</h2>
