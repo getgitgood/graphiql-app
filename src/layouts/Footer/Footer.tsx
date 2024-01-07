@@ -2,7 +2,7 @@ import classes from './Footer.module.scss';
 
 export default function Footer() {
   return (
-    <footer>
+    <footer data-testid={'footer'}>
       <div className={classes.footer_content}>
         <div className={classes.course_wrapper}>
           <a
@@ -10,7 +10,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="/src/assets/img/rs_school.png" alt="Course Logo" />
+            <img src="/rs_school.png" alt="Course Logo" />
           </a>
         </div>
         <div className={classes.github_wrapper}>

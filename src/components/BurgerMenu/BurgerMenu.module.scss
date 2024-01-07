@@ -27,7 +27,7 @@
   padding: 0 0.2em;
   justify-content: space-between;
 
-  background-color: rgba($color: $aside-color, $alpha: .5);
+  background-color: rgba($color: $aside-color, $alpha: 0.5);
 }
 
 .user_name {
@@ -47,7 +47,7 @@
 .menu_wrapper {
   display: flex;
   flex-direction: column;
-  background-color: rgba($color: $header-color, $alpha: .9);
+  background-color: rgba($color: $header-color, $alpha: 0.9);
   padding: 0.1em 0;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;

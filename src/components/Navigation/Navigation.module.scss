@@ -5,7 +5,10 @@
 
   transition: all 0.2s ease;
 
-  @include media-hover('color', $secondary-font-color);
+  &:hover {
+    color: $font-color-hovered;
+  }
+
   @include media-fs($fs-semi, $fs-small);
 }
 
@@ -22,7 +25,7 @@
 
   .laptop_container {
     @media screen and (max-width: $tablet) {
-      display: none
+      display: none;
     }
   }
 }
@@ -46,8 +49,8 @@
 .burger_menu {
   display: flex;
   gap: 0.2em;
-  background-color: rgba($color: $body-background, $alpha: .5);
-  border: 1px solid transparent; 
+  background-color: rgba($color: $body-background, $alpha: 0.5);
+  border: 1px solid transparent;
   opacity: 0.6;
   padding: 0.2em;
   height: 1.7em;
@@ -60,7 +63,7 @@
   cursor: pointer;
 
   &.active {
-    background-color: rgba($color: $body-background, $alpha: .8);
+    background-color: rgba($color: $body-background, $alpha: 0.8);
     transform: rotate(90deg);
     gap: 0;
 
@@ -70,10 +73,10 @@
 
       &:not(.burger_bar:last-child) {
         border-radius: initial;
-        height: .1em;
+        height: 0.1em;
         width: 0.4em;
       }
-      
+
       &:first-child {
         border-top-left-radius: 20% !important;
         border-bottom-left-radius: 20% !important;
@@ -83,25 +86,30 @@
         background-color: transparent;
       }
 
-      &:last-child:before, &:last-child::after {
+      &:last-child:before,
+      &:last-child::after {
         content: '';
         position: absolute;
         top: 50%;
         left: 0%;
-        
-        border: .1em solid transparent; border-left: .1em solid $secondary-color-dim; border-top: .1em solid $secondary-color-dim;
+
+        border: 0.1em solid transparent;
+        border-left: 0.1em solid $secondary-color-dim;
+        border-top: 0.1em solid $secondary-color-dim;
       }
-      
+
       &:last-child::after {
         top: -50%;
         bottom: 100%;
-        border: .1em solid transparent; border-bottom: .1em solid $secondary-color-dim; border-left: .1em solid $secondary-color-dim;
+        border: 0.1em solid transparent;
+        border-bottom: 0.1em solid $secondary-color-dim;
+        border-left: 0.1em solid $secondary-color-dim;
       }
     }
   }
   .burger_bar {
-    width: .2em;
-    height: .2em;
+    width: 0.2em;
+    height: 0.2em;
     background-color: $editor-color;
     border-radius: 50%;
 

@@ -58,7 +58,11 @@ export default function EditorViewier() {
   }, [data, error, isError, parseError]);
 
   return (
-    <div ref={viewerRef} className={classes.editor_readonly}>
+    <div
+      ref={viewerRef}
+      className={classes.editor_readonly}
+      data-testid={'editor-viewer'}
+    >
       {isFetching && <Loader />}
     </div>
   );

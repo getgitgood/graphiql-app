@@ -6,11 +6,10 @@
   padding: 0.5rem;
   row-gap: 0.05rem;
 
-  
-  @media screen and (max-width: $tablet){
+  @media screen and (max-width: $tablet) {
     height: 100%;
     min-height: 40%;
   }
 
-  @include media-fs()
+  @include media-fs();
 }
