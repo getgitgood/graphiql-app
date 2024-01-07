@@ -1,10 +1,29 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import SignIn from '../components/Forms/SignIn';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
+import server from './server/server';
 
 const user = userEvent.setup();
+
+let isFirebaseCalled = false;
+
+beforeEach(() => {
+  isFirebaseCalled = false;
+});
+
+server.events.on('request:start', ({ request }) => {
+  const url = new URL(request.url);
+
+  const { hostname } = url;
+
+  switch (hostname) {
+    case 'identitytoolkit.googleapis.com':
+      isFirebaseCalled = true;
+      return;
+  }
+});
 
 describe('SignIn Component', () => {
   test('render SignIn component', () => {
@@ -32,7 +51,7 @@ describe('SignIn Component', () => {
     expect(buttonElement).toBeInTheDocument();
   });
 
-  test('submit button is enabled with valid data', async () => {
+  test('submit button is enabled with valid data and form is submitted', async () => {
     render(
       <MemoryRouter>
         <SignIn />
@@ -45,6 +64,12 @@ describe('SignIn Component', () => {
     await user.type(passwordInput, 'password123!A');
 
     expect(submitButton).toBeEnabled();
+
+    await user.click(submitButton);
+
+    await waitFor(() => {
+      expect(isFirebaseCalled).toBe(true);
+    });
   });
 
   test('submit button is disabled with invalid data', async () => {

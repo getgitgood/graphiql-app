@@ -6,6 +6,7 @@ $fs-small: 0.7em;
 $fs-smallest: 0.6em;
 
 $font-color: #c5cad5;
+$font-color-hovered: #717a8c;
 $secondary-font-color: #959db1;
 
 $primary-color: #161e26;
@@ -27,7 +28,6 @@ $indicator-ok: #3cb142fa;
 $tablet: 768px;
 $fhd: 1280px;
 $mobile: 330px;
-
 
 @mixin media-col-gap($gap1: 0.5em, $gap2: 0.2em) {
   @media screen and (max-width: $tablet) {

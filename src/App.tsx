@@ -20,31 +20,36 @@ import { setupStore } from './store';
 import { Provider } from 'react-redux';
 import Page404 from './pages/Page404/Page404';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
+import Documentation from './layouts/Documentation/Documentation';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<Main />} path="/" errorElement={<ErrorPage />}>
-      <Route index element={<WelcomePage />} path="/" />
-      <Route
-        element={
-          <PrivateRoute redirectTo="/">
-            <Auth />
-          </PrivateRoute>
-        }
-        path="/auth"
-      />
-      <Route
-        element={
-          <PrivateRoute redirectTo="/" isReversedDirection={true}>
-            <EditorContextProvider>
-              <Graphiql />
-            </EditorContextProvider>
-          </PrivateRoute>
-        }
-        path="/graphiql"
-      />
-      <Route element={<Page404 />} path="*" />
-    </Route>
+    <>
+      <Route element={<Documentation />} path="test" />
+      <Route element={<Main />} path="/" errorElement={<ErrorPage />}>
+        <Route index element={<WelcomePage />} path="/" />
+
+        <Route
+          element={
+            <PrivateRoute redirectTo="/">
+              <Auth />
+            </PrivateRoute>
+          }
+          path="/auth"
+        />
+        <Route
+          element={
+            <PrivateRoute redirectTo="/" isReversedDirection={true}>
+              <EditorContextProvider>
+                <Graphiql />
+              </EditorContextProvider>
+            </PrivateRoute>
+          }
+          path="/graphiql"
+        />
+        <Route element={<Page404 />} path="*" />
+      </Route>
+    </>
   )
 );
 

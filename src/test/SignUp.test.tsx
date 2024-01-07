@@ -1,26 +1,39 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import SignUp from '../components/Forms/SignUp';
+import server from './server/server';
+import { user } from './utils/helpers';
 
-jest.mock('../services/firebaseAuth', () => ({
-  createUserWithEmailAndPassword: jest.fn(),
-  auth: {
-    currentUser: null
+let isFirebaseCalled = false;
+
+beforeEach(() => {
+  isFirebaseCalled = false;
+});
+
+server.events.on('request:start', ({ request }) => {
+  const url = new URL(request.url);
+
+  const { hostname } = url;
+
+  switch (hostname) {
+    case 'identitytoolkit.googleapis.com':
+      isFirebaseCalled = true;
+      return;
   }
-}));
-
-const user = userEvent.setup();
+});
 
 describe('SignUp component', () => {
-  it('renders SignUp component correctly', () => {
+  it('renders SignUp component correctly and disable button', () => {
     render(
       <MemoryRouter>
         <SignUp />
       </MemoryRouter>
     );
-    expect(screen.getByRole('button', { name: 'Sign Up' })).toBeInTheDocument();
+    const btn = screen.getByRole('button', { name: 'Sign Up' });
+    expect(btn).toBeInTheDocument();
+    expect(btn).toBeDisabled();
   });
 
   test('displays validation error for invalid email', async () => {
@@ -103,13 +116,13 @@ describe('SignUp component', () => {
     ).toBeInTheDocument();
   });
 
-  test('displays no validation errors for a valid input', async () => {
+  test('displays no validation errors for a valid input, unblock button and submit form', async () => {
     render(
       <MemoryRouter>
         <SignUp />
       </MemoryRouter>
     );
-
+    const btn = screen.getByRole('button', { name: 'Sign Up' });
     const emailInput = screen.getByLabelText('Email');
     const passwordInput = screen.getByLabelText('Password');
     const confirmPasswordInput = screen.getByLabelText('Confirm password');
@@ -132,5 +145,13 @@ describe('SignUp component', () => {
       screen.queryByText('Must contain at least 1 special character!')
     ).toBeNull();
     expect(screen.queryByText('Passwords must match')).toBeNull();
+
+    expect(btn).toBeEnabled();
+
+    await user.click(btn);
+
+    await waitFor(() => {
+      expect(isFirebaseCalled).toBe(true);
+    });
   });
 });

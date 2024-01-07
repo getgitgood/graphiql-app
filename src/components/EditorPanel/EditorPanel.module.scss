@@ -6,7 +6,6 @@
 
   order: -1;
 
-
   .panel_items {
     display: grid;
     grid-template-areas: 'info btns endpoint';
@@ -72,7 +71,6 @@
   column-gap: 1em;
 
   grid-area: btns;
-
 
   .editor_btn {
     padding: 1rem;
@@ -200,8 +198,8 @@
     margin-top: 1px;
     display: flex;
     flex-direction: column;
-    row-gap: .2em;
-    padding: .5em;
+    row-gap: 0.2em;
+    padding: 0.5em;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     font-size: $fs-small;
@@ -220,7 +218,7 @@
       font-size: 1.5em;
       overflow: hidden;
     }
-    
+
     .endpoint_container {
       flex-direction: column;
       row-gap: 0.3em;

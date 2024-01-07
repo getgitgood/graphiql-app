@@ -1,16 +1,20 @@
+import { PreloadedState } from '@reduxjs/toolkit';
+import { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore';
+import { setupListeners } from '@reduxjs/toolkit/query';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { ReactElement, ReactNode } from 'react';
 import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
 import AppContextProvider from '../../components/Context/Context';
 import EditorContextProvider from '../../components/EditorContext/EditorContext';
-import { setupStore } from '../../store';
+import { RootState, setupStore } from '../../store';
 
 const user = userEvent.setup();
 
-const ProvidersWrapper = (children: JSX.Element) => {
-  const store = setupStore();
+const providersWrapper = (children: JSX.Element, initStore?: ToolkitStore) => {
+  const store = initStore ?? setupStore();
   return (
     <MemoryRouter>
       <Provider store={store}>
@@ -22,9 +26,12 @@ const ProvidersWrapper = (children: JSX.Element) => {
   );
 };
 
-const renderWithAct = async (children: JSX.Element) => {
+const renderWithAct = async (
+  children: JSX.Element,
+  initStore?: ToolkitStore
+) => {
   await act(async () => {
-    render(ProvidersWrapper(children));
+    render(providersWrapper(children, initStore));
   });
 };
 
@@ -34,4 +41,29 @@ const visibleElement = (elements: HTMLElement[]) => {
   );
 };
 
-export { renderWithAct, visibleElement, user, ProvidersWrapper };
+function renderWithRtkProviders(
+  ui: ReactElement,
+  {
+    preloadedState = {},
+    store = setupStore(preloadedState),
+    ...renderOptions
+  } = {}
+) {
+  setupListeners(store.dispatch);
+
+  function Wrapper({ children }: { children: ReactNode }) {
+    return <Provider store={store}>{children}</Provider>;
+  }
+
+  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
+}
+
+export type MockPreloadState = Pick<PreloadedState<RootState>, 'project'>;
+
+export {
+  renderWithAct,
+  visibleElement,
+  user,
+  providersWrapper,
+  renderWithRtkProviders
+};

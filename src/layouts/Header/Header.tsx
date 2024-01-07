@@ -18,7 +18,7 @@ export default function Header() {
     const burgerMenuDisplayHandler = () => {
       const { innerWidth } = window;
       if (innerWidth > 768) {
-        setIsBurgerOpen(false);
+        setIsBurgerOpen(innerWidth < 768);
       }
     };
 
@@ -60,19 +60,17 @@ export default function Header() {
   };
 
   return (
-    <>
-      <header className={`${classes.header} ${headerAnimationHandler()}`}>
-        {isUserSignIn !== null && (
-          <Navigation
-            {...{ isBurgerOpen, setIsBurgerOpen }}
-            ref={burgerButtonRef}
-          />
-        )}
-        <BurgerMenu
+    <header
+      className={`${classes.header} ${headerAnimationHandler()}`}
+      data-testid={'header'}
+    >
+      {isUserSignIn !== null && (
+        <Navigation
           {...{ isBurgerOpen, setIsBurgerOpen }}
-          ref={burgerMenuRef}
+          ref={burgerButtonRef}
         />
-      </header>
-    </>
+      )}
+      <BurgerMenu {...{ isBurgerOpen, setIsBurgerOpen }} ref={burgerMenuRef} />
+    </header>
   );
 }

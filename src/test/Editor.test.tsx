@@ -1,13 +1,14 @@
 import { screen, waitFor } from '@testing-library/react';
 import Editor from '../layouts/Editor/Editor';
+import EditorPanel from '../components/EditorPanel/EditorPanel';
 import server from './server/server';
 import { renderWithAct, visibleElement, user } from './utils/helpers';
-
 let isRequestFired = false;
 let isDocRequestFired = false;
 let isSubmitFired = false;
 
 afterEach(() => {
+  jest.restoreAllMocks();
   isRequestFired = false;
   isDocRequestFired = false;
   isSubmitFired = false;
@@ -77,7 +78,7 @@ describe('Test Editor component', () => {
     expect(expandBtn).toBeInTheDocument();
   });
 
-  test('Toolkit in QueryEditor component should expand on btn click', async () => {
+  test('Toolkit in QueryEditor component should expand and collapse on btn click', async () => {
     await renderWithAct(<Editor />);
 
     const toolkit = screen.getByTestId('toolkit');
@@ -87,6 +88,26 @@ describe('Test Editor component', () => {
     await user.click(expandBtn);
 
     expect(toolkit).not.toHaveClass('collapsed');
+
+    await user.click(expandBtn);
+
+    expect(toolkit).toHaveClass('collapsed');
+  });
+
+  test('Headers and variables in EditorToolkit must correct reflect active state', async () => {
+    await renderWithAct(<Editor />);
+
+    const headers = screen.getByText('Headers');
+    const variables = screen.getByText('Variables');
+
+    await user.click(headers);
+
+    expect(headers).toHaveClass('active');
+    expect(variables).not.toHaveClass('active');
+    await user.click(variables);
+
+    expect(headers).not.toHaveClass('active');
+    expect(variables).toHaveClass('active');
   });
 
   test('Endpoint change should trigger endpoint call', async () => {
@@ -127,8 +148,7 @@ describe('Test Editor component', () => {
   });
 
   test('Send query button in panel should trigger API call', async () => {
-    await renderWithAct(<Editor />);
-
+    await renderWithAct(<EditorPanel />);
     const endpointInput = screen.getAllByPlaceholderText(
       'New graphql endpoint'
     );

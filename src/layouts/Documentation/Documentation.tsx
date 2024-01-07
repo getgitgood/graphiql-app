@@ -13,11 +13,10 @@ export default function Documentation() {
   const [selectedType, setSelectedType] = useState<string | null>(null);
 
   const { data, isError, error } = useSchemaQuery(userEndpoint);
-
+  console.log(useSchemaQuery(userEndpoint));
   if (isError && error && 'message' in error) {
     return <p>Error: {error.message}</p>;
   }
-
   if (!data) return null;
 
   const clientSchema = buildClientSchema(data.data);
@@ -25,8 +24,7 @@ export default function Documentation() {
   const queryType = clientSchema.getQueryType();
 
   if (!queryType) return null;
-  const fields = queryType.getFields();
-
+  const fields = queryType!.getFields();
   return (
     <div className={classes.documentation}>
       <div className={classes.close_btn_wrapper}>
