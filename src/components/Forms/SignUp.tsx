@@ -84,7 +84,7 @@ export default function SignUp() {
       await createUserWithEmailAndPassword(auth, email, password);
       setFirebaseErrors(null);
       emitNotification('success', toastSuccessSignUp);
-      navigate('/');
+      navigate('/graphiql');
     } catch (e) {
       if (e instanceof FirebaseError) {
         setFirebaseErrors(e);
@@ -131,7 +131,7 @@ export default function SignUp() {
         <label htmlFor="password">{password}</label>
         <input
           id="password"
-          type="text"
+          type="password"
           placeholder={enterYourPassword}
           {...register('password')}
           className={`${classes.input} ${

@@ -74,7 +74,7 @@ export default function SignIn() {
       setIsLoading(true);
       await signInWithEmailAndPassword(auth, email, password);
       setFirebaseErrors(null);
-      navigate('/');
+      navigate('/graphiql');
       emitNotification('success', toastSuccessSignIn);
     } catch (e) {
       if (e instanceof FirebaseError) {
