@@ -185,8 +185,8 @@
 }
 
 .dropdown_wrapper {
-  position: relative;
   display: none;
+  position: relative;
   padding: 0.2em;
   @media screen and (max-width: $fhd) {
     display: flex;

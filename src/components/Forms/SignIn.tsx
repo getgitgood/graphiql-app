@@ -99,7 +99,11 @@ export default function SignIn() {
   }
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={classes.form}
+      onSubmit={handleSubmit(onSubmit)}
+      data-testid={'signin-form'}
+    >
       <h2 className={classes.form_heading}>{signIn}</h2>
       <div className={classes.input_container}>
         <label htmlFor="email">{email}</label>

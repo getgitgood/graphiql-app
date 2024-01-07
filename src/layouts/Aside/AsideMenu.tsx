@@ -19,6 +19,7 @@ export default function AsideMenu() {
 
   return (
     <button
+      data-testid={'doc-btn'}
       title="Show documentation"
       onClick={handleToggleDocumentation}
       className={`${classes.aside_menu_button} ${classes.btn_doc} ${

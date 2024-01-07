@@ -6,7 +6,7 @@ import classes from './Editor.module.scss';
 
 export default function Editor() {
   return (
-    <div className={classes.editor_wrapper}>
+    <div className={classes.editor_wrapper} data-testid={'editor'}>
       <QueryEditor>
         <EditorToolkit />
         <EditorPanel />

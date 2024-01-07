@@ -35,6 +35,7 @@ export const BurgerMenu = forwardRef(function BurgerMenu(
       className={`${classes.menu_layout} ${isBurgerOpen ? classes.open : ''}`}
       onClick={layoutHandler}
       ref={ref}
+      data-testid={'burger-menu'}
     >
       <div className={classes.menu_wrapper}>
         {currentUser && (

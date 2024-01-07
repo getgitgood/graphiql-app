@@ -94,6 +94,7 @@ export default function EditorPanel() {
     return (
       <div
         aria-description={isError ? serverStatusError : serverStatusOK}
+        data-testid={'indicator'}
         className={`${classes.indicator} ${
           isFetching ? classes.fetching : ''
         } ${isError ? classes.indicator_error : classes.indicator_ok}`}
@@ -124,16 +125,18 @@ export default function EditorPanel() {
 
   const renderButtonsContainer = () => {
     return (
-      <div className={classes.buttons}>
+      <div className={classes.buttons} data-testid={'panel-buttons'}>
         <button
           disabled={isError}
           className={`${classes.editor_btn} ${classes.request_btn}`}
           onClick={submitQuery}
+          data-testid={'submit-btn'}
         />
 
         <button
           className={`${classes.editor_btn} ${classes.clean_up_btn}`}
           onClick={cleanUpQuery}
+          data-testid={'cleanup-btn'}
         />
 
         <AsideMenu />
@@ -150,7 +153,7 @@ export default function EditorPanel() {
           placeholder={switchEndpointPlaceholder}
           onChange={changeEndpoint}
           onBlur={restoreEndpoint}
-          id="url"
+          id="switch"
           name="url"
           type="text"
         />

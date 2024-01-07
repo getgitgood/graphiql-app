@@ -15,18 +15,18 @@ describe('WelcomePage component', () => {
     render(<WelcomePage />);
     expect(
       screen.getByText(/GraphiQL is a powerful playground/i)
-    ).toBeInTheDocument(); // Замените на фактический текст
+    ).toBeInTheDocument();
   });
 
   test('renders developers content', () => {
     render(<WelcomePage />);
     expect(
       screen.getByText(/We are the LuckyCoders team/i)
-    ).toBeInTheDocument(); // Замените на фактический текст
+    ).toBeInTheDocument();
   });
 
   test('renders course content', () => {
     render(<WelcomePage />);
-    expect(screen.getByText(/The React RS School course/i)).toBeInTheDocument(); // Замените на фактический текст
+    expect(screen.getByText(/The React RS School course/i)).toBeInTheDocument();
   });
 });

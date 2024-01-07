@@ -64,6 +64,7 @@ export default function EditorToolkit() {
       className={`${classes.editor_toolkit} ${
         isExpanded ? '' : classes.collapsed
       }`}
+      data-testid={'toolkit'}
     >
       <div className={classes.toolkit_header}>
         <div className={classes.button_wrapper}>
@@ -87,6 +88,7 @@ export default function EditorToolkit() {
         <button
           onClick={expandToolkit}
           className={classes.toggle_toolkit_button}
+          data-testid={'expand-btn'}
         >
           {isExpanded ? '▼' : '▲'}
         </button>

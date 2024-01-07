@@ -34,7 +34,11 @@ export default function QueryEditor({ children }: ContextProps) {
   }, [prettifiedQuery, queryUpdateCounter]);
 
   return (
-    <div ref={editorRef} className={classes.editor_editable}>
+    <div
+      ref={editorRef}
+      className={classes.editor_editable}
+      data-testid={'query-editor'}
+    >
       {children}
     </div>
   );
