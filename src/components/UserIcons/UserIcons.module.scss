@@ -1,7 +1,7 @@
 .user_icons_wrapper {
-  display: inline-flex;
+  display: flex;
   column-gap: 1em;
-  justify-content: space-between;
+  justify-content: flex-end;
 
   @include media-col-gap();
 
