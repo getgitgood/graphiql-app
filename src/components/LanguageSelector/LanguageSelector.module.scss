@@ -1,0 +1,45 @@
+.language_selectors {
+  display: inline-flex;
+  align-items: center;
+  column-gap: 0.1em;
+
+  font-size: $fs-semi;
+  box-shadow: 0 1px 3px 1px rgba($color: #000000, $alpha: 0.5);
+  background-color: $additional-color;
+  border-radius: 5px;
+  opacity: 0.9;
+  user-select: none;
+
+  @media screen and (max-width: $tablet) {
+    font-size: $fs-bold;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 0.1em;
+    box-shadow: none;
+  }
+
+  .language_selector {
+    transition: all ease 0.3s;
+    padding: 0.25em;
+
+    &.lang_active {
+      background-color: $secondary-color;
+      border-radius: 5px;
+      box-shadow: inset 0 0 2px 2px rgba($color: #000000, $alpha: 0.6);
+      pointer-events: none;
+    }
+
+    @media screen and (hover: hover) {
+      &:not(.lang_active):hover {
+        cursor: pointer;
+        color: $secondary-font-color;
+      }
+    }
+
+    @media screen and (max-width: $tablet) {
+      padding: 0.2em 0.35em;
+    }
+
+    @include media-fs();
+  }
+}

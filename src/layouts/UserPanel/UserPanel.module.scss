@@ -1,0 +1,8 @@
+.user_panel {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  column-gap: 1rem;
+
+  @include media-col-gap();
+}

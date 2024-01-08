@@ -1,0 +1,35 @@
+.aside_menu_button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 1rem;
+  transition: filter 0.3s ease;
+
+  &.btn_doc {
+    background: no-repeat url('../../assets/img/doc_icon.svg');
+    background-size: 95% 95%;
+    background-position: 50% 50%;
+    @media screen and (max-width: $tablet) {
+      background-size: 75% 75%;
+      background-position: 50% 50%;
+    }
+  }
+
+  &.btn_history {
+    background: no-repeat url('../../assets/img/history_icon.svg');
+    background-size: 95% 95%;
+    background-position: 50% 50%;
+  }
+
+  &:hover {
+    filter: hue-rotate(-75deg);
+  }
+
+  &.selected {
+    background-color: $header-color;
+
+    &:hover {
+      filter: none;
+    }
+  }
+}

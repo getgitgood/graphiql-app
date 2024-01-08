@@ -1,0 +1,122 @@
+.nav_link {
+  text-decoration: none;
+  color: $font-color;
+  user-select: none;
+
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $font-color-hovered;
+  }
+
+  @include media-fs($fs-semi, $fs-small);
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  @media screen and (max-width: $tablet) {
+    justify-content: space-around;
+    padding: 0 0.5em;
+  }
+
+  .laptop_container {
+    @media screen and (max-width: $tablet) {
+      display: none;
+    }
+  }
+}
+
+.logo_link {
+  display: inline-block;
+  background: no-repeat url('../../assets/img/GraphQLLogo.svg');
+  background-size: 100%;
+  background-position: 50% 50%;
+  width: 6em;
+  height: 1.65em;
+
+  vertical-align: middle;
+
+  @media screen and (max-width: $tablet) {
+    background: no-repeat url('../../assets/img/GraphQLLogoSquare.svg');
+  }
+  @include media-wh(2.2em, 2.2em);
+}
+
+.burger_menu {
+  display: flex;
+  gap: 0.2em;
+  background-color: rgba($color: $body-background, $alpha: 0.5);
+  border: 1px solid transparent;
+  opacity: 0.6;
+  padding: 0.2em;
+  height: 1.7em;
+  width: 1.7em;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &.active {
+    background-color: rgba($color: $body-background, $alpha: 0.8);
+    transform: rotate(90deg);
+    gap: 0;
+
+    .burger_bar {
+      position: relative;
+      background-color: $secondary-color-dim;
+
+      &:not(.burger_bar:last-child) {
+        border-radius: initial;
+        height: 0.1em;
+        width: 0.4em;
+      }
+
+      &:first-child {
+        border-top-left-radius: 20% !important;
+        border-bottom-left-radius: 20% !important;
+      }
+
+      &:last-child {
+        background-color: transparent;
+      }
+
+      &:last-child:before,
+      &:last-child::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0%;
+
+        border: 0.1em solid transparent;
+        border-left: 0.1em solid $secondary-color-dim;
+        border-top: 0.1em solid $secondary-color-dim;
+      }
+
+      &:last-child::after {
+        top: -50%;
+        bottom: 100%;
+        border: 0.1em solid transparent;
+        border-bottom: 0.1em solid $secondary-color-dim;
+        border-left: 0.1em solid $secondary-color-dim;
+      }
+    }
+  }
+  .burger_bar {
+    width: 0.2em;
+    height: 0.2em;
+    background-color: $editor-color;
+    border-radius: 50%;
+
+    transition: background-color 0.3s ease;
+  }
+
+  @media screen and (min-width: $tablet) {
+    display: none;
+  }
+}

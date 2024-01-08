@@ -1,0 +1,74 @@
+$font: 'Roboto Slab', serif;
+$fs-bold: 1.2em;
+$fs-regular: 22px;
+$fs-semi: 0.8em;
+$fs-small: 0.7em;
+$fs-smallest: 0.6em;
+
+$font-color: #c5cad5;
+$font-color-hovered: #717a8c;
+$secondary-font-color: #959db1;
+
+$primary-color: #161e26;
+$secondary-color: #e535ab;
+$secondary-color-hovered: #3e0231;
+$secondary-color-dim: #a32c89;
+$additional-color: #2e3445;
+$header-color: #2d457e;
+$error-warning: #ff0000;
+$editor-color: #15191efa;
+$aside-color: #20242d;
+$body-background: #242424;
+$welcome-color: #dfcdd3;
+
+$indicator-fetching: #d2c72c;
+$indicator-error: #d13030;
+$indicator-ok: #3cb142fa;
+
+$tablet: 768px;
+$fhd: 1280px;
+$mobile: 330px;
+
+@mixin media-col-gap($gap1: 0.5em, $gap2: 0.2em) {
+  @media screen and (max-width: $tablet) {
+    column-gap: $gap1;
+  }
+  @media screen and (max-width: $mobile) {
+    column-gap: $gap2;
+  }
+}
+
+@mixin media-screen($screen, $prop, $value) {
+  @media screen and (max-width: $screen) {
+    $prop: $value;
+  }
+}
+
+@mixin media-hover($prop, $value) {
+  @media screen and (hover: hover) {
+    $prop: $value;
+  }
+}
+
+@mixin media-fs($fs1: $fs-semi, $fs2: $fs-small, $fs3: $fs-smallest) {
+  @media screen and (max-width: $fhd) {
+    font-size: $fs1;
+  }
+  @media screen and (max-width: $tablet) {
+    font-size: $fs2;
+  }
+  @media screen and (max-width: $mobile) {
+    font-size: $fs3;
+  }
+}
+
+@mixin media-wh($w1, $h1, $w2: $w1, $h2: $h1) {
+  @media screen and (max-width: $tablet) {
+    width: $w1;
+    height: $h1;
+  }
+  @media screen and (max-width: $mobile) {
+    width: $w2;
+    height: $h2;
+  }
+}

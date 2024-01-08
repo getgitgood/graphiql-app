@@ -1,0 +1,44 @@
+.cm-editor {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.cm-content {
+  padding: 0.5rem !important;
+}
+
+.cm-line {
+  border-top-right-radius: 5px;
+}
+
+.ͼ1 .cm-foldGutter span {
+  padding: 0 0.5rem;
+}
+
+.editor_view_cm {
+  background-color: transparent;
+
+  .cm-gutters {
+    background-color: transparent;
+  }
+}
+
+.editor_editable_cm.cm-editor {
+  .cm-gutters {
+    background-color: transparent;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+}
+
+.cm-foldGutter {
+  .cm-gutterElement {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+}
+
+.cm-foldPlaceholder {
+  background-color: $additional-color;
+}

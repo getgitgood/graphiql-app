@@ -1,0 +1,16 @@
+.editor_readonly {
+  position: relative;
+  padding: 0.5rem;
+  width: 100%;
+
+  .ͼ1 .cm-foldGutter span {
+    padding: 0 0.5rem;
+  }
+
+  @media screen and (max-width: $fhd) {
+    min-height: 40%;
+    max-height: 40%;
+  }
+
+  @include media-fs();
+}

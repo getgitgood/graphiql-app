@@ -1,0 +1,54 @@
+.menu_layout {
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  width: fit-content;
+  height: fit-content;
+  top: 2.7em;
+  right: 0;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.5s ease;
+  overflow: hidden;
+
+  &.open {
+    z-index: 999;
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.controls {
+  height: 100%;
+  column-gap: 1em;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 0.2em;
+  justify-content: space-between;
+
+  background-color: rgba($color: $aside-color, $alpha: 0.5);
+}
+
+.user_name {
+  text-align: right;
+  margin: 0.3em 0 0.3em 0.5em;
+  padding: 0.1em;
+  padding-right: 0.5em;
+  vertical-align: middle;
+  line-height: 1.4;
+  box-shadow: 0 1px 3px 1px rgba($color: #000000, $alpha: 0.3);
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  font-size: 0.8em;
+  background-color: $aside-color;
+}
+
+.menu_wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba($color: $header-color, $alpha: 0.9);
+  padding: 0.1em 0;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}

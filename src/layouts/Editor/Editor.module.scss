@@ -1,0 +1,10 @@
+.editor_wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+
+  @media screen and (max-width: $fhd) {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+}

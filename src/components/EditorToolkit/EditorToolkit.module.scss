@@ -1,0 +1,70 @@
+.editor_toolkit {
+  order: 3;
+  background-color: $editor-color;
+  min-height: 25%;
+  overflow-y: auto;
+  position: relative;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  &.collapsed {
+    min-height: auto;
+    overflow: initial;
+  }
+
+  @media screen and (min-width: $tablet) {
+    min-height: 30%;
+  }
+
+  @media screen and (max-height: $tablet) {
+    min-height: 40%;
+  }
+}
+
+.toolkit_header {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  align-items: center;
+  padding: 0.5em;
+  background-color: $editor-color;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+
+  @media screen and (max-height: 500px) {
+    padding: 0.3em;
+    position: initial;
+  }
+}
+
+.button_wrapper {
+  display: inline-flex;
+  column-gap: 1rem;
+}
+
+.toolkit_wrapper {
+  display: flex;
+  flex-direction: column;
+  &.toolkit_hidden {
+    position: absolute;
+    left: -100%;
+  }
+}
+
+.toolkit_button {
+  transition: background-color 0.3s ease;
+  background-color: $secondary-color-hovered;
+  @media screen and (min-width: $tablet) {
+    padding: 0.6em 0.8em;
+  }
+}
+
+.active {
+  background-color: $secondary-color-dim;
+  border-bottom: 2px solid $secondary-color;
+}
+
+.hidden {
+  display: none;
+}

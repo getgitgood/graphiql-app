@@ -1,0 +1,60 @@
+.footer_content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-basis: 1000px;
+  user-select: none;
+
+  @include media-fs();
+  .course_wrapper {
+    img {
+      width: 5rem;
+    }
+
+    @media only screen and (min-width: $tablet) and (max-width: $fhd) {
+      width: 5%;
+      img {
+        width: 3.3rem;
+      }
+    }
+
+    @media only screen and (max-width: $fhd) {
+      max-width: 10%;
+      img {
+        width: 3em;
+      }
+    }
+  }
+
+  .github_wrapper {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.2em;
+
+    a {
+      transition: all 0.3s ease;
+      color: $font-color;
+
+      &:hover {
+        color: $secondary-font-color;
+      }
+    }
+    @include media-fs();
+    @media screen and (max-width: $mobile) {
+      gap: 0.6rem;
+    }
+
+    @media only screen and (min-width: $tablet) and (max-width: $fhd) {
+      gap: 0.9rem;
+    }
+
+    @media only screen and (max-width: $fhd) {
+      gap: 1rem;
+    }
+  }
+  .year_wrapper {
+    font-size: 1.3em;
+    color: $font-color;
+    @include media-fs();
+  }
+}
